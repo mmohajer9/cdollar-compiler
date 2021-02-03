@@ -1,5 +1,6 @@
 %{ 
-#include<stdio.h> 
+#include<stdio.h>
+#include <stdlib.h>
 #include<string.h> 
 
 %} 
@@ -21,16 +22,28 @@
 "continue"		{return CONTINUE;}
 "elseif"		{return ELSEIF;}
 
-"'"[a-z]"'" 		{return LChar;}
-"'"[A-Z]"'" 		{return UChar;}
+"'"[a-z]"'" 		{	yylval.Ichar = strdup(yytext);
+						return LChar;
+					}
+"'"[A-Z]"'" 		{	yylval.Ichar = strdup(yytext);
+						return UChar;
+					}
 
 
 ("_"|[a-zA-Z])("_"|[a-zA-Z]|[0-9])* {return Variable}
 
 
-[a-z]+ 			{return LWord;}
-[A-Z]+ 			{return UWord;}
-[0-9]+ 			{return Num;}
+[a-z]+ 			{	yylval.Istring = strdup(yytext);
+					return LWord;
+				}
+				
+[A-Z]+ 			{	yylval.Istring = strdup(yytext);
+					return UWord;
+				}
+				
+[0-9]+ 			{   yylval.Iint = strdup(yytext);
+					return Num;
+				}
 
 "+"			{return SO_Plus;}
 "-"			{return SO_Minus;}
@@ -60,28 +73,11 @@
 
 
 
-"#"    			{flag_single_line =1;} 
-"#*"     		{flag_multi_line = 1;}
-"*#"     		{count_next = 1;}
-" "|"\t"|"\n"	{return SPACE;}
+"#".*    		{} 
+"#*"."*#"		{}     		
+" "|"\t"	    {return SPACE;}
+"\n"			{	yylineno = yylineno + 1;
+					return NewLine
+				}
 
 %% 
-  
-
-int yywrap(){} 
-int main(){ 
- 
-
- FILE *fp; 
- char filename[50]; 
-
- printf("Enter the filename: \n"); 
- scanf("%s",filename); 
- 
- fp = fopen(filename,"r"); 
- yyin = fp; 
- yylex(); 
-
- return 0; 
-
-} 
