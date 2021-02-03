@@ -1,6 +1,8 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+void yyerror(char *s);
+
 %}
 
 
@@ -40,4 +42,8 @@ int main(int argc, char *argv[])
 	
 	fclose(yyin);
     return 0;
+}
+
+void yyerror(char *s) {
+	printf("Syntex Error in line number : %d : %s %s\n", yylineno, s, yytext );
 }
