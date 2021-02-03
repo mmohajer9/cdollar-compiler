@@ -28,7 +28,6 @@ void yyerror(char *s);
 
 PROGRAM :   MAIN_Prog 
 MAIN_Prog:	INT   WhiteSpace MAIN WhiteSpace ST_ParenLEFT ARGUMENTS ST_ParenRIGHT WhiteSpace ST_CurBroLEFT  PROG  RETURN NUM '$' ST_CurBroRIGHT   
-			|CHAR WhiteSpace MAIN WhiteSpace ST_ParenLEFT ARGUMENTS ST_ParenRIGHT WhiteSpace ST_CurBroLEFT  PROG  RETURN CharType '$' ST_CurBroRIGHT
 			|VOID WhiteSpace MAIN WhiteSpace ST_ParenLEFT ARGUMENTS ST_ParenRIGHT WhiteSpace ST_CurBroLEFT  PROG  ST_CurBroRIGHT;   
 			
 ARGUMENTS:	ARGUMENTS1|;	
@@ -37,7 +36,6 @@ ARGUMENTS2:	ST_Comma WhiteSpace ARGUMENTS1 |;
  
 WhiteSpace:	SPACE WhiteSpace | ;
 TYPE:	    INT|CHAR
-CharType:	LChar|UChar
 
 %%
 
