@@ -1,2 +1,2 @@
-Compiler Project
-By Mohammad Derakhshan _ Mohammad Mahdi Mohajer
+**Compiler Project**
+> By: Mohammad Derakhshan & Mohammad Mahdi Mohajer
