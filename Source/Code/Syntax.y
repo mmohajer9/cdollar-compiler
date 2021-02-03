@@ -17,13 +17,27 @@ void yyerror(char *s);
 %token SO_Plus SO_Minus SO_Multiply SO_Divide SO_Less SO_LessEq SO_Eq SO_NotEq SO_Great
 %token SO_GreateEq SO_Or SO_And SO_LogOr SO_LogAnd SO_Xor SO_Not
 %token ST_ParenLEFT ST_ParenRIGHT ST_CurBroLEFT ST_CurBroRIGHT ST_BroLEFT ST_BroRIGHT ST_Dollar ST_Comma
+%token Variable
 %token <Ichar> LChar UChar
 %token <Istring> Lword Uword
-%token <Iint>	INT
+%token <Iint>	Num
 
 
 
 %%
+
+PROGRAM :   MAIN_Prog 
+MAIN_Prog:	INT   WhiteSpace MAIN WhiteSpace ST_ParenLEFT ARGUMENTS ST_ParenRIGHT WhiteSpace ST_CurBroLEFT  PROG  RETURN NUM '$' ST_CurBroRIGHT   
+			|CHAR WhiteSpace MAIN WhiteSpace ST_ParenLEFT ARGUMENTS ST_ParenRIGHT WhiteSpace ST_CurBroLEFT  PROG  RETURN CharType '$' ST_CurBroRIGHT
+			|VOID WhiteSpace MAIN WhiteSpace ST_ParenLEFT ARGUMENTS ST_ParenRIGHT WhiteSpace ST_CurBroLEFT  PROG  ST_CurBroRIGHT;   
+			
+ARGUMENTS:	ARGUMENTS1|;	
+ARGUMENTS1:	TYPE WhiteSpace Variable WhiteSpace ARGUMENTS2;
+ARGUMENTS2:	ST_Comma WhiteSpace ARGUMENTS1 |; 
+ 
+WhiteSpace:	SPACE WhiteSpace | ;
+TYPE:	    INT|CHAR
+CharType:	LChar|UChar
 
 %%
 
