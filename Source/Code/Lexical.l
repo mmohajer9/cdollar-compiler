@@ -74,7 +74,7 @@
 
 
 "#".*    		{} 
-"#*"."*#"		{}     		
+"#*".*"*#"		{}     		
 " "|"\t"	    {return SPACE;}
 "\n"			{	yylineno = yylineno + 1;
 					return NewLine
