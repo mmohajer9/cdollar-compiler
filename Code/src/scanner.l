@@ -105,6 +105,7 @@
 %% 
 
 
+
 void yyerror_scanner(const int n)
 {
 	fprintf(stderr , "Unexpected Character at Line: %d\n" , n)
