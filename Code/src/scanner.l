@@ -4,7 +4,7 @@
 	#include <stdlib.h>
 	#include <string.h>
 	
-	#include "scanner.tab.h"
+	#include "parser.tab.h"
 
 	void yyerror_scanner(const int n);
 
@@ -28,10 +28,12 @@
 "continue"		{return KW_CONTINUE;}
 "elseif"		{return KW_ELSEIF;}
 
-"'"[a-z]"'" 		{	yylval.Ichar = strdup(yytext);
+"'"[a-z]"'" 		{	
+						yylval.Ichar = strdup(yytext);
 						return LCHAR;
 					}
-"'"[A-Z]"'" 		{	yylval.Ichar = strdup(yytext);
+"'"[A-Z]"'" 		{	
+						yylval.Ichar = strdup(yytext);
 						return UCHAR;
 					}
 
