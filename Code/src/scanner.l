@@ -40,7 +40,7 @@
 
 ("_"|[a-zA-Z])("_"|[a-zA-Z]|[0-9])* {
 										yylval.stringVal = strdup(yytext);
-										return VARIABLE;
+										return IDENTIFIER;
 									}
 
 
@@ -76,13 +76,13 @@
 "]"			{return ST_RBR;}
 "$"			{return ST_DOLLAR;}
 ","			{return ST_COMMA;}
-
+";"			{return ST_SEMICOLON;}
 
 
 "#*".*"*#"	{;}     		
 "#".*    	{;}
 
-[ \t]+		{return WHITESPACE;}
+[ \t]+		{;}
 "\n"		{	
 				yylineno = yylineno + 1;
 				return NEW_LINE;
