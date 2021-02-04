@@ -17,9 +17,10 @@
 
 %union{
 
-	int Iint;
-	char Ichar;
-	char* Istring;
+	int intVal;
+	char charVal;
+	char* stringVal;
+	
 }
 
 

@@ -27,29 +27,25 @@
 "elseif"		{return KW_ELSEIF;}
 
 "'"[a-z]"'" 		{	
-						yylval.Ichar = strdup(yytext);
+						yylval.charVal = yytext[1];
 						return LCHAR;
 					}
 "'"[A-Z]"'" 		{	
-						yylval.Ichar = strdup(yytext);
+						yylval.charVal = yytext[1];
 						return UCHAR;
 					}
 
 
-("_"|[a-zA-Z])("_"|[a-zA-Z]|[0-9])* {return VARIABLE}
+("_"|[a-zA-Z])("_"|[a-zA-Z]|[0-9])* {
+										yylval.stringVal = strdup(yytext);
+										return VARIABLE;
+									}
 
-
-[a-z]+ 			{	yylval.Istring = strdup(yytext);
-					return Lword;
-				}
 				
-[A-Z]+ 			{	yylval.Istring = strdup(yytext);
-					return UWord;
-				}
-				
-[0-9]+ 			{   yylval.Iint = strdup(yytext);
-					return NUMBER;
-				}
+[0-9]+ 								{   
+										yylval.intVal = strdup(yytext);
+										return NUMBER;
+									}
 
 "="			{return OP_ASSIGN;}
 
@@ -65,9 +61,9 @@
 ">"			{return OP_GREATER;}
 ">="		{return OP_GREATER_EQUAL;}
 
-"|"			{return OP_OR_BITWISE;}
-"&"			{return OP_AND_BITWISE;}
-"^"			{return OP_XOR_BITWISE;}
+"|"			{return OP_BITWISE_OR;}
+"&"			{return OP_BITWISE_AND;}
+"^"			{return OP_BITWISE_XOR;}
 
 "||"		{return OP_LOGICAL_OR;}
 "&&"		{return OP_LOGICAL_AND;}
@@ -96,7 +92,7 @@
 			}
 
 .			{
-				yyerror_lex(yylineno);
+				yyerror_scanner(yylineno);
 				return OTHER;
 			}
 
