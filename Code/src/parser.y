@@ -1,20 +1,28 @@
 %{
-#include <stdio.h>
-#include <stdlib.h>
-extern int yylex();
-extern int yyparse();
-extern FILE* yyin;
+	#include <stdio.h> 
+	#include <stdlib.h>
+	#include <ctype.h>
+	#include <math.h>
+	#include <string.h>
 
-void yyerror(char *s);
+	int yyparse();
+	void yyerror(const char *s);
 
+	extern FILE* yyin;
+	extern int yylex();
+	
 %}
 
+%define parse.error verbose
 
 %union{
+
 	int Iint;
 	char Ichar;
 	char* Istring;
 }
+
+
 
 %token VOID IF RETURN INT ELSE MAIN FOR BREAK CHAR WHILE CONTINUE ELSEIF
 %token SPACE NewLine
@@ -53,7 +61,6 @@ MULTI_CONDITION: SO_And CONDITION|SO_LogOr CONDITION |SO_LogAnd CONDITION |SO_Xo
 CHECK_CONDITION: SO_Less | SO_LessEq | SO_Eq | SO_NotEq | SO_Great | SO_GreateEq 
 				
 				
-				
 ARGUMENTS:	ARGUMENTS1|;	
 ARGUMENTS1:	TYPE WhiteSpace Variable WhiteSpace ARGUMENTS2;
 ARGUMENTS2:	ST_Comma WhiteSpace ARGUMENTS1 |; 
@@ -70,18 +77,20 @@ int main(int argc, char *argv[])
 {
     yyin = fopen(argv[1], "r");
 
+	// it will be called in the expression of if
     if(!yyparse())
-		printf("\nParsing complete\n");
+		printf("\nParsing Complete\n");
 	else
 	{
-		printf("\nParsing failed\n");
+		fprintf(stderr,"\nParsing Failed\n");
 		exit(0);
 	}
 	
+	// closing the opened file
 	fclose(yyin);
     return 0;
 }
 
-void yyerror(char *s) {
-	printf("Syntex Error in line number : %d : %s %s\n", yylineno, s, yytext );
+void yyerror(const char *s) {
+	fprintf(stderr,"Syntex Error in line number : %d : %s %s\n", yylineno, s, yytext);
 }
