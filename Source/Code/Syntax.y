@@ -1,6 +1,10 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+extern int yylex();
+extern int yyparse();
+extern FILE* yyin;
+
 void yyerror(char *s);
 
 %}
@@ -54,7 +58,8 @@ ARGUMENTS:	ARGUMENTS1|;
 ARGUMENTS1:	TYPE WhiteSpace Variable WhiteSpace ARGUMENTS2;
 ARGUMENTS2:	ST_Comma WhiteSpace ARGUMENTS1 |; 
  
- 
+ASSIGN:		WhiteSpace TYPE WhiteSpace Variable WhiteSpace SO_Eq EXP ST_Dollar
+			
 WhiteSpace:	SPACE WhiteSpace | ;
 TYPE:	    INT|CHAR
 
