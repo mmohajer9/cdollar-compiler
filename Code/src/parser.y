@@ -42,6 +42,15 @@
 
 %start program
 
+%left OP_LOGICAL_OR OP_LOGICAL_AND
+%left OP_BITWISE_OR OP_BITWISE_XOR OP_BITWISE_AND
+%left OP_EQUAL OP_NOT_EQUAL
+%left OP_GREATER OP_GREATER_EQUAL
+%left OP_LESS OP_LESS_EQUAL
+%left OP_PLUS OP_MINUS
+%left OP_MULTIPLY OP_DIVIDE
+%left OP_LOGICAL_NOT
+
 
 %%
 
@@ -103,20 +112,17 @@ expression: 		expression OP_PLUS expression |
 
 					OP_LOGICAL_NOT expression | 
 					OP_MINUS expression |
+					
 					ST_LPAR expression ST_RPAR |
 					IDENTIFIER | NUMBER
 
 
-arguments:	args_part1 |
-args_part1:	type IDENTIFIER args_part2
-args_part2:	ST_COMMA args_part1 |
+arguments:			args_part1 |
+args_part1:			type IDENTIFIER args_part2
+args_part2:			ST_COMMA args_part1 |
 		
 
 %%
-
-
-
-
 
 
 
