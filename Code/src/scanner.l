@@ -34,7 +34,7 @@
 						return UCHAR;
 					}
 [0-9]+ 				{   
-						yylval.intVal = strdup(yytext);
+						yylval.intVal = atoi(yytext);
 						return NUMBER;
 					}
 
@@ -85,7 +85,6 @@
 [ \t]+		{;}
 "\n"		{	
 				yylineno = yylineno + 1;
-				return NEW_LINE;
 			}
 
 .			{
@@ -99,5 +98,5 @@
 
 void yyerror_scanner(const int n)
 {
-	fprintf(stderr , "Unexpected Character at Line: %d\n" , n)
+	fprintf(stderr , "Unexpected Character at Line: %d\n" , n);
 }

@@ -10,6 +10,8 @@
 
 	extern FILE* yyin;
 	extern int yylex();
+	extern int yylineno;
+	extern char* yytext;
 	
 %}
 
@@ -42,6 +44,7 @@
 
 %start program
 
+
 %left OP_LOGICAL_OR OP_LOGICAL_AND
 %left OP_BITWISE_OR OP_BITWISE_XOR OP_BITWISE_AND
 %left OP_EQUAL OP_NOT_EQUAL
@@ -56,23 +59,18 @@
 
 program   :   		functions main
 
-functions :   		function functions | 
-
-function  :   		KW_INT IDENTIFIER ST_LPAR arguments ST_RPAR ST_LCURL stmts ST_RCURL
-			  		|
-			  		KW_VOID IDENTIFIER ST_LPAR arguments ST_RPAR ST_LCURL stmts ST_RCURL
-
+functions :   		functions function | 
 
 main:		  		KW_INT KW_MAIN ST_LPAR arguments ST_RPAR ST_LCURL stmts ST_RCURL   
 			  		|
 			  		KW_VOID KW_MAIN ST_LPAR arguments ST_RPAR ST_LCURL stmts ST_RCURL
-			
+
+function  :   		KW_INT IDENTIFIER ST_LPAR arguments ST_RPAR ST_LCURL stmts ST_RCURL
+			  		|
+			  		KW_VOID IDENTIFIER ST_LPAR arguments ST_RPAR ST_LCURL stmts ST_RCURL		
 
 stmts: 		  		stmt stmts | 
-stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return
-
-loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK | loop_stmts KW_CONTINUE | 
-
+stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return | stmt_while
 
 type:		  		KW_INT | KW_CHAR
 stmt_declare: 		type IDENTIFIER ids
@@ -86,11 +84,13 @@ stmt_return:  		KW_RETURN expression ST_DOLLAR
 stmt_if: 	  		matched | unmatched
 matched: 	  		KW_IF ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL elseif
 elseif:       		KW_ELSEIF ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL elseif | else	
-else:         		KW_ELSE ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL
+else:         		KW_ELSE ST_LCURL stmts ST_RCURL
 unmatched:    		KW_IF ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL
 
+stmt_while:			KW_WHILE ST_LPAR expression ST_RPAR ST_LCURL loop_stmts ST_RCURL
+loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK | loop_stmts KW_CONTINUE | 
 
-while:				KW_WHILE ST_LPAR expression ST_RPAR ST_LCURL loop_stmts ST_RCURL
+
 
 /* for:				KW_FOR ST_LPAR stmt_declare  */
 
@@ -112,7 +112,7 @@ expression: 		expression OP_PLUS expression |
 
 					OP_LOGICAL_NOT expression | 
 					OP_MINUS expression |
-					
+
 					ST_LPAR expression ST_RPAR |
 					IDENTIFIER | NUMBER
 
