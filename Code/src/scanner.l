@@ -2,11 +2,10 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include <string.h>
-	
+
 	#include "parser.tab.h"
 
 	void yyerror_scanner(const int n);
-
 	int yylex();
 %}
 
@@ -34,18 +33,16 @@
 						yylval.charVal = yytext[1];
 						return UCHAR;
 					}
-
+[0-9]+ 				{   
+						yylval.intVal = strdup(yytext);
+						return NUMBER;
+					}
 
 ("_"|[a-zA-Z])("_"|[a-zA-Z]|[0-9])* {
 										yylval.stringVal = strdup(yytext);
 										return VARIABLE;
 									}
 
-				
-[0-9]+ 								{   
-										yylval.intVal = strdup(yytext);
-										return NUMBER;
-									}
 
 "="			{return OP_ASSIGN;}
 
@@ -85,7 +82,7 @@
 "#*".*"*#"	{;}     		
 "#".*    	{;}
 
-" "|"\t"	{return SPACE;}
+[ \t]+		{return WHITESPACE;}
 "\n"		{	
 				yylineno = yylineno + 1;
 				return NEW_LINE;
