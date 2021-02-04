@@ -9,7 +9,6 @@
 	void yyerror_scanner(const int n);
 
 	int yylex();
-
 %}
 
 %option noyywrap
