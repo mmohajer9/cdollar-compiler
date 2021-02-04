@@ -66,8 +66,8 @@ Grammar
    30 stmt_while: KW_WHILE ST_LPAR expression ST_RPAR ST_LCURL loop_stmts ST_RCURL
 
    31 loop_stmts: loop_stmts stmts
-   32           | loop_stmts KW_BREAK
-   33           | loop_stmts KW_CONTINUE
+   32           | loop_stmts KW_BREAK ST_DOLLAR
+   33           | loop_stmts KW_CONTINUE ST_DOLLAR
    34           | %empty
 
    35 expression: expression OP_PLUS expression
@@ -141,7 +141,7 @@ Terminals, with rules where they appear
     ST_RCURL (292) 4 5 6 7 25 26 28 29 30
     ST_LBR (293)
     ST_RBR (294)
-    ST_DOLLAR (295) 18 21 22
+    ST_DOLLAR (295) 18 21 22 32 33
     ST_COMMA (296) 19 58
     ST_SEMICOLON (297)
     LCHAR <charVal> (298)
@@ -1933,8 +1933,8 @@ State 120
 
    30 stmt_while: KW_WHILE ST_LPAR expression ST_RPAR ST_LCURL loop_stmts • ST_RCURL
    31 loop_stmts: loop_stmts • stmts
-   32           | loop_stmts • KW_BREAK
-   33           | loop_stmts • KW_CONTINUE
+   32           | loop_stmts • KW_BREAK ST_DOLLAR
+   33           | loop_stmts • KW_CONTINUE ST_DOLLAR
 
     KW_IF        shift, and go to state 36
     KW_RETURN    shift, and go to state 37
@@ -1984,16 +1984,16 @@ State 121
 
 State 122
 
-   32 loop_stmts: loop_stmts KW_BREAK •
+   32 loop_stmts: loop_stmts KW_BREAK • ST_DOLLAR
 
-    $default  reduce using rule 32 (loop_stmts)
+    ST_DOLLAR  shift, and go to state 130
 
 
 State 123
 
-   33 loop_stmts: loop_stmts KW_CONTINUE •
+   33 loop_stmts: loop_stmts KW_CONTINUE • ST_DOLLAR
 
-    $default  reduce using rule 33 (loop_stmts)
+    ST_DOLLAR  shift, and go to state 131
 
 
 State 124
@@ -2014,14 +2014,14 @@ State 126
 
    28 else: KW_ELSE • ST_LCURL stmts ST_RCURL
 
-    ST_LCURL  shift, and go to state 130
+    ST_LCURL  shift, and go to state 132
 
 
 State 127
 
    26 elseif: KW_ELSEIF • ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL elseif
 
-    ST_LPAR  shift, and go to state 131
+    ST_LPAR  shift, and go to state 133
 
 
 State 128
@@ -2040,6 +2040,20 @@ State 129
 
 State 130
 
+   32 loop_stmts: loop_stmts KW_BREAK ST_DOLLAR •
+
+    $default  reduce using rule 32 (loop_stmts)
+
+
+State 131
+
+   33 loop_stmts: loop_stmts KW_CONTINUE ST_DOLLAR •
+
+    $default  reduce using rule 33 (loop_stmts)
+
+
+State 132
+
    28 else: KW_ELSE ST_LCURL • stmts ST_RCURL
 
     KW_IF       shift, and go to state 36
@@ -2051,7 +2065,7 @@ State 130
 
     $default  reduce using rule 9 (stmts)
 
-    stmts            go to state 132
+    stmts            go to state 134
     stmt             go to state 41
     type             go to state 42
     stmt_declare     go to state 43
@@ -2063,7 +2077,7 @@ State 130
     stmt_while       go to state 49
 
 
-State 131
+State 133
 
    26 elseif: KW_ELSEIF ST_LPAR • expression ST_RPAR ST_LCURL stmts ST_RCURL elseif
 
@@ -2073,17 +2087,17 @@ State 131
     IDENTIFIER      shift, and go to state 57
     NUMBER          shift, and go to state 58
 
-    expression  go to state 133
+    expression  go to state 135
 
 
-State 132
+State 134
 
    28 else: KW_ELSE ST_LCURL stmts • ST_RCURL
 
-    ST_RCURL  shift, and go to state 134
+    ST_RCURL  shift, and go to state 136
 
 
-State 133
+State 135
 
    26 elseif: KW_ELSEIF ST_LPAR expression • ST_RPAR ST_LCURL stmts ST_RCURL elseif
    35 expression: expression • OP_PLUS expression
@@ -2117,24 +2131,24 @@ State 133
     OP_BITWISE_XOR    shift, and go to state 84
     OP_LOGICAL_OR     shift, and go to state 85
     OP_LOGICAL_AND    shift, and go to state 86
-    ST_RPAR           shift, and go to state 135
+    ST_RPAR           shift, and go to state 137
 
 
-State 134
+State 136
 
    28 else: KW_ELSE ST_LCURL stmts ST_RCURL •
 
     $default  reduce using rule 28 (else)
 
 
-State 135
+State 137
 
    26 elseif: KW_ELSEIF ST_LPAR expression ST_RPAR • ST_LCURL stmts ST_RCURL elseif
 
-    ST_LCURL  shift, and go to state 136
+    ST_LCURL  shift, and go to state 138
 
 
-State 136
+State 138
 
    26 elseif: KW_ELSEIF ST_LPAR expression ST_RPAR ST_LCURL • stmts ST_RCURL elseif
 
@@ -2147,7 +2161,7 @@ State 136
 
     $default  reduce using rule 9 (stmts)
 
-    stmts            go to state 137
+    stmts            go to state 139
     stmt             go to state 41
     type             go to state 42
     stmt_declare     go to state 43
@@ -2159,25 +2173,25 @@ State 136
     stmt_while       go to state 49
 
 
-State 137
+State 139
 
    26 elseif: KW_ELSEIF ST_LPAR expression ST_RPAR ST_LCURL stmts • ST_RCURL elseif
 
-    ST_RCURL  shift, and go to state 138
+    ST_RCURL  shift, and go to state 140
 
 
-State 138
+State 140
 
    26 elseif: KW_ELSEIF ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL • elseif
 
     KW_ELSE    shift, and go to state 126
     KW_ELSEIF  shift, and go to state 127
 
-    elseif  go to state 139
+    elseif  go to state 141
     else    go to state 129
 
 
-State 139
+State 141
 
    26 elseif: KW_ELSEIF ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL elseif •
 

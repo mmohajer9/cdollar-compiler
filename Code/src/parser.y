@@ -88,7 +88,7 @@ else:         		KW_ELSE ST_LCURL stmts ST_RCURL
 unmatched:    		KW_IF ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL
 
 stmt_while:			KW_WHILE ST_LPAR expression ST_RPAR ST_LCURL loop_stmts ST_RCURL
-loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK | loop_stmts KW_CONTINUE | 
+loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK ST_DOLLAR | loop_stmts KW_CONTINUE ST_DOLLAR | 
 
 
 

@@ -21,7 +21,9 @@ int main()
 
     while(1)
     {
-
+        a = 2$
+        b = (2 * 3) * 2 + 1$
+        break$
     }
 
     return 0$
