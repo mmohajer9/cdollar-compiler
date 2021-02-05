@@ -1,6 +1,8 @@
 %{
 	#include <iostream>
 	#include <bits/stdc++.h>
+	#include "../src/symboltable/symbol.hpp"
+
 
 	#include <stdio.h> 
 	#include <stdlib.h>
@@ -10,8 +12,8 @@
 
 	int yyparse();
 	void yyerror(const char *s);
-	void showstack(stack <int> s);
 
+	void showstack(stack <int> s);
 	void calculate(char token);
 
 	extern FILE* yyin;
@@ -19,10 +21,13 @@
 	extern int yylineno;
 	extern char* yytext;
 
-	FILE* intermediate_code;
-	int intermediate_code_line;
+	FILE* mips;
 
 	stack <int> semantic_stack;
+
+	string current_scope = "global";
+
+	SymbolTable st;
 	
 %}
 
@@ -78,19 +83,31 @@ global_declare: 	type IDENTIFIER OP_ASSIGN expression ST_DOLLAR */
 
 functions :   		functions function | 
 
-main:		  		KW_INT KW_MAIN ST_LPAR arguments ST_RPAR ST_LCURL stmts ST_RCURL   
+main:		  		KW_INT KW_MAIN ST_LPAR {current_scope = "main";} arguments ST_RPAR ST_LCURL stmts ST_RCURL   
 			  		|
-			  		KW_VOID KW_MAIN ST_LPAR arguments ST_RPAR ST_LCURL stmts ST_RCURL
+			  		KW_VOID KW_MAIN ST_LPAR {current_scope = "main";} arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
-function  :   		KW_INT IDENTIFIER ST_LPAR arguments ST_RPAR ST_LCURL stmts ST_RCURL
+function  :   		KW_INT IDENTIFIER ST_LPAR {string str($2); current_scope = str;} arguments ST_RPAR ST_LCURL stmts ST_RCURL
 			  		|
-			  		KW_VOID IDENTIFIER ST_LPAR arguments ST_RPAR ST_LCURL stmts ST_RCURL		
+			  		KW_VOID IDENTIFIER ST_LPAR {string str($2); current_scope = str;} arguments ST_RPAR ST_LCURL stmts ST_RCURL		
 
 stmts: 		  		stmt stmts | 
 stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return | stmt_while
 
 type:		  		KW_INT | KW_CHAR
-stmt_declare: 		type IDENTIFIER ids
+stmt_declare: 		type IDENTIFIER ids {
+
+						string str($2);
+						string result = st.find(str);
+						if(result == "-1")
+						{
+
+						}
+						else
+						{
+
+						}
+					}
 ids:		  		ST_DOLLAR | ST_COMMA IDENTIFIER ids | OP_ASSIGN expression ids
 
 stmt_assignment:	IDENTIFIER OP_ASSIGN expression ST_DOLLAR
@@ -99,12 +116,12 @@ stmt_return:  		KW_RETURN expression ST_DOLLAR
 
 
 stmt_if: 	  		matched | unmatched
-matched: 	  		KW_IF ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL elseif
-elseif:       		KW_ELSEIF ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL elseif | else	
-else:         		KW_ELSE ST_LCURL stmts ST_RCURL
-unmatched:    		KW_IF ST_LPAR expression ST_RPAR ST_LCURL stmts ST_RCURL
+matched: 	  		KW_IF ST_LPAR {current_scope = current_scope + "__if";} expression ST_RPAR ST_LCURL stmts ST_RCURL elseif
+elseif:       		KW_ELSEIF ST_LPAR {current_scope = current_scope + "__elseif";} expression ST_RPAR ST_LCURL stmts ST_RCURL elseif | else	
+else:         		KW_ELSE ST_LCURL {current_scope = current_scope + "__else";} stmts ST_RCURL
+unmatched:    		KW_IF ST_LPAR {current_scope = current_scope + "__if";} expression ST_RPAR ST_LCURL stmts ST_RCURL
 
-stmt_while:			KW_WHILE ST_LPAR expression ST_RPAR ST_LCURL loop_stmts ST_RCURL
+stmt_while:			KW_WHILE ST_LPAR {current_scope = current_scope + "__while";} expression ST_RPAR ST_LCURL loop_stmts ST_RCURL
 loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK ST_DOLLAR | loop_stmts KW_CONTINUE ST_DOLLAR | 
 
 
@@ -112,8 +129,7 @@ loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK ST_DOLLAR | loop_stmts KW_C
 /* for:				KW_FOR ST_LPAR stmt_declare  */
 
 expression: 		expression OP_PLUS expression {
-						semantic_stack.push($1);
-						semantic_stack.push($3);
+
 					}
 					|
 					expression OP_MINUS expression 
@@ -164,8 +180,10 @@ args_part2:			ST_COMMA args_part1 |
 int main(int argc, char *argv[])
 {
     yyin = fopen(argv[1], "r");
-	intermediate_code = fopen("./intermediate_code" , "w+");
 	// it will be called in the expression of if
+
+	mips = fopen("./mips" , "w+");
+
     if(!yyparse())
 		printf("\nParsing Complete\n");
 	else
@@ -175,8 +193,8 @@ int main(int argc, char *argv[])
 	}
 	
 	// closing the opened file
+	fclose(mips);
 	fclose(yyin);
-	fclose(intermediate_code);
     return 0;
 }
 
@@ -194,4 +212,43 @@ void showstack(stack <int> s)
     cout << '\n'; 
 } 
 
-
+/* 
+void calculate(char token)
+{
+    switch (token)
+    {
+		case OP_PLUS:
+			break;
+		case OP_MINUS:
+			break;
+		case OP_MULTIPLY:
+			break;
+		case OP_DIVIDE:
+			break;
+		case OP_LESS:
+			break;
+		case OP_LESS_EQUAL:
+			break;
+		case OP_EQUAL:
+			break;
+		case OP_NOT_EQUAL:
+			break;
+		case OP_GREATER:
+			break;
+		case OP_GREATER_EQUAL:
+			break;
+		case OP_LOGICAL_OR:
+			break;
+		case OP_LOGICAL_AND:
+			break;
+		case OP_BITWISE_OR:
+			break;
+		case OP_BITWISE_AND:
+			break;
+		case OP_BITWISE_XOR:
+			break;
+		case OP_LOGICAL_NOT:
+			break;
+		
+    }
+} */

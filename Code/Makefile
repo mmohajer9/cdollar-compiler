@@ -1,6 +1,6 @@
 final: parser.tab.cpp lex.yy.cpp
 	clear
-	g++ -g ./dist/lex.yy.cpp ./dist/parser.tab.cpp -o ./dist/run -lm
+	g++ -std=c++17 -g ./dist/lex.yy.cpp ./dist/parser.tab.cpp ./src/symboltable/symbol.cpp -o ./dist/run -lm
 
 parser.tab.cpp: src/parser.ypp
 	clear
@@ -9,6 +9,11 @@ parser.tab.cpp: src/parser.ypp
 lex.yy.cpp: src/scanner.l
 	clear
 	flex -o ./dist/lex.yy.cpp src/scanner.l
+
+
+test: dist/run
+	clear
+	./dist/run ./tests/test.in
 
 clean: 
 	clear
