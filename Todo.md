@@ -2,6 +2,4 @@
 
 ## Project Overview
 
-- [ ] Typo ha fix beshan to lex
-- [ ] file ha bayad joda beshan
-- [ ] return value baraye function
+- [ ] Level bandi scope ha va dastresi paziri onha be ham
