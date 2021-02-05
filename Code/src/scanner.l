@@ -33,6 +33,10 @@
 						yylval.charVal = yytext[1];
 						return UCHAR;
 					}
+"'"[0-9]"'" 		{	
+						yylval.charVal = yytext[1];
+						return NCHAR;
+					}
 [0-9]+ 				{   
 						yylval.intVal = atoi(yytext);
 						return NUMBER;

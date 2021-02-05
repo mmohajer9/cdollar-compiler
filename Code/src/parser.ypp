@@ -3,7 +3,7 @@
 	#include <bits/stdc++.h>
 	#include "../src/symboltable/symbol.hpp"
 
-
+	#include <typeinfo>	
 	#include <stdio.h> 
 	#include <stdlib.h>
 	#include <string>
@@ -29,6 +29,7 @@
 	stack <int> semantic_stack;
 
 	string current_scope = "global";
+	string current_variable_data_type = "NONE";
 
 	SymbolTable st;
 	Node* node;
@@ -62,7 +63,7 @@
 %token ST_LPAR ST_RPAR ST_LCURL ST_RCURL ST_LBR ST_RBR 
 %token ST_DOLLAR ST_COMMA ST_SEMICOLON
 
-%token <charVal> LCHAR UCHAR
+%token <charVal> LCHAR UCHAR NCHAR
 %token <stringVal> IDENTIFIER
 %token <intVal>	NUMBER
 
@@ -102,7 +103,9 @@ function  :   		KW_INT IDENTIFIER ST_LPAR {string str($2); current_scope = str;}
 stmts: 		  		stmt stmts | 
 stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return | stmt_while
 
-type:		  		KW_INT | KW_CHAR
+type:		  		KW_INT {current_variable_data_type = "int";} 
+					| 
+					KW_CHAR {current_variable_data_type = "char";}
 stmt_declare: 		type IDENTIFIER ids {
 
 						string str($2);
@@ -111,7 +114,7 @@ stmt_declare: 		type IDENTIFIER ids {
 						{
 							int index_of_free_register = find_free_register(saved_regsiters , 8);
 							string register_name = "$s" + to_string(index_of_free_register);
-							st.insert(str,current_scope,"IDENTIFIER",yylineno,register_name,"" , $3);
+							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , $3);
 						}
 						else
 						{
@@ -121,13 +124,14 @@ stmt_declare: 		type IDENTIFIER ids {
 					}
 ids:		  		ST_DOLLAR {$$ = 0;} | 
 					ST_COMMA IDENTIFIER ids {
+
 						string str($2);
 						Node* result = st.find(str , current_scope);
 						if(result == NULL)
 						{
 							int index_of_free_register = find_free_register(saved_regsiters , 8);
 							string register_name = "$s" + to_string(index_of_free_register);
-							st.insert(str,current_scope,"IDENTIFIER",yylineno,register_name,"",$3);
+							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"",$3);
 						}
 						else
 						{
@@ -137,7 +141,19 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 					}; | 
 					OP_ASSIGN expression ids {$$ = $2;}
 
-stmt_assignment:	IDENTIFIER OP_ASSIGN expression ST_DOLLAR
+stmt_assignment:	IDENTIFIER OP_ASSIGN expression ST_DOLLAR {
+						string str($1);
+						Node* result = st.find(str , current_scope);
+						if(result == NULL)
+						{
+							yyerror("variable is not declared");
+							exit(1);
+						}
+						else
+						{
+							result->value = $3;
+						}
+					}
 
 stmt_return:  		KW_RETURN expression ST_DOLLAR
 
@@ -234,6 +250,15 @@ expression: 		expression OP_PLUS expression {
 						}
 					} |
 					NUMBER {
+						$$ = $1;
+					} |
+					NCHAR {
+						$$ = $1;
+					} |
+					UCHAR {
+						$$ = $1;
+					} |
+					LCHAR {
 						$$ = $1;
 					}
 

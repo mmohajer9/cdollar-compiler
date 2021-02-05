@@ -34,14 +34,14 @@ public:
 
 	void print()
 	{
-		cout << "Identifier's Name:" << identifier
-			 << "\nType:" << type
-			 << "\nScope: " << scope
-			 << "\nLine Number: " << lineNo
-			 << "\nRegister: " << reg
-			 << "\nAddress: " << address
-			 << "\nValue: " << value 
-			 << "\n-----------------" << endl;
+		cout << "Identifier's Name:	 " << identifier
+			 << "\nType:			 " << type
+			 << "\nScope:			 " << scope
+			 << "\nLine Number:		 " << lineNo
+			 << "\nRegister:		 " << reg
+			 << "\nAddress:			 " << address
+			 << "\nValue:			 " << value 
+			 << "\n------------------------------" << endl;
 	}
 	friend class SymbolTable;
 };

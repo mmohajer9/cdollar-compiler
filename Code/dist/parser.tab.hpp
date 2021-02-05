@@ -96,8 +96,9 @@ extern int yydebug;
     ST_SEMICOLON = 297,            /* ST_SEMICOLON  */
     LCHAR = 298,                   /* LCHAR  */
     UCHAR = 299,                   /* UCHAR  */
-    IDENTIFIER = 300,              /* IDENTIFIER  */
-    NUMBER = 301                   /* NUMBER  */
+    NCHAR = 300,                   /* NCHAR  */
+    IDENTIFIER = 301,              /* IDENTIFIER  */
+    NUMBER = 302                   /* NUMBER  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -106,7 +107,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 44 "src/parser.ypp"
+#line 45 "src/parser.ypp"
 
 
 	int intVal;
@@ -114,7 +115,7 @@ union YYSTYPE
 	char* stringVal;
 
 
-#line 118 "./dist/parser.tab.hpp"
+#line 119 "./dist/parser.tab.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

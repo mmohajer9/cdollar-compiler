@@ -2,9 +2,13 @@ int main()
 {
     int a = 2 , b = 3$
 
-    int c = 2$
+    char x = 'X'$
 
-    c = 3 + b$
+    char x$
+
+    int b = 2$
+
+    c = 3 + a$
     
     int c$
 
