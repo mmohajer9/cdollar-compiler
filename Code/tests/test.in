@@ -2,16 +2,6 @@ int main()
 {
     int a = 2 , b = 3$
 
-    char x = 'X'$
-
-    char x$
-
-    int b = 2$
-
-    c = 3 + a$
-    
-    int c$
-
     while(1)
     {
         a = 2$
