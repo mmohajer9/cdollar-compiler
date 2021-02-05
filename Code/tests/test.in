@@ -1,23 +1,12 @@
-int maximum(int a,int b)
-{
-    if(a >= b)
-    {
-        return a$
-    }
-    else
-    {
-        return b$
-    }
-}
-
 int main()
 {
-    int a = 2$
-    a = a + 2$
-    a = 3$
-    b = (2 * 3 + 4)$
+    int a = 2 , b = 3$
 
-    c = 3 + 4$
+    int c = 2$
+
+    c = 3 + b$
+    
+    int c$
 
     while(1)
     {

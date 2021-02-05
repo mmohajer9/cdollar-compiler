@@ -216,7 +216,7 @@ Nonterminals, with rules where they appear
     stmt_declare (59)
         on left: 21
         on right: 14
-    ids (60)
+    ids <intVal> (60)
         on left: 22 23 24
         on right: 21 23 24
     stmt_assignment (61)

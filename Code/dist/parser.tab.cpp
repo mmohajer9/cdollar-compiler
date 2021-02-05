@@ -76,6 +76,7 @@
 
 	#include <stdio.h> 
 	#include <stdlib.h>
+	#include <string>
 	#include <string.h>
 
 	using namespace std;
@@ -84,7 +85,9 @@
 	void yyerror(const char *s);
 
 	void showstack(stack <int> s);
-	void calculate(char token);
+	int calculate(int token , int leftVal , int rightVal);
+
+	int find_free_register(int* array , int size);
 
 	extern FILE* yyin;
 	extern int yylex();
@@ -98,9 +101,14 @@
 	string current_scope = "global";
 
 	SymbolTable st;
+	Node* node;
+
+	int temporal_registers[10] = {};
+
+	int saved_regsiters[8] = {};
 	
 
-#line 104 "./dist/parser.tab.cpp"
+#line 112 "./dist/parser.tab.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -579,13 +587,13 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    78,    78,    84,    84,    86,    86,    88,    88,    90,
-      90,    92,    92,    94,    94,    95,    95,    95,    95,    95,
-      97,    97,    98,   111,   111,   111,   113,   115,   118,   118,
-     119,   119,   120,   120,   120,   121,   121,   122,   122,   124,
-     124,   125,   125,   125,   125,   131,   135,   137,   139,   141,
-     143,   145,   147,   149,   151,   153,   155,   157,   159,   161,
-     164,   165,   167,   168,   168,   171,   171,   172,   173,   173
+       0,    86,    86,    92,    92,    94,    94,    96,    96,    98,
+      98,   100,   100,   102,   102,   103,   103,   103,   103,   103,
+     105,   105,   106,   122,   123,   138,   140,   142,   145,   145,
+     146,   146,   147,   147,   147,   148,   148,   149,   149,   151,
+     151,   152,   152,   152,   152,   158,   162,   166,   170,   174,
+     178,   182,   186,   190,   194,   198,   202,   206,   210,   214,
+     219,   220,   222,   223,   236,   241,   241,   242,   243,   243
 };
 #endif
 
@@ -1560,87 +1568,278 @@ yyreduce:
   switch (yyn)
     {
   case 5: /* $@1: %empty  */
-#line 86 "src/parser.ypp"
+#line 94 "src/parser.ypp"
                                                        {current_scope = "main";}
-#line 1566 "./dist/parser.tab.cpp"
+#line 1574 "./dist/parser.tab.cpp"
     break;
 
   case 7: /* $@2: %empty  */
-#line 88 "src/parser.ypp"
+#line 96 "src/parser.ypp"
                                                                 {current_scope = "main";}
-#line 1572 "./dist/parser.tab.cpp"
+#line 1580 "./dist/parser.tab.cpp"
     break;
 
   case 9: /* $@3: %empty  */
-#line 90 "src/parser.ypp"
+#line 98 "src/parser.ypp"
                                                   {string str((yyvsp[-1].stringVal)); current_scope = str;}
-#line 1578 "./dist/parser.tab.cpp"
+#line 1586 "./dist/parser.tab.cpp"
     break;
 
   case 11: /* $@4: %empty  */
-#line 92 "src/parser.ypp"
+#line 100 "src/parser.ypp"
                                                                    {string str((yyvsp[-1].stringVal)); current_scope = str;}
-#line 1584 "./dist/parser.tab.cpp"
+#line 1592 "./dist/parser.tab.cpp"
     break;
 
   case 22: /* stmt_declare: type IDENTIFIER ids  */
-#line 98 "src/parser.ypp"
+#line 106 "src/parser.ypp"
                                             {
 
 						string str((yyvsp[-1].stringVal));
-						string result = st.find(str);
-						if(result == "-1")
+						Node* result = st.find(str , current_scope);
+						if(result == NULL)
 						{
-
+							int index_of_free_register = find_free_register(saved_regsiters , 8);
+							string register_name = "$s" + to_string(index_of_free_register);
+							st.insert(str,current_scope,"IDENTIFIER",yylineno,register_name,"" , (yyvsp[0].intVal));
 						}
 						else
 						{
-
+							yyerror("multiple declaration of variable");
+							exit(1);
 						}
 					}
-#line 1602 "./dist/parser.tab.cpp"
+#line 1613 "./dist/parser.tab.cpp"
+    break;
+
+  case 23: /* ids: ST_DOLLAR  */
+#line 122 "src/parser.ypp"
+                                          {(yyval.intVal) = 0;}
+#line 1619 "./dist/parser.tab.cpp"
+    break;
+
+  case 24: /* ids: ST_COMMA IDENTIFIER ids  */
+#line 123 "src/parser.ypp"
+                                                                {
+						string str((yyvsp[-1].stringVal));
+						Node* result = st.find(str , current_scope);
+						if(result == NULL)
+						{
+							int index_of_free_register = find_free_register(saved_regsiters , 8);
+							string register_name = "$s" + to_string(index_of_free_register);
+							st.insert(str,current_scope,"IDENTIFIER",yylineno,register_name,"",(yyvsp[0].intVal));
+						}
+						else
+						{
+							yyerror("multiple declaration of variable");
+							exit(1);
+						}
+					}
+#line 1639 "./dist/parser.tab.cpp"
+    break;
+
+  case 25: /* ids: OP_ASSIGN expression ids  */
+#line 138 "src/parser.ypp"
+                                                                 {(yyval.intVal) = (yyvsp[-1].intVal);}
+#line 1645 "./dist/parser.tab.cpp"
     break;
 
   case 30: /* $@5: %empty  */
-#line 119 "src/parser.ypp"
+#line 146 "src/parser.ypp"
                                               {current_scope = current_scope + "__if";}
-#line 1608 "./dist/parser.tab.cpp"
+#line 1651 "./dist/parser.tab.cpp"
     break;
 
   case 32: /* $@6: %empty  */
-#line 120 "src/parser.ypp"
+#line 147 "src/parser.ypp"
                                           {current_scope = current_scope + "__elseif";}
-#line 1614 "./dist/parser.tab.cpp"
+#line 1657 "./dist/parser.tab.cpp"
     break;
 
   case 35: /* $@7: %empty  */
-#line 121 "src/parser.ypp"
+#line 148 "src/parser.ypp"
                                          {current_scope = current_scope + "__else";}
-#line 1620 "./dist/parser.tab.cpp"
+#line 1663 "./dist/parser.tab.cpp"
     break;
 
   case 37: /* $@8: %empty  */
-#line 122 "src/parser.ypp"
+#line 149 "src/parser.ypp"
                                       {current_scope = current_scope + "__if";}
-#line 1626 "./dist/parser.tab.cpp"
+#line 1669 "./dist/parser.tab.cpp"
     break;
 
   case 39: /* $@9: %empty  */
-#line 124 "src/parser.ypp"
+#line 151 "src/parser.ypp"
                                                  {current_scope = current_scope + "__while";}
-#line 1632 "./dist/parser.tab.cpp"
+#line 1675 "./dist/parser.tab.cpp"
     break;
 
   case 45: /* expression: expression OP_PLUS expression  */
-#line 131 "src/parser.ypp"
+#line 158 "src/parser.ypp"
                                                       {
-
+						(yyval.intVal) = calculate(OP_PLUS , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
 					}
-#line 1640 "./dist/parser.tab.cpp"
+#line 1683 "./dist/parser.tab.cpp"
+    break;
+
+  case 46: /* expression: expression OP_MINUS expression  */
+#line 162 "src/parser.ypp"
+                                                                       {
+						(yyval.intVal) = calculate(OP_MINUS , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1691 "./dist/parser.tab.cpp"
+    break;
+
+  case 47: /* expression: expression OP_MULTIPLY expression  */
+#line 166 "src/parser.ypp"
+                                                                          {
+						(yyval.intVal) = calculate(OP_MULTIPLY , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1699 "./dist/parser.tab.cpp"
+    break;
+
+  case 48: /* expression: expression OP_DIVIDE expression  */
+#line 170 "src/parser.ypp"
+                                                                        {
+						(yyval.intVal) = calculate(OP_DIVIDE , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1707 "./dist/parser.tab.cpp"
+    break;
+
+  case 49: /* expression: expression OP_LESS expression  */
+#line 174 "src/parser.ypp"
+                                                                      {
+						(yyval.intVal) = calculate(OP_LESS , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1715 "./dist/parser.tab.cpp"
+    break;
+
+  case 50: /* expression: expression OP_LESS_EQUAL expression  */
+#line 178 "src/parser.ypp"
+                                                                            {
+						(yyval.intVal) = calculate(OP_LESS_EQUAL , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1723 "./dist/parser.tab.cpp"
+    break;
+
+  case 51: /* expression: expression OP_EQUAL expression  */
+#line 182 "src/parser.ypp"
+                                                                       {
+						(yyval.intVal) = calculate(OP_EQUAL , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1731 "./dist/parser.tab.cpp"
+    break;
+
+  case 52: /* expression: expression OP_NOT_EQUAL expression  */
+#line 186 "src/parser.ypp"
+                                                                           {
+						(yyval.intVal) = calculate(OP_NOT_EQUAL , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1739 "./dist/parser.tab.cpp"
+    break;
+
+  case 53: /* expression: expression OP_GREATER expression  */
+#line 190 "src/parser.ypp"
+                                                                         {
+						(yyval.intVal) = calculate(OP_GREATER , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1747 "./dist/parser.tab.cpp"
+    break;
+
+  case 54: /* expression: expression OP_GREATER_EQUAL expression  */
+#line 194 "src/parser.ypp"
+                                                                               {
+						(yyval.intVal) = calculate(OP_GREATER_EQUAL , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1755 "./dist/parser.tab.cpp"
+    break;
+
+  case 55: /* expression: expression OP_LOGICAL_OR expression  */
+#line 198 "src/parser.ypp"
+                                                                            {
+						(yyval.intVal) = calculate(OP_LOGICAL_OR , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1763 "./dist/parser.tab.cpp"
+    break;
+
+  case 56: /* expression: expression OP_LOGICAL_AND expression  */
+#line 202 "src/parser.ypp"
+                                                                             {
+						(yyval.intVal) = calculate(OP_LOGICAL_AND , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1771 "./dist/parser.tab.cpp"
+    break;
+
+  case 57: /* expression: expression OP_BITWISE_OR expression  */
+#line 206 "src/parser.ypp"
+                                                                            {
+						(yyval.intVal) = calculate(OP_BITWISE_OR , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1779 "./dist/parser.tab.cpp"
+    break;
+
+  case 58: /* expression: expression OP_BITWISE_AND expression  */
+#line 210 "src/parser.ypp"
+                                                                             {
+						(yyval.intVal) = calculate(OP_BITWISE_AND , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1787 "./dist/parser.tab.cpp"
+    break;
+
+  case 59: /* expression: expression OP_BITWISE_XOR expression  */
+#line 214 "src/parser.ypp"
+                                                                             {
+						(yyval.intVal) = calculate(OP_BITWISE_XOR , (yyvsp[-2].intVal) , (yyvsp[0].intVal));
+					}
+#line 1795 "./dist/parser.tab.cpp"
+    break;
+
+  case 60: /* expression: OP_LOGICAL_NOT expression  */
+#line 219 "src/parser.ypp"
+                                                                  {(yyval.intVal) = (yyvsp[0].intVal) == 0 ? 1 : 0;}
+#line 1801 "./dist/parser.tab.cpp"
+    break;
+
+  case 61: /* expression: OP_MINUS expression  */
+#line 220 "src/parser.ypp"
+                                                            {(yyval.intVal) = -1 * (yyvsp[0].intVal);}
+#line 1807 "./dist/parser.tab.cpp"
+    break;
+
+  case 62: /* expression: ST_LPAR expression ST_RPAR  */
+#line 222 "src/parser.ypp"
+                                                                   {(yyval.intVal) = (yyvsp[-1].intVal);}
+#line 1813 "./dist/parser.tab.cpp"
+    break;
+
+  case 63: /* expression: IDENTIFIER  */
+#line 223 "src/parser.ypp"
+                                                   {
+						string str((yyvsp[0].stringVal));
+						Node* result = st.find(str , current_scope);
+						if(result == NULL)
+						{
+							yyerror("variable not found");
+							exit(1);
+						}
+						else
+						{
+							(yyval.intVal) = result->value;
+						}
+					}
+#line 1831 "./dist/parser.tab.cpp"
+    break;
+
+  case 64: /* expression: NUMBER  */
+#line 236 "src/parser.ypp"
+                                               {
+						(yyval.intVal) = (yyvsp[0].intVal);
+					}
+#line 1839 "./dist/parser.tab.cpp"
     break;
 
 
-#line 1644 "./dist/parser.tab.cpp"
+#line 1843 "./dist/parser.tab.cpp"
 
       default: break;
     }
@@ -1865,8 +2064,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 176 "src/parser.ypp"
-
+#line 246 "src/parser.ypp"
 
 
 
@@ -1892,7 +2090,21 @@ int main(int argc, char *argv[])
 }
 
 void yyerror(const char *s) {
-	fprintf(stderr,"Syntex Error in line number : %d : %s %s\n", yylineno, s, yytext);
+	fprintf(stderr,"Syntex Error in line number : %d : %s\n", yylineno, s);
+}
+
+
+int find_free_register(int* array , int size)
+{
+	for(int i = 0;i < size;i++)
+	{
+		if(array[i] == 0)
+		{
+			array[i] = 1;
+			return i;
+		}
+	}
+	return -1;
 }
 
 void showstack(stack <int> s) 
@@ -1905,43 +2117,65 @@ void showstack(stack <int> s)
     cout << '\n'; 
 } 
 
-/* 
-void calculate(char token)
+
+int calculate(int token , int leftVal , int rightVal)
 {
     switch (token)
     {
 		case OP_PLUS:
+			return (leftVal + rightVal);
 			break;
 		case OP_MINUS:
+			return (leftVal - rightVal);
 			break;
 		case OP_MULTIPLY:
+			return (leftVal * rightVal);
 			break;
 		case OP_DIVIDE:
+			if(rightVal == 0)
+			{
+				yyerror("Division by Zero");
+				exit(1);
+			}
+			return (leftVal / rightVal);
 			break;
 		case OP_LESS:
+			return (leftVal < rightVal);
 			break;
 		case OP_LESS_EQUAL:
+			return (leftVal <= rightVal);
 			break;
 		case OP_EQUAL:
+			return (leftVal == rightVal);
 			break;
 		case OP_NOT_EQUAL:
+			return (leftVal != rightVal);
 			break;
 		case OP_GREATER:
+			return (leftVal > rightVal);
 			break;
 		case OP_GREATER_EQUAL:
+			return (leftVal >= rightVal);
 			break;
 		case OP_LOGICAL_OR:
+			return (leftVal || rightVal);
 			break;
 		case OP_LOGICAL_AND:
+			return (leftVal && rightVal);
 			break;
 		case OP_BITWISE_OR:
+			return (leftVal | rightVal);
 			break;
 		case OP_BITWISE_AND:
+			return (leftVal & rightVal);
 			break;
 		case OP_BITWISE_XOR:
+			return (leftVal ^ rightVal);
 			break;
 		case OP_LOGICAL_NOT:
+			return (!leftVal);
 			break;
 		
     }
-} */
+	return 0;
+}

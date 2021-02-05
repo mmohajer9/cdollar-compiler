@@ -4,7 +4,7 @@ const int MAX = 100;
 
 // Function to modify an identifier 
 bool SymbolTable::modify(string id, string s, 
-						string t, int l) 
+						string t, int l, string r , string a , int v) 
 { 
 	int index = hashf(id); 
 	Node* start = head[index]; 
@@ -17,7 +17,10 @@ bool SymbolTable::modify(string id, string s,
 			start->scope = s; 
 			start->type = t; 
 			start->lineNo = l; 
-			return true; 
+            start->reg = r;
+            start->address = a;
+            start->value = v;
+			return true;
 		} 
 		start = start->next; 
 	} 
@@ -65,38 +68,38 @@ bool SymbolTable::deleteRecord(string id)
 } 
 
 // Function to find an identifier 
-string SymbolTable::find(string id) 
+Node* SymbolTable::find(string id , string scope) 
 { 
-	int index = hashf(id); 
-	Node* start = head[index]; 
+	int index = hashf(id);
+	Node* start = head[index];
 
-	if (start == NULL) 
-		return "-1"; 
+	if (start == NULL)
+		return NULL; 
 
 	while (start != NULL) { 
 
-		if (start->identifier == id) { 
-			start->print(); 
-			return start->scope; 
+		if (start->identifier == id && start->scope == scope) { 
+			start->print();
+			return start;
 		} 
 
 		start = start->next; 
 	} 
 
-	return "-1"; // not found 
+	return NULL; // not found 
 } 
 
 // Function to insert an identifier 
 bool SymbolTable::insert(string id, string scope, 
-						string Type, int lineno) 
+						string Type, int lineno, string reg , string address , int value) 
 { 
 	int index = hashf(id); 
-	Node* p = new Node(id, scope, Type, lineno); 
+	Node* p = new Node(id, scope, Type, lineno, reg , address , value); 
 
 	if (head[index] == NULL) { 
-		head[index] = p; 
-		cout << "\n"
-			<< id << " inserted"; 
+		head[index] = p;
+		// cout << "\n"
+		// 	<< id << " inserted"; 
 
 		return true; 
 	} 
@@ -107,8 +110,8 @@ bool SymbolTable::insert(string id, string scope,
 			start = start->next; 
 
 		start->next = p; 
-		cout << "\n"
-			<< id << " inserted"; 
+		// cout << "\n"
+		// 	<< id << " inserted"; 
 
 		return true; 
 	} 
@@ -126,5 +129,3 @@ int SymbolTable::hashf(string id)
 
 	return (asciiSum % 100); 
 } 
-
-

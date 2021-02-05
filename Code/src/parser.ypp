@@ -6,6 +6,7 @@
 
 	#include <stdio.h> 
 	#include <stdlib.h>
+	#include <string>
 	#include <string.h>
 
 	using namespace std;
@@ -14,7 +15,9 @@
 	void yyerror(const char *s);
 
 	void showstack(stack <int> s);
-	void calculate(char token);
+	int calculate(int token , int leftVal , int rightVal);
+
+	int find_free_register(int* array , int size);
 
 	extern FILE* yyin;
 	extern int yylex();
@@ -28,6 +31,11 @@
 	string current_scope = "global";
 
 	SymbolTable st;
+	Node* node;
+
+	int temporal_registers[10] = {};
+
+	int saved_regsiters[8] = {};
 	
 %}
 
@@ -58,7 +66,7 @@
 %token <stringVal> IDENTIFIER
 %token <intVal>	NUMBER
 
-%type <intVal> expression function
+%type <intVal> expression function ids
 
 %start program
 
@@ -98,17 +106,36 @@ type:		  		KW_INT | KW_CHAR
 stmt_declare: 		type IDENTIFIER ids {
 
 						string str($2);
-						string result = st.find(str);
-						if(result == "-1")
+						Node* result = st.find(str , current_scope);
+						if(result == NULL)
 						{
-
+							int index_of_free_register = find_free_register(saved_regsiters , 8);
+							string register_name = "$s" + to_string(index_of_free_register);
+							st.insert(str,current_scope,"IDENTIFIER",yylineno,register_name,"" , $3);
 						}
 						else
 						{
-
+							yyerror("multiple declaration of variable");
+							exit(1);
 						}
 					}
-ids:		  		ST_DOLLAR | ST_COMMA IDENTIFIER ids | OP_ASSIGN expression ids
+ids:		  		ST_DOLLAR {$$ = 0;} | 
+					ST_COMMA IDENTIFIER ids {
+						string str($2);
+						Node* result = st.find(str , current_scope);
+						if(result == NULL)
+						{
+							int index_of_free_register = find_free_register(saved_regsiters , 8);
+							string register_name = "$s" + to_string(index_of_free_register);
+							st.insert(str,current_scope,"IDENTIFIER",yylineno,register_name,"",$3);
+						}
+						else
+						{
+							yyerror("multiple declaration of variable");
+							exit(1);
+						}
+					}; | 
+					OP_ASSIGN expression ids {$$ = $2;}
 
 stmt_assignment:	IDENTIFIER OP_ASSIGN expression ST_DOLLAR
 
@@ -129,43 +156,86 @@ loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK ST_DOLLAR | loop_stmts KW_C
 /* for:				KW_FOR ST_LPAR stmt_declare  */
 
 expression: 		expression OP_PLUS expression {
+						$$ = calculate(OP_PLUS , $1 , $3);
+					};
+					|
+					expression OP_MINUS expression {
+						$$ = calculate(OP_MINUS , $1 , $3);
+					};
+					|
+					expression OP_MULTIPLY expression {
+						$$ = calculate(OP_MULTIPLY , $1 , $3);
+					};
+					|
+					expression OP_DIVIDE expression {
+						$$ = calculate(OP_DIVIDE , $1 , $3);
+					};
+					|
+					expression OP_LESS expression {
+						$$ = calculate(OP_LESS , $1 , $3);
+					};
+					|
+					expression OP_LESS_EQUAL expression {
+						$$ = calculate(OP_LESS_EQUAL , $1 , $3);
+					};
+					|
+					expression OP_EQUAL expression {
+						$$ = calculate(OP_EQUAL , $1 , $3);
+					};
+					|
+					expression OP_NOT_EQUAL expression {
+						$$ = calculate(OP_NOT_EQUAL , $1 , $3);
+					};
+					|
+					expression OP_GREATER expression {
+						$$ = calculate(OP_GREATER , $1 , $3);
+					};
+					|
+					expression OP_GREATER_EQUAL expression {
+						$$ = calculate(OP_GREATER_EQUAL , $1 , $3);
+					};
+					|
+					expression OP_LOGICAL_OR expression {
+						$$ = calculate(OP_LOGICAL_OR , $1 , $3);
+					};
+					|
+					expression OP_LOGICAL_AND expression {
+						$$ = calculate(OP_LOGICAL_AND , $1 , $3);
+					};
+					|
+					expression OP_BITWISE_OR expression {
+						$$ = calculate(OP_BITWISE_OR , $1 , $3);
+					};
+					|
+					expression OP_BITWISE_AND expression {
+						$$ = calculate(OP_BITWISE_AND , $1 , $3);
+					};
+					|
+					expression OP_BITWISE_XOR expression {
+						$$ = calculate(OP_BITWISE_XOR , $1 , $3);
+					};
+					|
 
+					OP_LOGICAL_NOT expression {$$ = $2 == 0 ? 1 : 0;} | 
+					OP_MINUS expression {$$ = -1 * $2;} |
+
+					ST_LPAR expression ST_RPAR {$$ = $2;} |
+					IDENTIFIER {
+						string str($1);
+						Node* result = st.find(str , current_scope);
+						if(result == NULL)
+						{
+							yyerror("variable not found");
+							exit(1);
+						}
+						else
+						{
+							$$ = result->value;
+						}
+					} |
+					NUMBER {
+						$$ = $1;
 					}
-					|
-					expression OP_MINUS expression 
-					|
-					expression OP_MULTIPLY expression 
-					|
-					expression OP_DIVIDE expression 
-					|
-					expression OP_LESS expression 
-					|
-					expression OP_LESS_EQUAL expression 
-					|
-					expression OP_EQUAL expression 
-					|
-					expression OP_NOT_EQUAL expression 
-					|
-					expression OP_GREATER expression 
-					|
-					expression OP_GREATER_EQUAL expression 
-					|
-					expression OP_LOGICAL_OR expression 
-					|
-					expression OP_LOGICAL_AND expression 
-					|
-					expression OP_BITWISE_OR expression 
-					|
-					expression OP_BITWISE_AND expression 
-					|
-					expression OP_BITWISE_XOR expression 
-					|
-
-					OP_LOGICAL_NOT expression | 
-					OP_MINUS expression |
-
-					ST_LPAR expression ST_RPAR |
-					IDENTIFIER | NUMBER
 
 
 arguments:			args_part1 |
@@ -174,7 +244,6 @@ args_part2:			ST_COMMA args_part1 |
 		
 
 %%
-
 
 
 int main(int argc, char *argv[])
@@ -199,7 +268,21 @@ int main(int argc, char *argv[])
 }
 
 void yyerror(const char *s) {
-	fprintf(stderr,"Syntex Error in line number : %d : %s %s\n", yylineno, s, yytext);
+	fprintf(stderr,"Syntex Error in line number : %d : %s\n", yylineno, s);
+}
+
+
+int find_free_register(int* array , int size)
+{
+	for(int i = 0;i < size;i++)
+	{
+		if(array[i] == 0)
+		{
+			array[i] = 1;
+			return i;
+		}
+	}
+	return -1;
 }
 
 void showstack(stack <int> s) 
@@ -212,43 +295,65 @@ void showstack(stack <int> s)
     cout << '\n'; 
 } 
 
-/* 
-void calculate(char token)
+
+int calculate(int token , int leftVal , int rightVal)
 {
     switch (token)
     {
 		case OP_PLUS:
+			return (leftVal + rightVal);
 			break;
 		case OP_MINUS:
+			return (leftVal - rightVal);
 			break;
 		case OP_MULTIPLY:
+			return (leftVal * rightVal);
 			break;
 		case OP_DIVIDE:
+			if(rightVal == 0)
+			{
+				yyerror("Division by Zero");
+				exit(1);
+			}
+			return (leftVal / rightVal);
 			break;
 		case OP_LESS:
+			return (leftVal < rightVal);
 			break;
 		case OP_LESS_EQUAL:
+			return (leftVal <= rightVal);
 			break;
 		case OP_EQUAL:
+			return (leftVal == rightVal);
 			break;
 		case OP_NOT_EQUAL:
+			return (leftVal != rightVal);
 			break;
 		case OP_GREATER:
+			return (leftVal > rightVal);
 			break;
 		case OP_GREATER_EQUAL:
+			return (leftVal >= rightVal);
 			break;
 		case OP_LOGICAL_OR:
+			return (leftVal || rightVal);
 			break;
 		case OP_LOGICAL_AND:
+			return (leftVal && rightVal);
 			break;
 		case OP_BITWISE_OR:
+			return (leftVal | rightVal);
 			break;
 		case OP_BITWISE_AND:
+			return (leftVal & rightVal);
 			break;
 		case OP_BITWISE_XOR:
+			return (leftVal ^ rightVal);
 			break;
 		case OP_LOGICAL_NOT:
+			return (!leftVal);
 			break;
 		
     }
-} */
+	return 0;
+}
