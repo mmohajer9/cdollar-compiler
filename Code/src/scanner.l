@@ -3,7 +3,7 @@
 	#include <stdlib.h>
 	#include <string.h>
 
-	#include "parser.tab.h"
+	#include "parser.tab.hpp"
 
 	void yyerror_scanner(const int n);
 	int yylex();

@@ -1,17 +1,28 @@
 %{
+	#include <iostream>
+	#include <bits/stdc++.h>
+
 	#include <stdio.h> 
 	#include <stdlib.h>
-	#include <ctype.h>
-	#include <math.h>
 	#include <string.h>
+
+	using namespace std;
 
 	int yyparse();
 	void yyerror(const char *s);
+	void showstack(stack <int> s);
+
+	void calculate(char token);
 
 	extern FILE* yyin;
 	extern int yylex();
 	extern int yylineno;
 	extern char* yytext;
+
+	FILE* intermediate_code;
+	int intermediate_code_line;
+
+	stack <int> semantic_stack;
 	
 %}
 
@@ -42,6 +53,8 @@
 %token <stringVal> IDENTIFIER
 %token <intVal>	NUMBER
 
+%type <intVal> expression function
+
 %start program
 
 
@@ -58,6 +71,10 @@
 %%
 
 program   :   		functions main
+
+/* global_scope:		global_scope global_declare | 
+
+global_declare: 	type IDENTIFIER OP_ASSIGN expression ST_DOLLAR */
 
 functions :   		functions function | 
 
@@ -94,21 +111,39 @@ loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK ST_DOLLAR | loop_stmts KW_C
 
 /* for:				KW_FOR ST_LPAR stmt_declare  */
 
-expression: 		expression OP_PLUS expression |
-					expression OP_MINUS expression |
-					expression OP_MULTIPLY expression |
-					expression OP_DIVIDE expression |
-					expression OP_LESS expression |
-					expression OP_LESS_EQUAL expression |
-					expression OP_EQUAL expression |
-					expression OP_NOT_EQUAL expression |
-					expression OP_GREATER expression |
-					expression OP_GREATER_EQUAL expression |
-					expression OP_LOGICAL_OR expression |
-					expression OP_LOGICAL_AND expression |
-					expression OP_BITWISE_OR expression |
-					expression OP_BITWISE_AND expression |
-					expression OP_BITWISE_XOR expression |
+expression: 		expression OP_PLUS expression {
+						semantic_stack.push($1);
+						semantic_stack.push($3);
+					}
+					|
+					expression OP_MINUS expression 
+					|
+					expression OP_MULTIPLY expression 
+					|
+					expression OP_DIVIDE expression 
+					|
+					expression OP_LESS expression 
+					|
+					expression OP_LESS_EQUAL expression 
+					|
+					expression OP_EQUAL expression 
+					|
+					expression OP_NOT_EQUAL expression 
+					|
+					expression OP_GREATER expression 
+					|
+					expression OP_GREATER_EQUAL expression 
+					|
+					expression OP_LOGICAL_OR expression 
+					|
+					expression OP_LOGICAL_AND expression 
+					|
+					expression OP_BITWISE_OR expression 
+					|
+					expression OP_BITWISE_AND expression 
+					|
+					expression OP_BITWISE_XOR expression 
+					|
 
 					OP_LOGICAL_NOT expression | 
 					OP_MINUS expression |
@@ -129,7 +164,7 @@ args_part2:			ST_COMMA args_part1 |
 int main(int argc, char *argv[])
 {
     yyin = fopen(argv[1], "r");
-
+	intermediate_code = fopen("./intermediate_code" , "w+");
 	// it will be called in the expression of if
     if(!yyparse())
 		printf("\nParsing Complete\n");
@@ -141,9 +176,22 @@ int main(int argc, char *argv[])
 	
 	// closing the opened file
 	fclose(yyin);
+	fclose(intermediate_code);
     return 0;
 }
 
 void yyerror(const char *s) {
 	fprintf(stderr,"Syntex Error in line number : %d : %s %s\n", yylineno, s, yytext);
 }
+
+void showstack(stack <int> s) 
+{ 
+    while (!s.empty()) 
+    { 
+        cout << '\t' << s.top(); 
+        s.pop(); 
+    } 
+    cout << '\n'; 
+} 
+
+

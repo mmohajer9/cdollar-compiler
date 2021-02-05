@@ -1,22 +1,23 @@
-final: parser.tab.c lex.yy.c
+final: parser.tab.cpp lex.yy.cpp
 	clear
-	gcc -g lex.yy.c parser.tab.c -o run -lm
+	g++ -g ./dist/lex.yy.cpp ./dist/parser.tab.cpp -o ./dist/run -lm
 
-parser.tab.c: src/parser.y
+parser.tab.cpp: src/parser.ypp
 	clear
-	bison -dv -t src/parser.y
+	bison -dv -t src/parser.ypp -o ./dist/parser.tab.cpp
 
-lex.yy.c: src/scanner.l
+lex.yy.cpp: src/scanner.l
 	clear
-	flex src/scanner.l
+	flex -o ./dist/lex.yy.cpp src/scanner.l
 
 clean: 
 	clear
 	rm -rf *.o run *.output
 	rm -rf y.tab.*
-	rm -rf lex.yy.c
+	rm -rf lex.yy.*
 	rm -rf scanner.tab.*
 	rm -rf parser.tab.*
+	rm -rf ./dist/*
 
 # target:dependecies
 # 	action
