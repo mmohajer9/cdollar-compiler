@@ -8,28 +8,19 @@ mamad:
     add $t0,$a0,$a1
     move $s0,$t0
     jr $ra
-soheil:
-
-    move $a3,$t1
-    move $a2,$t0
-    jal mamad
-    jr $ra
-hasan:
-
 main:
 
+    li $t0,7
+    li $t1,3
     add $t2,$t0,$t1
     move $s1,$t2
+    li $t0,2
+    li $t1,3
+    li $t2,4
     mul $t3,$t1,$t2
     add $t4,$t0,$t3
-    div $t4,$t5
-    move $t6,$lo
-    move $s2,$t6
-    mul $t1,$s2,$t0
-    add $t2,$s1,$t1
-    move $s3,$t2
-    move $a3,$t3
-    move $a2,$t2
-    move $a1,$t1
-    move $a0,$t0
-    jal soheil
+    move $s2,$t4
+    move $a1,$s2
+    move $a0,$s1
+    jal mamad
+    move $s3,$t0

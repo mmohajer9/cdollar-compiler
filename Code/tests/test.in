@@ -1,18 +1,9 @@
 int mamad(int x , int y)
 {
     int c = x + y$
+
+    return c$
 }
-
-int soheil(int a , int b , int c , int d)
-{
-    mamad(1,2)$
-}
-
-void hasan(int variable)
-{
-
-}
-
 
 
 
@@ -20,9 +11,10 @@ int main()
 {
     int a = (7 + 3)$
 
-    int b = (2 + 3 * 4) / 5$
+    int b = (2 + 3 * 4)$
 
-    int c = a + b * 3$
+    int q = mamad(a , b)$
 
-    soheil(1,2,3,4)$
+    #int q$
+
 }

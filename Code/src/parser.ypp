@@ -200,7 +200,7 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 
 stmt_call_function:	IDENTIFIER ST_LPAR fun_arguments {
 						//modify kardan argument ha
-						for(int i = 3;!function_call_stack.empty();i--)
+						for(int i = function_call_stack.size() - 1;!function_call_stack.empty();i--)
 						{
 							string arg_reg_name = "$a" + to_string(i);
 							cg.move(arg_reg_name , function_call_stack.top());
@@ -458,6 +458,7 @@ expression: 		expression OP_PLUS expression {
 						strcpy(dst.reg, reg.c_str());
 						dst.value = $1;
 						$$ = dst;
+						cg.li(dst.reg , dst.value);
 
 					} |
 					NCHAR {
@@ -466,7 +467,7 @@ expression: 		expression OP_PLUS expression {
 						strcpy(dst.reg, reg.c_str());
 						dst.value = $1;
 						$$ = dst;
-
+						cg.li(dst.reg , dst.value);
 					} |
 					UCHAR {
 						node_t dst;
@@ -474,6 +475,7 @@ expression: 		expression OP_PLUS expression {
 						strcpy(dst.reg, reg.c_str());
 						dst.value = $1;
 						$$ = dst;
+						cg.li(dst.reg , dst.value);
 
 					} |
 					LCHAR {
@@ -482,14 +484,18 @@ expression: 		expression OP_PLUS expression {
 						strcpy(dst.reg, reg.c_str());
 						dst.value = $1;
 						$$ = dst;
+						cg.li(dst.reg , dst.value);
 
 					} |
 					stmt_call_function {
+
+						//FIXME: bayad az v0 o v1 ina ke toye return mohasebe shode estefade koni
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						strcpy(dst.reg, reg.c_str());
 						dst.value = $1;
 						$$ = dst;
+						
 
 					}
 
