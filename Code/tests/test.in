@@ -1,18 +1,18 @@
-int mamad()
+int mamad(int x , int y)
 {
-
+    int c = x + y$
 }
-
-void hasan()
-{
-
-}
-
 
 int soheil(int a , int b , int c , int d)
 {
 
 }
+
+void hasan(int variable)
+{
+
+}
+
 
 
 

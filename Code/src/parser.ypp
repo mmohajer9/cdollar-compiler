@@ -38,6 +38,7 @@
 
 	int temporal_registers[10] = {};
 	int saved_regsiters[8] = {};
+	int args_registers[4] = {};
 	
 %}
 
@@ -113,15 +114,27 @@ function  :   		KW_INT IDENTIFIER ST_LPAR {
 						semantic_stack.push(current_scope);
 						cg.add_label(current_scope);
 					} arguments ST_RPAR ST_LCURL {
-						
-					} stmts  ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}
+
+					} stmts ST_RCURL {
+						current_scope = semantic_stack.top();
+						semantic_stack.pop();
+
+						// bade har tarif function register haye args ro available mikonim
+						clear_registers(args_registers , 4);
+					}
 			  		|
 			  		KW_VOID IDENTIFIER ST_LPAR {
 						string str($2); 
 						current_scope = str; 
 						semantic_stack.push(current_scope);
 						cg.add_label(current_scope);
-					} arguments ST_RPAR ST_LCURL stmts ST_RCURL	{current_scope = semantic_stack.top(); semantic_stack.pop();}	
+					} arguments ST_RPAR ST_LCURL stmts ST_RCURL	{
+						current_scope = semantic_stack.top(); 
+						semantic_stack.pop();
+
+						// bade har tarif function register haye args ro available mikonim
+						clear_registers(args_registers , 4);
+					}	
 
 stmts: 		  		stmt {clear_registers(temporal_registers , 10);} stmts | 
 stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return | stmt_while | stmt_call_function ST_DOLLAR
@@ -173,14 +186,41 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 
 
 
-stmt_call_function:	IDENTIFIER ST_LPAR fun_arguments ST_RPAR {
-						map_of_call_stacks[current_scope] = function_call_stack;
+stmt_call_function:	IDENTIFIER ST_LPAR fun_arguments {
+
+						//modify kardan argument ha
+						for(int i = 3;!function_call_stack.empty();i--)
+						{
+							string arg_reg_name = "$a" + to_string(i);
+
+							cg.move(arg_reg_name , function_call_stack.top());
+
+							function_call_stack.pop();
+
+						}	
+						
+					
+						} ST_RPAR {
+
+						// baraye inke be vasile esme scope be function_call_stack dashte bashim
+						// chon momkene chandta function toye har function call beshe va call stack
+						// az bein bere bara hamin az map estefade kardim
+						// map_of_call_stacks[current_scope] = function_call_stack;
+
+						// bad az etmam function call bayad function_call_stack ke shamel
+						// register haye arguman haye vorodi bood ro khali koni baraye estefade
+						// mojadad az ona
 						stack<string>().swap(function_call_stack);
 					}
 
-//FIXME: in mitone behtaram beshe , to mips ham push koni va code mips tolid koni
 fun_arguments:		fun_args_part1 |
 fun_args_part1:		expression {
+
+						// arguman haye vorodi ke
+						// har kodom dakhel ye register hastan
+						// ro miaym esme registerashono push mikonim
+						// toye function_call_stack va toye badane function
+						// onaro dobare bazyabi mikonim ba pop kardan
 						function_call_stack.push($1.reg);
 					} fun_args_part2
 fun_args_part2:		ST_COMMA fun_args_part1 |
@@ -463,8 +503,8 @@ args_part1:			type IDENTIFIER {
 						Node* result = st.find(str , semantic_stack);
 						if(result == NULL)
 						{
-							string register_name = find_free_register(saved_regsiters , 8 , 0);
-							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , 0);
+							string register_name = find_free_register(args_registers , 4 , 2);
+							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"",0);
 						}
 						else
 						{

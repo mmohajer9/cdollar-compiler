@@ -17,11 +17,27 @@ string find_free_register(int *array, int size , int mode)
 				string register_name = "$s" + to_string(i);
 				return register_name;
 			}
-			else
+			else if (mode == 1)
 			{
 				array[i] = 1;
 				string register_name = "$t" + to_string(i);
 				return register_name;				
+			}
+			else if (mode == 2)
+			{
+				array[i] = 1;
+				string register_name = "$a" + to_string(i);
+				return register_name;
+			}
+			else if (mode == 3)
+			{
+				array[i] = 1;
+				string register_name = "$v" + to_string(i);
+				return register_name;
+			}
+			else
+			{
+				return "mode is not correct\n";
 			}
 
 		}
