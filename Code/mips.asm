@@ -7,9 +7,13 @@ mamad:
 
     add $t0,$a0,$a1
     move $s0,$t0
-    
+    jr $ra
 soheil:
 
+    move $a3,$t1
+    move $a2,$t0
+    jal mamad
+    jr $ra
 hasan:
 
 main:
@@ -28,3 +32,4 @@ main:
     move $a2,$t2
     move $a1,$t1
     move $a0,$t0
+    jal soheil

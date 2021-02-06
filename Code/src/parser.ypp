@@ -115,12 +115,13 @@ function  :   		KW_INT IDENTIFIER ST_LPAR {
 						cg.add_label(current_scope);
 					} arguments ST_RPAR ST_LCURL {
 
-					} stmts ST_RCURL {
+					} stmts {cg.jr("$ra");} ST_RCURL {
 						current_scope = semantic_stack.top();
 						semantic_stack.pop();
 
 						// bade har tarif function register haye args ro available mikonim
 						clear_registers(args_registers , 4);
+						
 					}
 			  		|
 			  		KW_VOID IDENTIFIER ST_LPAR {
@@ -137,7 +138,18 @@ function  :   		KW_INT IDENTIFIER ST_LPAR {
 					}	
 
 stmts: 		  		stmt {clear_registers(temporal_registers , 10);} stmts | 
-stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return | stmt_while | stmt_call_function ST_DOLLAR
+stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return | stmt_while | stmt_call_function {
+
+						// baraye inke be vasile esme scope be function_call_stack dashte bashim
+						// chon momkene chandta function toye har function call beshe va call stack
+						// az bein bere bara hamin az map estefade kardim
+						// map_of_call_stacks[current_scope] = function_call_stack;
+
+						// bad az etmam function call bayad function_call_stack ke shamel
+						// register haye arguman haye vorodi bood ro khali koni baraye estefade
+						// mojadad az ona
+						stack<string>().swap(function_call_stack);
+					} ST_DOLLAR
 
 type:		  		KW_INT {current_variable_data_type = "int";} 
 					| 
@@ -187,31 +199,17 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 
 
 stmt_call_function:	IDENTIFIER ST_LPAR fun_arguments {
-
 						//modify kardan argument ha
 						for(int i = 3;!function_call_stack.empty();i--)
 						{
 							string arg_reg_name = "$a" + to_string(i);
-
 							cg.move(arg_reg_name , function_call_stack.top());
-
 							function_call_stack.pop();
+						}
 
-						}	
+						cg.jal($1);
 						
-					
-						} ST_RPAR {
-
-						// baraye inke be vasile esme scope be function_call_stack dashte bashim
-						// chon momkene chandta function toye har function call beshe va call stack
-						// az bein bere bara hamin az map estefade kardim
-						// map_of_call_stacks[current_scope] = function_call_stack;
-
-						// bad az etmam function call bayad function_call_stack ke shamel
-						// register haye arguman haye vorodi bood ro khali koni baraye estefade
-						// mojadad az ona
-						stack<string>().swap(function_call_stack);
-					}
+					} ST_RPAR 
 
 fun_arguments:		fun_args_part1 |
 fun_args_part1:		expression {

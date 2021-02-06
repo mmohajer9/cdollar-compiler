@@ -5,7 +5,7 @@ int mamad(int x , int y)
 
 int soheil(int a , int b , int c , int d)
 {
-
+    mamad(1,2)$
 }
 
 void hasan(int variable)
