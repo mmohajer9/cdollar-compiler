@@ -1,7 +1,10 @@
 %{
 	#include <iostream>
+	#include <fstream> 
+
 	#include <bits/stdc++.h>
 	#include "../src/symboltable/symbol.hpp"
+	#include "../src/mips_generator/mips.hpp"
 
 	#include <typeinfo>	
 	#include <stdio.h> 
@@ -24,7 +27,7 @@
 	extern int yylineno;
 	extern char* yytext;
 
-	FILE* mips;
+	ofstream mips;
 
 	stack <string> semantic_stack;
 
@@ -33,6 +36,8 @@
 
 	SymbolTable st;
 	Node* node;
+
+	MIPSCodeGenerator cg;
 
 	int temporal_registers[10] = {};
 
@@ -147,8 +152,8 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 stmt_call_function:	IDENTIFIER ST_LPAR fun_arguments ST_RPAR 
 
 fun_arguments:		fun_args_part1 |
-fun_args_part1:		IDENTIFIER fun_args_part2
-fun_args_part2:			ST_COMMA fun_args_part1 |
+fun_args_part1:		expression fun_args_part2
+fun_args_part2:		ST_COMMA fun_args_part1 |
 
 
 
@@ -303,8 +308,9 @@ int main(int argc, char *argv[])
 {
     yyin = fopen(argv[1], "r");
 	// it will be called in the expression of if
+	mips.open("./mips");
 
-	mips = fopen("./mips" , "w+");
+	cg.init(&mips);
 
     if(!yyparse())
 		printf("\nParsing Complete\n");
@@ -315,7 +321,8 @@ int main(int argc, char *argv[])
 	}
 	
 	// closing the opened file
-	fclose(mips);
+	mips.close();
+	
 	fclose(yyin);
     return 0;
 }

@@ -1,0 +1,7 @@
+.data
+backn: .asciiz "\n"
+.text
+.globl main
+
+
+lw $1,100($2)

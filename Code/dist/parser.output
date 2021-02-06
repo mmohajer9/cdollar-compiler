@@ -67,7 +67,7 @@ Grammar
    27 fun_arguments: fun_args_part1
    28              | %empty
 
-   29 fun_args_part1: IDENTIFIER fun_args_part2
+   29 fun_args_part1: expression fun_args_part2
 
    30 fun_args_part2: ST_COMMA fun_args_part1
    31               | %empty
@@ -192,7 +192,7 @@ Terminals, with rules where they appear
     LCHAR <charVal> (298) 75
     UCHAR <charVal> (299) 74
     NCHAR <charVal> (300) 73
-    IDENTIFIER <stringVal> (301) 9 11 22 24 26 29 32 71 80
+    IDENTIFIER <stringVal> (301) 9 11 22 24 26 32 71 80
     NUMBER <intVal> (302) 72
 
 
@@ -301,7 +301,7 @@ Nonterminals, with rules where they appear
         on right: 48 49 50 51
     expression <intVal> (82)
         on left: 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76
-        on right: 25 32 33 38 41 46 48 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
+        on right: 25 29 32 33 38 41 46 48 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
     arguments (83)
         on left: 77 78
         on right: 5 7 9 11
@@ -1091,12 +1091,21 @@ State 72
 
    26 stmt_call_function: IDENTIFIER ST_LPAR • fun_arguments ST_RPAR
 
-    IDENTIFIER  shift, and go to state 103
+    OP_MINUS        shift, and go to state 60
+    OP_LOGICAL_NOT  shift, and go to state 61
+    ST_LPAR         shift, and go to state 62
+    LCHAR           shift, and go to state 63
+    UCHAR           shift, and go to state 64
+    NCHAR           shift, and go to state 65
+    IDENTIFIER      shift, and go to state 66
+    NUMBER          shift, and go to state 67
 
     $default  reduce using rule 28 (fun_arguments)
 
-    fun_arguments   go to state 104
-    fun_args_part1  go to state 105
+    stmt_call_function  go to state 68
+    fun_arguments       go to state 103
+    fun_args_part1      go to state 104
+    expression          go to state 105
 
 
 State 73
@@ -1588,27 +1597,57 @@ State 102
 
 State 103
 
-   29 fun_args_part1: IDENTIFIER • fun_args_part2
+   26 stmt_call_function: IDENTIFIER ST_LPAR fun_arguments • ST_RPAR
 
-    ST_COMMA  shift, and go to state 130
-
-    $default  reduce using rule 31 (fun_args_part2)
-
-    fun_args_part2  go to state 131
+    ST_RPAR  shift, and go to state 130
 
 
 State 104
 
-   26 stmt_call_function: IDENTIFIER ST_LPAR fun_arguments • ST_RPAR
+   27 fun_arguments: fun_args_part1 •
 
-    ST_RPAR  shift, and go to state 132
+    $default  reduce using rule 27 (fun_arguments)
 
 
 State 105
 
-   27 fun_arguments: fun_args_part1 •
+   29 fun_args_part1: expression • fun_args_part2
+   53 expression: expression • OP_PLUS expression
+   54           | expression • OP_MINUS expression
+   55           | expression • OP_MULTIPLY expression
+   56           | expression • OP_DIVIDE expression
+   57           | expression • OP_LESS expression
+   58           | expression • OP_LESS_EQUAL expression
+   59           | expression • OP_EQUAL expression
+   60           | expression • OP_NOT_EQUAL expression
+   61           | expression • OP_GREATER expression
+   62           | expression • OP_GREATER_EQUAL expression
+   63           | expression • OP_LOGICAL_OR expression
+   64           | expression • OP_LOGICAL_AND expression
+   65           | expression • OP_BITWISE_OR expression
+   66           | expression • OP_BITWISE_AND expression
+   67           | expression • OP_BITWISE_XOR expression
 
-    $default  reduce using rule 27 (fun_arguments)
+    OP_PLUS           shift, and go to state 85
+    OP_MINUS          shift, and go to state 86
+    OP_MULTIPLY       shift, and go to state 87
+    OP_DIVIDE         shift, and go to state 88
+    OP_LESS           shift, and go to state 89
+    OP_LESS_EQUAL     shift, and go to state 90
+    OP_EQUAL          shift, and go to state 91
+    OP_NOT_EQUAL      shift, and go to state 92
+    OP_GREATER        shift, and go to state 93
+    OP_GREATER_EQUAL  shift, and go to state 94
+    OP_BITWISE_OR     shift, and go to state 95
+    OP_BITWISE_AND    shift, and go to state 96
+    OP_BITWISE_XOR    shift, and go to state 97
+    OP_LOGICAL_OR     shift, and go to state 98
+    OP_LOGICAL_AND    shift, and go to state 99
+    ST_COMMA          shift, and go to state 131
+
+    $default  reduce using rule 31 (fun_args_part2)
+
+    fun_args_part2  go to state 132
 
 
 State 106
@@ -2215,25 +2254,34 @@ State 129
 
 State 130
 
-   30 fun_args_part2: ST_COMMA • fun_args_part1
+   26 stmt_call_function: IDENTIFIER ST_LPAR fun_arguments ST_RPAR •
 
-    IDENTIFIER  shift, and go to state 103
-
-    fun_args_part1  go to state 138
+    $default  reduce using rule 26 (stmt_call_function)
 
 
 State 131
 
-   29 fun_args_part1: IDENTIFIER fun_args_part2 •
+   30 fun_args_part2: ST_COMMA • fun_args_part1
 
-    $default  reduce using rule 29 (fun_args_part1)
+    OP_MINUS        shift, and go to state 60
+    OP_LOGICAL_NOT  shift, and go to state 61
+    ST_LPAR         shift, and go to state 62
+    LCHAR           shift, and go to state 63
+    UCHAR           shift, and go to state 64
+    NCHAR           shift, and go to state 65
+    IDENTIFIER      shift, and go to state 66
+    NUMBER          shift, and go to state 67
+
+    stmt_call_function  go to state 68
+    fun_args_part1      go to state 138
+    expression          go to state 105
 
 
 State 132
 
-   26 stmt_call_function: IDENTIFIER ST_LPAR fun_arguments ST_RPAR •
+   29 fun_args_part1: expression fun_args_part2 •
 
-    $default  reduce using rule 26 (stmt_call_function)
+    $default  reduce using rule 29 (fun_args_part1)
 
 
 State 133

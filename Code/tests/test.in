@@ -1,8 +1,9 @@
 int func(int a)
 {
-    
+    int b$
+    #int b$
     while(1){
-       a = 9$
+        a = 9$
         break$
 
     }
@@ -13,7 +14,8 @@ int main()
 {
     int a = 7$
     int b,c$
-    func()$
+
+    func(2*2)$
 
     while(1)
     {
