@@ -146,9 +146,9 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 
 stmt_call_function:	IDENTIFIER ST_LPAR fun_arguments ST_RPAR 
 
-fun_arguments:		args_part1 |
-fun_args_part1:		IDENTIFIER args_part2
-args_part2:			ST_COMMA args_part1 |
+fun_arguments:		fun_args_part1 |
+fun_args_part1:		IDENTIFIER fun_args_part2
+fun_args_part2:			ST_COMMA fun_args_part1 |
 
 
 
