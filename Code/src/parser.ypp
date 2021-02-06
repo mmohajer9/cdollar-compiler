@@ -25,6 +25,10 @@
 
 	ofstream mips;
 	stack <string> semantic_stack;
+	stack <string> function_call_stack;
+
+	map <string,stack <string>> map_of_call_stacks;
+
 	string current_scope = "global";
 	string current_variable_data_type = "NONE";
 	string current_temp_register = "NONE";
@@ -108,7 +112,9 @@ function  :   		KW_INT IDENTIFIER ST_LPAR {
 						current_scope = str;
 						semantic_stack.push(current_scope);
 						cg.add_label(current_scope);
-					} arguments ST_RPAR ST_LCURL stmts  ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}
+					} arguments ST_RPAR ST_LCURL {
+						
+					} stmts  ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}
 			  		|
 			  		KW_VOID IDENTIFIER ST_LPAR {
 						string str($2); 
@@ -167,10 +173,16 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 
 
 
-stmt_call_function:	IDENTIFIER ST_LPAR fun_arguments ST_RPAR 
+stmt_call_function:	IDENTIFIER ST_LPAR fun_arguments ST_RPAR {
+						map_of_call_stacks[current_scope] = function_call_stack;
+						stack<string>().swap(function_call_stack);
+					}
 
+//FIXME: in mitone behtaram beshe , to mips ham push koni va code mips tolid koni
 fun_arguments:		fun_args_part1 |
-fun_args_part1:		expression fun_args_part2
+fun_args_part1:		expression {
+						function_call_stack.push($1.reg);
+					} fun_args_part2
 fun_args_part2:		ST_COMMA fun_args_part1 |
 
 

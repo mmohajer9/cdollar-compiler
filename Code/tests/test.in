@@ -9,9 +9,9 @@ void hasan()
 }
 
 
-int soheil()
+int soheil(int a , int b , int c , int d)
 {
-    
+
 }
 
 
@@ -22,7 +22,7 @@ int main()
 
     int b = (2 + 3 * 4) / 5$
 
-    int c = a + b$
+    int c = a + b * 3$
 
-    
+    soheil(1,2,3,4)$
 }
