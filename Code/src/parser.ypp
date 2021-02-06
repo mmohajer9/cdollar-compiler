@@ -99,7 +99,7 @@ function  :   		KW_INT IDENTIFIER ST_LPAR {string str($2); current_scope = str; 
 			  		|
 			  		KW_VOID IDENTIFIER ST_LPAR {string str($2); current_scope = str; semantic_stack.push(current_scope);} arguments ST_RPAR ST_LCURL stmts ST_RCURL	{current_scope = semantic_stack.top(); semantic_stack.pop();}	
 
-stmts: 		  		stmt stmts | 
+stmts: 		  		stmt {clear_registers(temporal_registers , 10);} stmts | 
 stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return | stmt_while | stmt_call_function ST_DOLLAR
 
 type:		  		KW_INT {current_variable_data_type = "int";} 
@@ -169,7 +169,6 @@ stmt_assignment:	IDENTIFIER OP_ASSIGN expression ST_DOLLAR {
 						else
 						{
 							result->value = $3.value;
-							clear_registers(temporal_registers , 10);
 						}
 					}
 
@@ -395,24 +394,32 @@ expression: 		expression OP_PLUS expression {
 					} |
 					NCHAR {
 						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						strcpy(dst.reg, reg.c_str());
 						dst.value = $1;
 						$$ = dst;
 
 					} |
 					UCHAR {
 						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						strcpy(dst.reg, reg.c_str());
 						dst.value = $1;
 						$$ = dst;
 
 					} |
 					LCHAR {
 						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						strcpy(dst.reg, reg.c_str());
 						dst.value = $1;
 						$$ = dst;
 
 					} |
 					stmt_call_function {
 						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						strcpy(dst.reg, reg.c_str());
 						dst.value = $1;
 						$$ = dst;
 
