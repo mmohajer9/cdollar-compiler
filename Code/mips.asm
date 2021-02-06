@@ -2,6 +2,15 @@
 backn: .asciiz "\n"
 .text
 .globl main
+
+mamad:
+
+hasan:
+
+soheil:
+
+main:
+
     add $t2,$t0,$t1
     move $s0,$t2
     mul $t3,$t1,$t2

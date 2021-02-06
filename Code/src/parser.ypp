@@ -91,13 +91,31 @@ global_declare: 	type IDENTIFIER OP_ASSIGN expression ST_DOLLAR */
 
 functions :   		functions function | 
 
-main:		  		KW_INT KW_MAIN ST_LPAR {current_scope = "main"; semantic_stack.push(current_scope);} arguments ST_RPAR ST_LCURL stmts  ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}   
+main:		  		KW_INT KW_MAIN ST_LPAR {
+						current_scope = "main";
+						semantic_stack.push(current_scope);
+						cg.add_label(current_scope);
+					} arguments ST_RPAR ST_LCURL stmts  ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}   
 			  		|
-			  		KW_VOID KW_MAIN ST_LPAR {current_scope = "main";  semantic_stack.push(current_scope);} arguments ST_RPAR ST_LCURL stmts ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}
+			  		KW_VOID KW_MAIN ST_LPAR {
+						current_scope = "main";
+						semantic_stack.push(current_scope);
+						cg.add_label(current_scope);
+					} arguments ST_RPAR ST_LCURL stmts ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}
 
-function  :   		KW_INT IDENTIFIER ST_LPAR {string str($2); current_scope = str; semantic_stack.push(current_scope);} arguments ST_RPAR ST_LCURL stmts  ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}
+function  :   		KW_INT IDENTIFIER ST_LPAR {
+						string str($2);
+						current_scope = str;
+						semantic_stack.push(current_scope);
+						cg.add_label(current_scope);
+					} arguments ST_RPAR ST_LCURL stmts  ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}
 			  		|
-			  		KW_VOID IDENTIFIER ST_LPAR {string str($2); current_scope = str; semantic_stack.push(current_scope);} arguments ST_RPAR ST_LCURL stmts ST_RCURL	{current_scope = semantic_stack.top(); semantic_stack.pop();}	
+			  		KW_VOID IDENTIFIER ST_LPAR {
+						string str($2); 
+						current_scope = str; 
+						semantic_stack.push(current_scope);
+						cg.add_label(current_scope);
+					} arguments ST_RPAR ST_LCURL stmts ST_RCURL	{current_scope = semantic_stack.top(); semantic_stack.pop();}	
 
 stmts: 		  		stmt {clear_registers(temporal_registers , 10);} stmts | 
 stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return | stmt_while | stmt_call_function ST_DOLLAR

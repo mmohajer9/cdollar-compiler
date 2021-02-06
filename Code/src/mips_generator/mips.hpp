@@ -32,7 +32,7 @@ public:
     void init(ofstream *fp)
     {
         this->fp = fp;
-        *(this->fp) << ".data" << endl << "backn: .asciiz \"\\n\"" << endl << ".text" << endl << ".globl main" << endl;
+        *(this->fp) << ".data" << endl << "backn: .asciiz \"\\n\"" << endl << ".text" << endl << ".globl main\n" << endl;
     }
 
 

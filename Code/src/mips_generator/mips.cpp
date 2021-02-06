@@ -149,5 +149,5 @@
     }
     void MIPSCodeGenerator::add_label(string label)
     {
-        *(this->fp) << label << ":" << endl;
+        *(this->fp) << label << ":" << endl << endl;
     }
