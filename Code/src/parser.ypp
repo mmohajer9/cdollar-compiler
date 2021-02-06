@@ -63,8 +63,8 @@
 %token <stringVal> IDENTIFIER
 %token <intVal>	NUMBER
 
-%type <intVal> function ids stmt_call_function
-%type <node> expression
+%type <intVal> function stmt_call_function
+%type <node> expression ids
 
 
 %start program
@@ -111,7 +111,8 @@ stmt_declare: 		type IDENTIFIER ids {
 						if(result == NULL)
 						{
 							string register_name = find_free_register(saved_regsiters , 8 , 0);
-							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , $3);
+							strcpy($3.reg , register_name.c_str());
+							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , $3.value);
 						}
 						else
 						{
@@ -119,7 +120,7 @@ stmt_declare: 		type IDENTIFIER ids {
 							exit(1);
 						}
 					}
-ids:		  		ST_DOLLAR {$$ = 0;} | 
+ids:		  		ST_DOLLAR {$$.value = 0;} | 
 					ST_COMMA IDENTIFIER ids {
 
 						string str($2);
@@ -127,7 +128,8 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 						if(result == NULL)
 						{
 							string register_name = find_free_register(saved_regsiters , 8 , 0);
-							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"",$3);
+							strcpy($3.reg , register_name.c_str());
+							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"",$3.value);
 						}
 						else
 						{
@@ -135,7 +137,7 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 							exit(1);
 						}
 					}; | 
-					OP_ASSIGN expression ids {$$ = $2.value;}
+					OP_ASSIGN expression ids {$$ = $2;}
 
 
 
@@ -369,6 +371,7 @@ expression: 		expression OP_PLUS expression {
 						{
 							node_t dst;
 							dst.value = result->value;
+							strcpy(dst.reg, result->reg.c_str());
 							$$ = dst;
 
 							cg.move(dst.reg , result->reg);	

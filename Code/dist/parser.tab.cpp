@@ -586,13 +586,13 @@ static const yytype_int16 yyrline[] =
 {
        0,    85,    85,    91,    91,    93,    93,    95,    95,    97,
       97,    99,    99,   101,   101,   102,   102,   102,   102,   102,
-     102,   104,   106,   107,   122,   123,   138,   143,   145,   145,
-     146,   147,   147,   152,   167,   170,   170,   171,   171,   171,
-     172,   172,   172,   172,   173,   173,   174,   174,   176,   176,
-     177,   177,   177,   177,   183,   195,   205,   215,   226,   237,
-     248,   259,   269,   279,   289,   299,   309,   319,   329,   340,
-     349,   359,   360,   377,   384,   391,   398,   405,   414,   414,
-     415,   415,   430,   430
+     102,   104,   106,   107,   123,   124,   140,   145,   147,   147,
+     148,   149,   149,   154,   169,   172,   172,   173,   173,   173,
+     174,   174,   174,   174,   175,   175,   176,   176,   178,   178,
+     179,   179,   179,   179,   185,   197,   207,   217,   228,   239,
+     250,   261,   271,   281,   291,   301,   311,   321,   331,   342,
+     351,   361,   362,   380,   388,   396,   404,   412,   422,   422,
+     423,   423,   438,   438
 };
 #endif
 
@@ -1661,7 +1661,8 @@ yyreduce:
 						if(result == NULL)
 						{
 							string register_name = find_free_register(saved_regsiters , 8 , 0);
-							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , (yyvsp[0].intVal));
+							strcpy((yyvsp[0].node).reg , register_name.c_str());
+							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , (yyvsp[0].node).value);
 						}
 						else
 						{
@@ -1669,17 +1670,17 @@ yyreduce:
 							exit(1);
 						}
 					}
-#line 1673 "./dist/parser.tab.cpp"
+#line 1674 "./dist/parser.tab.cpp"
     break;
 
   case 24: /* ids: ST_DOLLAR  */
-#line 122 "src/parser.ypp"
-                                          {(yyval.intVal) = 0;}
-#line 1679 "./dist/parser.tab.cpp"
+#line 123 "src/parser.ypp"
+                                          {(yyval.node).value = 0;}
+#line 1680 "./dist/parser.tab.cpp"
     break;
 
   case 25: /* ids: ST_COMMA IDENTIFIER ids  */
-#line 123 "src/parser.ypp"
+#line 124 "src/parser.ypp"
                                                                 {
 
 						string str((yyvsp[-1].stringVal));
@@ -1687,7 +1688,8 @@ yyreduce:
 						if(result == NULL)
 						{
 							string register_name = find_free_register(saved_regsiters , 8 , 0);
-							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"",(yyvsp[0].intVal));
+							strcpy((yyvsp[0].node).reg , register_name.c_str());
+							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"",(yyvsp[0].node).value);
 						}
 						else
 						{
@@ -1695,17 +1697,17 @@ yyreduce:
 							exit(1);
 						}
 					}
-#line 1699 "./dist/parser.tab.cpp"
+#line 1701 "./dist/parser.tab.cpp"
     break;
 
   case 26: /* ids: OP_ASSIGN expression ids  */
-#line 138 "src/parser.ypp"
-                                                                 {(yyval.intVal) = (yyvsp[-1].node).value;}
-#line 1705 "./dist/parser.tab.cpp"
+#line 140 "src/parser.ypp"
+                                                                 {(yyval.node) = (yyvsp[-1].node);}
+#line 1707 "./dist/parser.tab.cpp"
     break;
 
   case 33: /* stmt_assignment: IDENTIFIER OP_ASSIGN expression ST_DOLLAR  */
-#line 152 "src/parser.ypp"
+#line 154 "src/parser.ypp"
                                                                   {
 						string str((yyvsp[-3].stringVal));
 						Node* result = st.find(str , semantic_stack);
@@ -1720,71 +1722,71 @@ yyreduce:
 							clear_registers(temporal_registers , 10);
 						}
 					}
-#line 1724 "./dist/parser.tab.cpp"
+#line 1726 "./dist/parser.tab.cpp"
     break;
 
   case 37: /* $@5: %empty  */
-#line 171 "src/parser.ypp"
+#line 173 "src/parser.ypp"
                                               {current_scope = current_scope + "__if"; semantic_stack.push(current_scope);}
-#line 1730 "./dist/parser.tab.cpp"
+#line 1732 "./dist/parser.tab.cpp"
     break;
 
   case 38: /* $@6: %empty  */
-#line 171 "src/parser.ypp"
+#line 173 "src/parser.ypp"
                                                                                                                                                                        { semantic_stack.pop(); current_scope = semantic_stack.top(); }
-#line 1736 "./dist/parser.tab.cpp"
+#line 1738 "./dist/parser.tab.cpp"
     break;
 
   case 40: /* $@7: %empty  */
-#line 172 "src/parser.ypp"
+#line 174 "src/parser.ypp"
                                           {current_scope = current_scope + "__elseif"; semantic_stack.push(current_scope);}
-#line 1742 "./dist/parser.tab.cpp"
+#line 1744 "./dist/parser.tab.cpp"
     break;
 
   case 41: /* $@8: %empty  */
-#line 172 "src/parser.ypp"
+#line 174 "src/parser.ypp"
                                                                                                                                                                        { semantic_stack.pop(); current_scope = semantic_stack.top(); }
-#line 1748 "./dist/parser.tab.cpp"
+#line 1750 "./dist/parser.tab.cpp"
     break;
 
   case 44: /* $@9: %empty  */
-#line 173 "src/parser.ypp"
+#line 175 "src/parser.ypp"
                                          {current_scope = current_scope + "__else"; semantic_stack.push(current_scope);}
-#line 1754 "./dist/parser.tab.cpp"
+#line 1756 "./dist/parser.tab.cpp"
     break;
 
   case 45: /* else: KW_ELSE ST_LCURL $@9 stmts ST_RCURL  */
-#line 173 "src/parser.ypp"
+#line 175 "src/parser.ypp"
                                                                                                                                         { semantic_stack.pop(); current_scope = semantic_stack.top(); }
-#line 1760 "./dist/parser.tab.cpp"
+#line 1762 "./dist/parser.tab.cpp"
     break;
 
   case 46: /* $@10: %empty  */
-#line 174 "src/parser.ypp"
+#line 176 "src/parser.ypp"
                                       {current_scope = current_scope + "__if"; semantic_stack.push(current_scope);}
-#line 1766 "./dist/parser.tab.cpp"
+#line 1768 "./dist/parser.tab.cpp"
     break;
 
   case 47: /* unmatched: KW_IF ST_LPAR $@10 expression ST_RPAR ST_LCURL stmts ST_RCURL  */
-#line 174 "src/parser.ypp"
+#line 176 "src/parser.ypp"
                                                                                                                                                                { semantic_stack.pop(); current_scope = semantic_stack.top(); }
-#line 1772 "./dist/parser.tab.cpp"
+#line 1774 "./dist/parser.tab.cpp"
     break;
 
   case 48: /* $@11: %empty  */
-#line 176 "src/parser.ypp"
+#line 178 "src/parser.ypp"
                                                  {current_scope = current_scope + "__while"; semantic_stack.push(current_scope);}
-#line 1778 "./dist/parser.tab.cpp"
+#line 1780 "./dist/parser.tab.cpp"
     break;
 
   case 49: /* stmt_while: KW_WHILE ST_LPAR $@11 expression ST_RPAR ST_LCURL loop_stmts ST_RCURL  */
-#line 176 "src/parser.ypp"
+#line 178 "src/parser.ypp"
                                                                                                                                                                                   { semantic_stack.pop(); current_scope = semantic_stack.top(); }
-#line 1784 "./dist/parser.tab.cpp"
+#line 1786 "./dist/parser.tab.cpp"
     break;
 
   case 54: /* expression: expression OP_PLUS expression  */
-#line 183 "src/parser.ypp"
+#line 185 "src/parser.ypp"
                                                       {
 	
 						node_t dst;
@@ -1796,11 +1798,11 @@ yyreduce:
 						cg.add(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					
 					}
-#line 1800 "./dist/parser.tab.cpp"
+#line 1802 "./dist/parser.tab.cpp"
     break;
 
   case 55: /* expression: expression OP_MINUS expression  */
-#line 195 "src/parser.ypp"
+#line 197 "src/parser.ypp"
                                                                        {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1810,11 +1812,11 @@ yyreduce:
 
 						cg.sub(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1814 "./dist/parser.tab.cpp"
+#line 1816 "./dist/parser.tab.cpp"
     break;
 
   case 56: /* expression: expression OP_MULTIPLY expression  */
-#line 205 "src/parser.ypp"
+#line 207 "src/parser.ypp"
                                                                           {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1824,11 +1826,11 @@ yyreduce:
 
 						cg.mul(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1828 "./dist/parser.tab.cpp"
+#line 1830 "./dist/parser.tab.cpp"
     break;
 
   case 57: /* expression: expression OP_DIVIDE expression  */
-#line 215 "src/parser.ypp"
+#line 217 "src/parser.ypp"
                                                                         {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1839,11 +1841,11 @@ yyreduce:
 						cg.div((yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 						cg.divQ(dst.reg);
 					}
-#line 1843 "./dist/parser.tab.cpp"
+#line 1845 "./dist/parser.tab.cpp"
     break;
 
   case 58: /* expression: expression OP_LESS expression  */
-#line 226 "src/parser.ypp"
+#line 228 "src/parser.ypp"
                                                                       {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1854,11 +1856,11 @@ yyreduce:
 						cg.slt(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 
 					}
-#line 1858 "./dist/parser.tab.cpp"
+#line 1860 "./dist/parser.tab.cpp"
     break;
 
   case 59: /* expression: expression OP_LESS_EQUAL expression  */
-#line 237 "src/parser.ypp"
+#line 239 "src/parser.ypp"
                                                                             {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1869,11 +1871,11 @@ yyreduce:
 						cg.sle(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 
 					}
-#line 1873 "./dist/parser.tab.cpp"
+#line 1875 "./dist/parser.tab.cpp"
     break;
 
   case 60: /* expression: expression OP_EQUAL expression  */
-#line 248 "src/parser.ypp"
+#line 250 "src/parser.ypp"
                                                                        {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1884,11 +1886,11 @@ yyreduce:
 						cg.seq(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 ;
 					}
-#line 1888 "./dist/parser.tab.cpp"
+#line 1890 "./dist/parser.tab.cpp"
     break;
 
   case 61: /* expression: expression OP_NOT_EQUAL expression  */
-#line 259 "src/parser.ypp"
+#line 261 "src/parser.ypp"
                                                                            {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1898,11 +1900,11 @@ yyreduce:
 
 						cg.sne(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1902 "./dist/parser.tab.cpp"
+#line 1904 "./dist/parser.tab.cpp"
     break;
 
   case 62: /* expression: expression OP_GREATER expression  */
-#line 269 "src/parser.ypp"
+#line 271 "src/parser.ypp"
                                                                          {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1912,11 +1914,11 @@ yyreduce:
 
 						cg.sgt(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1916 "./dist/parser.tab.cpp"
+#line 1918 "./dist/parser.tab.cpp"
     break;
 
   case 63: /* expression: expression OP_GREATER_EQUAL expression  */
-#line 279 "src/parser.ypp"
+#line 281 "src/parser.ypp"
                                                                                {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1926,11 +1928,11 @@ yyreduce:
 
 						cg.sge(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1930 "./dist/parser.tab.cpp"
+#line 1932 "./dist/parser.tab.cpp"
     break;
 
   case 64: /* expression: expression OP_LOGICAL_OR expression  */
-#line 289 "src/parser.ypp"
+#line 291 "src/parser.ypp"
                                                                             {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1940,11 +1942,11 @@ yyreduce:
 
 						cg._or(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1944 "./dist/parser.tab.cpp"
+#line 1946 "./dist/parser.tab.cpp"
     break;
 
   case 65: /* expression: expression OP_LOGICAL_AND expression  */
-#line 299 "src/parser.ypp"
+#line 301 "src/parser.ypp"
                                                                              {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1954,11 +1956,11 @@ yyreduce:
 
 						cg._and(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1958 "./dist/parser.tab.cpp"
+#line 1960 "./dist/parser.tab.cpp"
     break;
 
   case 66: /* expression: expression OP_BITWISE_OR expression  */
-#line 309 "src/parser.ypp"
+#line 311 "src/parser.ypp"
                                                                             {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1968,11 +1970,11 @@ yyreduce:
 
 						cg._or(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1972 "./dist/parser.tab.cpp"
+#line 1974 "./dist/parser.tab.cpp"
     break;
 
   case 67: /* expression: expression OP_BITWISE_AND expression  */
-#line 319 "src/parser.ypp"
+#line 321 "src/parser.ypp"
                                                                              {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1982,11 +1984,11 @@ yyreduce:
 
 						cg._and(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1986 "./dist/parser.tab.cpp"
+#line 1988 "./dist/parser.tab.cpp"
     break;
 
   case 68: /* expression: expression OP_BITWISE_XOR expression  */
-#line 329 "src/parser.ypp"
+#line 331 "src/parser.ypp"
                                                                              {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -1996,11 +1998,11 @@ yyreduce:
 
 						cg._xor(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 2000 "./dist/parser.tab.cpp"
+#line 2002 "./dist/parser.tab.cpp"
     break;
 
   case 69: /* expression: OP_LOGICAL_NOT expression  */
-#line 340 "src/parser.ypp"
+#line 342 "src/parser.ypp"
                                                                   {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -2010,11 +2012,11 @@ yyreduce:
 
 						cg.neg(dst.reg , (yyvsp[0].node).reg);
 					}
-#line 2014 "./dist/parser.tab.cpp"
+#line 2016 "./dist/parser.tab.cpp"
     break;
 
   case 70: /* expression: OP_MINUS expression  */
-#line 349 "src/parser.ypp"
+#line 351 "src/parser.ypp"
                                                             {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
@@ -2024,17 +2026,17 @@ yyreduce:
 
 						cg.neg(dst.reg , (yyvsp[0].node).reg);
 					}
-#line 2028 "./dist/parser.tab.cpp"
+#line 2030 "./dist/parser.tab.cpp"
     break;
 
   case 71: /* expression: ST_LPAR expression ST_RPAR  */
-#line 359 "src/parser.ypp"
+#line 361 "src/parser.ypp"
                                                                    {(yyval.node) = (yyvsp[-1].node);}
-#line 2034 "./dist/parser.tab.cpp"
+#line 2036 "./dist/parser.tab.cpp"
     break;
 
   case 72: /* expression: IDENTIFIER  */
-#line 360 "src/parser.ypp"
+#line 362 "src/parser.ypp"
                                                    {
 						string str((yyvsp[0].stringVal));
 						Node* result = st.find(str , semantic_stack);
@@ -2047,76 +2049,82 @@ yyreduce:
 						{
 							node_t dst;
 							dst.value = result->value;
+							strcpy(dst.reg, result->reg.c_str());
 							(yyval.node) = dst;
 
 							cg.move(dst.reg , result->reg);	
 						}
 					}
-#line 2056 "./dist/parser.tab.cpp"
+#line 2059 "./dist/parser.tab.cpp"
     break;
 
   case 73: /* expression: NUMBER  */
-#line 377 "src/parser.ypp"
+#line 380 "src/parser.ypp"
                                                {
 						node_t dst;
 						dst.value = (yyvsp[0].intVal);
+						strcpy((yyval.node).reg , dst.reg);
 						(yyval.node) = dst;
 
 						cg.li(dst.reg , (yyvsp[0].intVal));
 					}
-#line 2068 "./dist/parser.tab.cpp"
+#line 2072 "./dist/parser.tab.cpp"
     break;
 
   case 74: /* expression: NCHAR  */
-#line 384 "src/parser.ypp"
+#line 388 "src/parser.ypp"
                                               {
 						node_t dst;
 						dst.value = (yyvsp[0].charVal);
+						strcpy((yyval.node).reg , dst.reg);
 						(yyval.node) = dst;
 
 						cg.li(dst.reg , (yyvsp[0].charVal));
 					}
-#line 2080 "./dist/parser.tab.cpp"
+#line 2085 "./dist/parser.tab.cpp"
     break;
 
   case 75: /* expression: UCHAR  */
-#line 391 "src/parser.ypp"
+#line 396 "src/parser.ypp"
                                               {
 						node_t dst;
 						dst.value = (yyvsp[0].charVal);
+						strcpy((yyval.node).reg , dst.reg);
 						(yyval.node) = dst;
 
 						cg.li(dst.reg , (yyvsp[0].charVal));
 					}
-#line 2092 "./dist/parser.tab.cpp"
+#line 2098 "./dist/parser.tab.cpp"
     break;
 
   case 76: /* expression: LCHAR  */
-#line 398 "src/parser.ypp"
+#line 404 "src/parser.ypp"
                                               {
 						node_t dst;
 						dst.value = (yyvsp[0].charVal);
+						strcpy((yyval.node).reg , dst.reg);
 						(yyval.node) = dst;
 
 						cg.li(dst.reg , (yyvsp[0].charVal));
 					}
-#line 2104 "./dist/parser.tab.cpp"
+#line 2111 "./dist/parser.tab.cpp"
     break;
 
   case 77: /* expression: stmt_call_function  */
-#line 405 "src/parser.ypp"
+#line 412 "src/parser.ypp"
                                                            {
 						node_t dst;
 						dst.value = (yyvsp[0].intVal);
+						strcpy((yyval.node).reg , dst.reg);
 						(yyval.node) = dst;
 
 						cg.li(dst.reg , (yyvsp[0].intVal));
 					}
-#line 2116 "./dist/parser.tab.cpp"
+#line 2124 "./dist/parser.tab.cpp"
     break;
 
   case 80: /* $@12: %empty  */
-#line 415 "src/parser.ypp"
+#line 423 "src/parser.ypp"
                                                 {
 
 						string str((yyvsp[0].stringVal));
@@ -2132,11 +2140,11 @@ yyreduce:
 							exit(1);
 						}
 					}
-#line 2136 "./dist/parser.tab.cpp"
+#line 2144 "./dist/parser.tab.cpp"
     break;
 
 
-#line 2140 "./dist/parser.tab.cpp"
+#line 2148 "./dist/parser.tab.cpp"
 
       default: break;
     }
@@ -2361,7 +2369,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 433 "src/parser.ypp"
+#line 441 "src/parser.ypp"
 
 
 

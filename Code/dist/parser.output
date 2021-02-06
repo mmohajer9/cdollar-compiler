@@ -236,7 +236,7 @@ Nonterminals, with rules where they appear
     stmt_declare (60)
         on left: 22
         on right: 14
-    ids <intVal> (61)
+    ids <node> (61)
         on left: 23 24 25
         on right: 22 24 25
     stmt_call_function <intVal> (62)
