@@ -117,7 +117,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 41 "src/parser.ypp"
+#line 42 "src/parser.ypp"
 
 
 	int intVal;

@@ -27,6 +27,7 @@
 	stack <string> semantic_stack;
 	string current_scope = "global";
 	string current_variable_data_type = "NONE";
+	string current_temp_register = "NONE";
 
 	SymbolTable st;
 	MIPSCodeGenerator cg;
@@ -113,6 +114,7 @@ stmt_declare: 		type IDENTIFIER ids {
 							string register_name = find_free_register(saved_regsiters , 8 , 0);
 							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , $3);
 							
+							cg.move(register_name , current_temp_register);
 						}
 						else
 						{
@@ -129,6 +131,8 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 						{
 							string register_name = find_free_register(saved_regsiters , 8 , 0);
 							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"",$3);
+							
+							cg.move(register_name , current_temp_register);
 						}
 						else
 						{
@@ -136,7 +140,11 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 							exit(1);
 						}
 					}; | 
-					OP_ASSIGN expression ids {$$ = $2.value;}
+					OP_ASSIGN expression ids {
+						// Node* result = st.find(current_identifying_variable , semantic_stack);
+						$$ = $2.value;
+						current_temp_register = $2.reg;
+					}
 
 
 
@@ -359,8 +367,6 @@ expression: 		expression OP_PLUS expression {
 
 					ST_LPAR expression ST_RPAR {
 						$$ = $2;
-
-						cg.move($$.reg , $2.reg);
 					} |
 					IDENTIFIER {
 						string str($1);
@@ -381,6 +387,8 @@ expression: 		expression OP_PLUS expression {
 					} |
 					NUMBER {
 						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						strcpy(dst.reg, reg.c_str());
 						dst.value = $1;
 						$$ = dst;
 
