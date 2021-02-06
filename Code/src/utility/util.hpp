@@ -19,14 +19,14 @@ extern int yylex();
 extern int yylineno;
 extern char* yytext;
 
-
 int yyparse();
 void yyerror(const char *s);
 
 void showstack(stack <int> s);
 int calculate(int token , int leftVal , int rightVal);
-int find_free_register(int* array , int size);
 
+string find_free_register(int *array, int size , int mode);
+void clear_registers(int* array, int size);
 
 
 #endif

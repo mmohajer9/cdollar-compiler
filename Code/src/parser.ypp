@@ -1,3 +1,11 @@
+%code requires {
+
+	typedef struct tnode {
+		int value;
+		char reg[100];
+	} node_t;
+}
+
 %{
 	#include <iostream>
 	#include <fstream> 
@@ -21,7 +29,6 @@
 	string current_variable_data_type = "NONE";
 
 	SymbolTable st;
-	Node* node;
 	MIPSCodeGenerator cg;
 
 	int temporal_registers[10] = {};
@@ -36,7 +43,7 @@
 	int intVal;
 	char charVal;
 	char* stringVal;
-
+	node_t node;
 }
 
 
@@ -56,7 +63,9 @@
 %token <stringVal> IDENTIFIER
 %token <intVal>	NUMBER
 
-%type <intVal> expression function ids stmt_call_function
+%type <intVal> function ids stmt_call_function
+%type <node> expression
+
 
 %start program
 
@@ -101,8 +110,7 @@ stmt_declare: 		type IDENTIFIER ids {
 						Node* result = st.find(str , semantic_stack);
 						if(result == NULL)
 						{
-							int index_of_free_register = find_free_register(saved_regsiters , 8);
-							string register_name = "$s" + to_string(index_of_free_register);
+							string register_name = find_free_register(saved_regsiters , 8 , 0);
 							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , $3);
 						}
 						else
@@ -118,8 +126,7 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 						Node* result = st.find(str , semantic_stack);
 						if(result == NULL)
 						{
-							int index_of_free_register = find_free_register(saved_regsiters , 8);
-							string register_name = "$s" + to_string(index_of_free_register);
+							string register_name = find_free_register(saved_regsiters , 8 , 0);
 							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"",$3);
 						}
 						else
@@ -128,7 +135,7 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 							exit(1);
 						}
 					}; | 
-					OP_ASSIGN expression ids {$$ = $2;}
+					OP_ASSIGN expression ids {$$ = $2.value;}
 
 
 
@@ -152,7 +159,8 @@ stmt_assignment:	IDENTIFIER OP_ASSIGN expression ST_DOLLAR {
 						}
 						else
 						{
-							result->value = $3;
+							result->value = $3.value;
+							clear_registers(temporal_registers , 10);
 						}
 					}
 
@@ -173,68 +181,142 @@ loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK ST_DOLLAR | loop_stmts KW_C
 /* for:				KW_FOR ST_LPAR stmt_declare  */
 
 expression: 		expression OP_PLUS expression {
-						$$ = calculate(OP_PLUS , $1 , $3);
+	
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_PLUS , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
+					
 					};
 					|
 					expression OP_MINUS expression {
-						$$ = calculate(OP_MINUS , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_MINUS , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_MULTIPLY expression {
-						$$ = calculate(OP_MULTIPLY , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_MULTIPLY , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_DIVIDE expression {
-						$$ = calculate(OP_DIVIDE , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_DIVIDE , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_LESS expression {
-						$$ = calculate(OP_LESS , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_LESS , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_LESS_EQUAL expression {
-						$$ = calculate(OP_LESS_EQUAL , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_LESS_EQUAL , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_EQUAL expression {
-						$$ = calculate(OP_EQUAL , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_EQUAL , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_NOT_EQUAL expression {
-						$$ = calculate(OP_NOT_EQUAL , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_NOT_EQUAL , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_GREATER expression {
-						$$ = calculate(OP_GREATER , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_GREATER , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_GREATER_EQUAL expression {
-						$$ = calculate(OP_GREATER_EQUAL , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_GREATER_EQUAL , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_LOGICAL_OR expression {
-						$$ = calculate(OP_LOGICAL_OR , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_LOGICAL_OR , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_LOGICAL_AND expression {
-						$$ = calculate(OP_LOGICAL_AND , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_LOGICAL_AND , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_BITWISE_OR expression {
-						$$ = calculate(OP_BITWISE_OR , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_BITWISE_OR , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_BITWISE_AND expression {
-						$$ = calculate(OP_BITWISE_AND , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_BITWISE_AND , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 					expression OP_BITWISE_XOR expression {
-						$$ = calculate(OP_BITWISE_XOR , $1 , $3);
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = calculate(OP_BITWISE_XOR , $1.value , $3.value);
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
 					};
 					|
 
-					OP_LOGICAL_NOT expression {$$ = $2 == 0 ? 1 : 0;} | 
-					OP_MINUS expression {$$ = -1 * $2;} |
+					OP_LOGICAL_NOT expression {
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = $2.value == 0 ? 1 : 0;
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
+					} | 
+					OP_MINUS expression {
+						node_t dst;
+						string reg = find_free_register(temporal_registers , 10 , 1);
+						dst.value = $2.value * -1;
+						strcpy(dst.reg, reg.c_str());
+						$$ = dst;
+					} |
 
 					ST_LPAR expression ST_RPAR {$$ = $2;} |
 					IDENTIFIER {
@@ -247,26 +329,36 @@ expression: 		expression OP_PLUS expression {
 						}
 						else
 						{
-							int index_of_free_register = find_free_register(saved_regsiters , 8);
-							string register_name = "$s" + to_string(index_of_free_register);
-
-							cg.move(register_name , result->reg);
-							$$ = result->value;
+							node_t dst;
+							dst.value = result->value;;
+							$$ = dst;	
 						}
 					} |
 					NUMBER {
-						$$ = $1;
+						node_t dst;
+						dst.value = $1;
+						$$ = dst;
 					} |
 					NCHAR {
-						$$ = $1;
+						node_t dst;
+						dst.value = $1;
+						$$ = dst;
 					} |
 					UCHAR {
-						$$ = $1;
+						node_t dst;
+						dst.value = $1;
+						$$ = dst;
 					} |
 					LCHAR {
-						$$ = $1;
+						node_t dst;
+						dst.value = $1;
+						$$ = dst;
 					} |
-					stmt_call_function { $$ = $1 ;}
+					stmt_call_function {
+						node_t dst;
+						dst.value = $1;
+						$$ = dst;
+					}
 
 
 arguments:			args_part1 |
@@ -276,8 +368,7 @@ args_part1:			type IDENTIFIER {
 						Node* result = st.find(str , semantic_stack);
 						if(result == NULL)
 						{
-							int index_of_free_register = find_free_register(saved_regsiters , 8);
-							string register_name = "$s" + to_string(index_of_free_register);
+							string register_name = find_free_register(saved_regsiters , 8 , 0);
 							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , 0);
 						}
 						else

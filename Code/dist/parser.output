@@ -299,7 +299,7 @@ Nonterminals, with rules where they appear
     loop_stmts (81)
         on left: 49 50 51 52
         on right: 48 49 50 51
-    expression <intVal> (82)
+    expression <node> (82)
         on left: 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76
         on right: 25 29 32 33 38 41 46 48 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70
     arguments (83)

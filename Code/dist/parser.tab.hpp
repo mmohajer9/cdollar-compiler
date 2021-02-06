@@ -44,6 +44,16 @@
 #if YYDEBUG
 extern int yydebug;
 #endif
+/* "%code requires" blocks.  */
+#line 1 "src/parser.ypp"
+
+
+	typedef struct tnode {
+		int value;
+		char reg[100];
+	} node_t;
+
+#line 57 "./dist/parser.tab.hpp"
 
 /* Token kinds.  */
 #ifndef YYTOKENTYPE
@@ -107,15 +117,15 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 34 "src/parser.ypp"
+#line 41 "src/parser.ypp"
 
 
 	int intVal;
 	char charVal;
 	char* stringVal;
+	node_t node;
 
-
-#line 119 "./dist/parser.tab.hpp"
+#line 129 "./dist/parser.tab.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
