@@ -26,7 +26,7 @@
 
 	FILE* mips;
 
-	stack <int> semantic_stack;
+	stack <string> semantic_stack;
 
 	string current_scope = "global";
 	string current_variable_data_type = "NONE";
@@ -67,7 +67,7 @@
 %token <stringVal> IDENTIFIER
 %token <intVal>	NUMBER
 
-%type <intVal> expression function ids
+%type <intVal> expression function ids stmt_call_function
 
 %start program
 
@@ -92,16 +92,16 @@ global_declare: 	type IDENTIFIER OP_ASSIGN expression ST_DOLLAR */
 
 functions :   		functions function | 
 
-main:		  		KW_INT KW_MAIN ST_LPAR {current_scope = "main";} arguments ST_RPAR ST_LCURL stmts ST_RCURL   
+main:		  		KW_INT KW_MAIN ST_LPAR {current_scope = "main"; semantic_stack.push(current_scope);} arguments ST_RPAR ST_LCURL stmts  ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}   
 			  		|
-			  		KW_VOID KW_MAIN ST_LPAR {current_scope = "main";} arguments ST_RPAR ST_LCURL stmts ST_RCURL
+			  		KW_VOID KW_MAIN ST_LPAR {current_scope = "main";  semantic_stack.push(current_scope);} arguments ST_RPAR ST_LCURL stmts ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}
 
-function  :   		KW_INT IDENTIFIER ST_LPAR {string str($2); current_scope = str;} arguments ST_RPAR ST_LCURL stmts ST_RCURL
+function  :   		KW_INT IDENTIFIER ST_LPAR {string str($2); current_scope = str; semantic_stack.push(current_scope);} arguments ST_RPAR ST_LCURL stmts  ST_RCURL {current_scope = semantic_stack.top(); semantic_stack.pop();}
 			  		|
-			  		KW_VOID IDENTIFIER ST_LPAR {string str($2); current_scope = str;} arguments ST_RPAR ST_LCURL stmts ST_RCURL		
+			  		KW_VOID IDENTIFIER ST_LPAR {string str($2); current_scope = str; semantic_stack.push(current_scope);} arguments ST_RPAR ST_LCURL stmts ST_RCURL	{current_scope = semantic_stack.top(); semantic_stack.pop();}	
 
 stmts: 		  		stmt stmts | 
-stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return | stmt_while
+stmt:		  		stmt_declare | stmt_assignment | stmt_if | stmt_return | stmt_while | stmt_call_function ST_DOLLAR
 
 type:		  		KW_INT {current_variable_data_type = "int";} 
 					| 
@@ -109,7 +109,7 @@ type:		  		KW_INT {current_variable_data_type = "int";}
 stmt_declare: 		type IDENTIFIER ids {
 
 						string str($2);
-						Node* result = st.find(str , current_scope);
+						Node* result = st.find(str , semantic_stack);
 						if(result == NULL)
 						{
 							int index_of_free_register = find_free_register(saved_regsiters , 8);
@@ -126,7 +126,7 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 					ST_COMMA IDENTIFIER ids {
 
 						string str($2);
-						Node* result = st.find(str , current_scope);
+						Node* result = st.find(str , semantic_stack);
 						if(result == NULL)
 						{
 							int index_of_free_register = find_free_register(saved_regsiters , 8);
@@ -141,9 +141,21 @@ ids:		  		ST_DOLLAR {$$ = 0;} |
 					}; | 
 					OP_ASSIGN expression ids {$$ = $2;}
 
+
+
+
+stmt_call_function:	IDENTIFIER ST_LPAR fun_arguments ST_RPAR 
+
+fun_arguments:		args_part1 |
+fun_args_part1:		IDENTIFIER args_part2
+args_part2:			ST_COMMA args_part1 |
+
+
+
+
 stmt_assignment:	IDENTIFIER OP_ASSIGN expression ST_DOLLAR {
 						string str($1);
-						Node* result = st.find(str , current_scope);
+						Node* result = st.find(str , semantic_stack);
 						if(result == NULL)
 						{
 							yyerror("variable is not declared");
@@ -159,12 +171,12 @@ stmt_return:  		KW_RETURN expression ST_DOLLAR
 
 
 stmt_if: 	  		matched | unmatched
-matched: 	  		KW_IF ST_LPAR {current_scope = current_scope + "__if";} expression ST_RPAR ST_LCURL stmts ST_RCURL elseif
-elseif:       		KW_ELSEIF ST_LPAR {current_scope = current_scope + "__elseif";} expression ST_RPAR ST_LCURL stmts ST_RCURL elseif | else	
-else:         		KW_ELSE ST_LCURL {current_scope = current_scope + "__else";} stmts ST_RCURL
-unmatched:    		KW_IF ST_LPAR {current_scope = current_scope + "__if";} expression ST_RPAR ST_LCURL stmts ST_RCURL
+matched: 	  		KW_IF ST_LPAR {current_scope = current_scope + "__if"; semantic_stack.push(current_scope);} expression ST_RPAR ST_LCURL stmts ST_RCURL { semantic_stack.pop(); current_scope = semantic_stack.top(); } elseif
+elseif:       		KW_ELSEIF ST_LPAR {current_scope = current_scope + "__elseif"; semantic_stack.push(current_scope);} expression ST_RPAR ST_LCURL stmts ST_RCURL { semantic_stack.pop(); current_scope = semantic_stack.top(); } elseif | else	
+else:         		KW_ELSE ST_LCURL {current_scope = current_scope + "__else"; semantic_stack.push(current_scope);} stmts ST_RCURL { semantic_stack.pop(); current_scope = semantic_stack.top(); }
+unmatched:    		KW_IF ST_LPAR {current_scope = current_scope + "__if"; semantic_stack.push(current_scope);} expression ST_RPAR ST_LCURL stmts ST_RCURL { semantic_stack.pop(); current_scope = semantic_stack.top(); }
 
-stmt_while:			KW_WHILE ST_LPAR {current_scope = current_scope + "__while";} expression ST_RPAR ST_LCURL loop_stmts ST_RCURL
+stmt_while:			KW_WHILE ST_LPAR {current_scope = current_scope + "__while"; semantic_stack.push(current_scope);} expression ST_RPAR ST_LCURL loop_stmts ST_RCURL { semantic_stack.pop(); current_scope = semantic_stack.top(); }
 loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK ST_DOLLAR | loop_stmts KW_CONTINUE ST_DOLLAR | 
 
 
@@ -238,7 +250,7 @@ expression: 		expression OP_PLUS expression {
 					ST_LPAR expression ST_RPAR {$$ = $2;} |
 					IDENTIFIER {
 						string str($1);
-						Node* result = st.find(str , current_scope);
+						Node* result = st.find(str , semantic_stack);
 						if(result == NULL)
 						{
 							yyerror("variable not found");
@@ -260,11 +272,27 @@ expression: 		expression OP_PLUS expression {
 					} |
 					LCHAR {
 						$$ = $1;
-					}
+					} |
+					stmt_call_function { $$ = $1 ;}
 
 
 arguments:			args_part1 |
-args_part1:			type IDENTIFIER args_part2
+args_part1:			type IDENTIFIER {
+
+						string str($2);
+						Node* result = st.find(str , semantic_stack);
+						if(result == NULL)
+						{
+							int index_of_free_register = find_free_register(saved_regsiters , 8);
+							string register_name = "$s" + to_string(index_of_free_register);
+							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , 0);
+						}
+						else
+						{
+							yyerror("multiple declaration of variable");
+							exit(1);
+						}
+					} args_part2
 args_part2:			ST_COMMA args_part1 |
 		
 

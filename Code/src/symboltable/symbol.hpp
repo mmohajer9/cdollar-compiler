@@ -1,6 +1,6 @@
 #ifndef SYMBOL_H
 #define SYMBOL_H
-
+#include<stack>
 #include <iostream>
 using namespace std;
 
@@ -61,7 +61,7 @@ public:
 	bool insert(string id, string scope,
 				string Type, int lineno, string reg, string address , int value);
 
-	Node *find(string id, string scope);
+	Node *find(string id, stack<string> scope);
 
 	bool deleteRecord(string id);
 

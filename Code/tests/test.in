@@ -1,23 +1,36 @@
-int func()
+int func(int a)
 {
-    int a$
+    
+    while(1){
+       a = 9$
+        break$
 
+    }
 }
 
 
 int main()
 {
-    int a = 2$
+    int a = 7$
+    int b,c$
+    func()$
 
     while(1)
     {
-        int a$
+        a = 7$
         break$
     }
 
+    if(a == 7){
+        a = 8$
+    }elseif(b==8){
+        b = 7$
+    }else{
+        c = 0$
+    }
+
     # bug inja rokh mide
-    int b$
-    int b$
+    b = 7$
 
     return 0$
 }

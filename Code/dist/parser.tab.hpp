@@ -1,9 +1,8 @@
-/* A Bison parser, made by GNU Bison 3.7.2.  */
+/* A Bison parser, made by GNU Bison 3.0.4.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2020 Free Software Foundation,
-   Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -31,10 +30,6 @@
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
 
-/* DO NOT RELY ON FEATURES THAT ARE NOT DOCUMENTED in the manual,
-   especially those whose name start with YY_ or yy_.  They are
-   private implementation details that can be changed or removed.  */
-
 #ifndef YY_YY_DIST_PARSER_TAB_HPP_INCLUDED
 # define YY_YY_DIST_PARSER_TAB_HPP_INCLUDED
 /* Debug traces.  */
@@ -45,69 +40,65 @@
 extern int yydebug;
 #endif
 
-/* Token kinds.  */
+/* Token type.  */
 #ifndef YYTOKENTYPE
 # define YYTOKENTYPE
   enum yytokentype
   {
-    YYEMPTY = -2,
-    YYEOF = 0,                     /* "end of file"  */
-    YYerror = 256,                 /* error  */
-    YYUNDEF = 257,                 /* "invalid token"  */
-    KW_VOID = 258,                 /* KW_VOID  */
-    KW_IF = 259,                   /* KW_IF  */
-    KW_RETURN = 260,               /* KW_RETURN  */
-    KW_INT = 261,                  /* KW_INT  */
-    KW_ELSE = 262,                 /* KW_ELSE  */
-    KW_MAIN = 263,                 /* KW_MAIN  */
-    KW_FOR = 264,                  /* KW_FOR  */
-    KW_BREAK = 265,                /* KW_BREAK  */
-    KW_CHAR = 266,                 /* KW_CHAR  */
-    KW_WHILE = 267,                /* KW_WHILE  */
-    KW_CONTINUE = 268,             /* KW_CONTINUE  */
-    KW_ELSEIF = 269,               /* KW_ELSEIF  */
-    NEW_LINE = 270,                /* NEW_LINE  */
-    OTHER = 271,                   /* OTHER  */
-    OP_ASSIGN = 272,               /* OP_ASSIGN  */
-    OP_PLUS = 273,                 /* OP_PLUS  */
-    OP_MINUS = 274,                /* OP_MINUS  */
-    OP_MULTIPLY = 275,             /* OP_MULTIPLY  */
-    OP_DIVIDE = 276,               /* OP_DIVIDE  */
-    OP_LESS = 277,                 /* OP_LESS  */
-    OP_LESS_EQUAL = 278,           /* OP_LESS_EQUAL  */
-    OP_EQUAL = 279,                /* OP_EQUAL  */
-    OP_NOT_EQUAL = 280,            /* OP_NOT_EQUAL  */
-    OP_GREATER = 281,              /* OP_GREATER  */
-    OP_GREATER_EQUAL = 282,        /* OP_GREATER_EQUAL  */
-    OP_BITWISE_OR = 283,           /* OP_BITWISE_OR  */
-    OP_BITWISE_AND = 284,          /* OP_BITWISE_AND  */
-    OP_BITWISE_XOR = 285,          /* OP_BITWISE_XOR  */
-    OP_LOGICAL_OR = 286,           /* OP_LOGICAL_OR  */
-    OP_LOGICAL_AND = 287,          /* OP_LOGICAL_AND  */
-    OP_LOGICAL_NOT = 288,          /* OP_LOGICAL_NOT  */
-    ST_LPAR = 289,                 /* ST_LPAR  */
-    ST_RPAR = 290,                 /* ST_RPAR  */
-    ST_LCURL = 291,                /* ST_LCURL  */
-    ST_RCURL = 292,                /* ST_RCURL  */
-    ST_LBR = 293,                  /* ST_LBR  */
-    ST_RBR = 294,                  /* ST_RBR  */
-    ST_DOLLAR = 295,               /* ST_DOLLAR  */
-    ST_COMMA = 296,                /* ST_COMMA  */
-    ST_SEMICOLON = 297,            /* ST_SEMICOLON  */
-    LCHAR = 298,                   /* LCHAR  */
-    UCHAR = 299,                   /* UCHAR  */
-    NCHAR = 300,                   /* NCHAR  */
-    IDENTIFIER = 301,              /* IDENTIFIER  */
-    NUMBER = 302                   /* NUMBER  */
+    KW_VOID = 258,
+    KW_IF = 259,
+    KW_RETURN = 260,
+    KW_INT = 261,
+    KW_ELSE = 262,
+    KW_MAIN = 263,
+    KW_FOR = 264,
+    KW_BREAK = 265,
+    KW_CHAR = 266,
+    KW_WHILE = 267,
+    KW_CONTINUE = 268,
+    KW_ELSEIF = 269,
+    NEW_LINE = 270,
+    OTHER = 271,
+    OP_ASSIGN = 272,
+    OP_PLUS = 273,
+    OP_MINUS = 274,
+    OP_MULTIPLY = 275,
+    OP_DIVIDE = 276,
+    OP_LESS = 277,
+    OP_LESS_EQUAL = 278,
+    OP_EQUAL = 279,
+    OP_NOT_EQUAL = 280,
+    OP_GREATER = 281,
+    OP_GREATER_EQUAL = 282,
+    OP_BITWISE_OR = 283,
+    OP_BITWISE_AND = 284,
+    OP_BITWISE_XOR = 285,
+    OP_LOGICAL_OR = 286,
+    OP_LOGICAL_AND = 287,
+    OP_LOGICAL_NOT = 288,
+    ST_LPAR = 289,
+    ST_RPAR = 290,
+    ST_LCURL = 291,
+    ST_RCURL = 292,
+    ST_LBR = 293,
+    ST_RBR = 294,
+    ST_DOLLAR = 295,
+    ST_COMMA = 296,
+    ST_SEMICOLON = 297,
+    LCHAR = 298,
+    UCHAR = 299,
+    NCHAR = 300,
+    IDENTIFIER = 301,
+    NUMBER = 302
   };
-  typedef enum yytokentype yytoken_kind_t;
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+
 union YYSTYPE
 {
-#line 45 "src/parser.ypp"
+#line 45 "src/parser.ypp" /* yacc.c:1909  */
 
 
 	int intVal;
@@ -115,9 +106,9 @@ union YYSTYPE
 	char* stringVal;
 
 
-#line 119 "./dist/parser.tab.hpp"
-
+#line 110 "./dist/parser.tab.hpp" /* yacc.c:1909  */
 };
+
 typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

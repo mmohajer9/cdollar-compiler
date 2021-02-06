@@ -68,21 +68,24 @@ bool SymbolTable::deleteRecord(string id)
 } 
 
 // Function to find an identifier 
-Node* SymbolTable::find(string id , string scope) 
+Node* SymbolTable::find(string id , stack <string> semantic_stack) 
 { 
 	int index = hashf(id);
 	Node* start = head[index];
+	stack <string> temp;
 
 	if (start == NULL)
 		return NULL; 
 
-	while (start != NULL) { 
-
-		if (start->identifier == id && start->scope == scope) { 
+	while (start != NULL) {
+		temp = semantic_stack; 
+		while(!temp.empty()){
+		if (start->identifier == id && start->scope == temp.top()) { 
 			start->print();
 			return start;
 		} 
-
+		temp.pop();
+		}
 		start = start->next; 
 	} 
 
