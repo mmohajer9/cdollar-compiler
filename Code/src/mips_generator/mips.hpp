@@ -72,9 +72,12 @@ public:
     void j(string label);
 
     void jr(string reg);
-    
+
     void jal(int address);
     void jal(string label);
+
+    //* utility
+    void add_label(string label);
 
 
 
