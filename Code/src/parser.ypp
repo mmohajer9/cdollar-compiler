@@ -255,7 +255,7 @@ expression: 		expression OP_PLUS expression {
 						$$ = dst;
 
 						cg.seq(dst.reg , $1.reg , $3.reg);
-;
+
 					};
 					|
 					expression OP_NOT_EQUAL expression {
@@ -358,7 +358,11 @@ expression: 		expression OP_PLUS expression {
 						cg.neg(dst.reg , $2.reg);
 					} |
 
-					ST_LPAR expression ST_RPAR {$$ = $2;} |
+					ST_LPAR expression ST_RPAR {
+						$$ = $2;
+
+						cg.move($$.reg , $2.reg);
+					} |
 					IDENTIFIER {
 						string str($1);
 						Node* result = st.find(str , semantic_stack);
