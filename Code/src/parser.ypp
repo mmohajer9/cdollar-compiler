@@ -63,8 +63,8 @@
 %token <stringVal> IDENTIFIER
 %token <intVal>	NUMBER
 
-%type <intVal> function stmt_call_function
-%type <node> expression ids
+%type <intVal> function stmt_call_function ids
+%type <node> expression
 
 
 %start program
@@ -111,8 +111,8 @@ stmt_declare: 		type IDENTIFIER ids {
 						if(result == NULL)
 						{
 							string register_name = find_free_register(saved_regsiters , 8 , 0);
-							strcpy($3.reg , register_name.c_str());
-							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , $3.value);
+							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"" , $3);
+							
 						}
 						else
 						{
@@ -120,7 +120,7 @@ stmt_declare: 		type IDENTIFIER ids {
 							exit(1);
 						}
 					}
-ids:		  		ST_DOLLAR {$$.value = 0;} | 
+ids:		  		ST_DOLLAR {$$ = 0;} | 
 					ST_COMMA IDENTIFIER ids {
 
 						string str($2);
@@ -128,8 +128,7 @@ ids:		  		ST_DOLLAR {$$.value = 0;} |
 						if(result == NULL)
 						{
 							string register_name = find_free_register(saved_regsiters , 8 , 0);
-							strcpy($3.reg , register_name.c_str());
-							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"",$3.value);
+							st.insert(str,current_scope,current_variable_data_type,yylineno,register_name,"",$3);
 						}
 						else
 						{
@@ -137,7 +136,7 @@ ids:		  		ST_DOLLAR {$$.value = 0;} |
 							exit(1);
 						}
 					}; | 
-					OP_ASSIGN expression ids {$$ = $2;}
+					OP_ASSIGN expression ids {$$ = $2.value;}
 
 
 
@@ -378,7 +377,6 @@ expression: 		expression OP_PLUS expression {
 							strcpy(dst.reg, result->reg.c_str());
 							$$ = dst;
 
-							cg.move(dst.reg , result->reg);	
 						}
 					} |
 					NUMBER {
@@ -386,35 +384,30 @@ expression: 		expression OP_PLUS expression {
 						dst.value = $1;
 						$$ = dst;
 
-						cg.li(dst.reg , $1);
 					} |
 					NCHAR {
 						node_t dst;
 						dst.value = $1;
 						$$ = dst;
 
-						cg.li(dst.reg , $1);
 					} |
 					UCHAR {
 						node_t dst;
 						dst.value = $1;
 						$$ = dst;
 
-						cg.li(dst.reg , $1);
 					} |
 					LCHAR {
 						node_t dst;
 						dst.value = $1;
 						$$ = dst;
 
-						cg.li(dst.reg , $1);
 					} |
 					stmt_call_function {
 						node_t dst;
 						dst.value = $1;
 						$$ = dst;
 
-						cg.li(dst.reg , $1);
 					}
 
 
