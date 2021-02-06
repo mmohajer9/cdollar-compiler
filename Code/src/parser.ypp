@@ -1,10 +1,11 @@
 %{
 	#include <iostream>
 	#include <fstream> 
-
 	#include <bits/stdc++.h>
+
 	#include "../src/symboltable/symbol.hpp"
 	#include "../src/mips_generator/mips.hpp"
+	#include "../src/utility/util.hpp"
 
 	#include <typeinfo>	
 	#include <stdio.h> 
@@ -14,33 +15,16 @@
 
 	using namespace std;
 
-	int yyparse();
-	void yyerror(const char *s);
-
-	void showstack(stack <int> s);
-	int calculate(int token , int leftVal , int rightVal);
-
-	int find_free_register(int* array , int size);
-
-	extern FILE* yyin;
-	extern int yylex();
-	extern int yylineno;
-	extern char* yytext;
-
 	ofstream mips;
-
 	stack <string> semantic_stack;
-
 	string current_scope = "global";
 	string current_variable_data_type = "NONE";
 
 	SymbolTable st;
 	Node* node;
-
 	MIPSCodeGenerator cg;
 
 	int temporal_registers[10] = {};
-
 	int saved_regsiters[8] = {};
 	
 %}
@@ -263,6 +247,10 @@ expression: 		expression OP_PLUS expression {
 						}
 						else
 						{
+							int index_of_free_register = find_free_register(saved_regsiters , 8);
+							string register_name = "$s" + to_string(index_of_free_register);
+
+							cg.move(register_name , result->reg);
 							$$ = result->value;
 						}
 					} |
@@ -308,7 +296,7 @@ int main(int argc, char *argv[])
 {
     yyin = fopen(argv[1], "r");
 	// it will be called in the expression of if
-	mips.open("./mips");
+	mips.open("./mips.asm");
 
 	cg.init(&mips);
 
@@ -321,99 +309,8 @@ int main(int argc, char *argv[])
 	}
 	
 	// closing the opened file
-	mips.close();
 	
 	fclose(yyin);
     return 0;
 }
 
-void yyerror(const char *s) {
-	fprintf(stderr,"Syntex Error in line number : %d : %s\n", yylineno, s);
-}
-
-
-int find_free_register(int* array , int size)
-{
-	for(int i = 0;i < size;i++)
-	{
-		if(array[i] == 0)
-		{
-			array[i] = 1;
-			return i;
-		}
-	}
-	return -1;
-}
-
-void showstack(stack <int> s) 
-{ 
-    while (!s.empty()) 
-    { 
-        cout << '\t' << s.top(); 
-        s.pop(); 
-    } 
-    cout << '\n'; 
-} 
-
-
-int calculate(int token , int leftVal , int rightVal)
-{
-    switch (token)
-    {
-		case OP_PLUS:
-			return (leftVal + rightVal);
-			break;
-		case OP_MINUS:
-			return (leftVal - rightVal);
-			break;
-		case OP_MULTIPLY:
-			return (leftVal * rightVal);
-			break;
-		case OP_DIVIDE:
-			if(rightVal == 0)
-			{
-				yyerror("Division by Zero");
-				exit(1);
-			}
-			return (leftVal / rightVal);
-			break;
-		case OP_LESS:
-			return (leftVal < rightVal);
-			break;
-		case OP_LESS_EQUAL:
-			return (leftVal <= rightVal);
-			break;
-		case OP_EQUAL:
-			return (leftVal == rightVal);
-			break;
-		case OP_NOT_EQUAL:
-			return (leftVal != rightVal);
-			break;
-		case OP_GREATER:
-			return (leftVal > rightVal);
-			break;
-		case OP_GREATER_EQUAL:
-			return (leftVal >= rightVal);
-			break;
-		case OP_LOGICAL_OR:
-			return (leftVal || rightVal);
-			break;
-		case OP_LOGICAL_AND:
-			return (leftVal && rightVal);
-			break;
-		case OP_BITWISE_OR:
-			return (leftVal | rightVal);
-			break;
-		case OP_BITWISE_AND:
-			return (leftVal & rightVal);
-			break;
-		case OP_BITWISE_XOR:
-			return (leftVal ^ rightVal);
-			break;
-		case OP_LOGICAL_NOT:
-			return (!leftVal);
-			break;
-		
-    }
-	return 0;
-}

@@ -19,7 +19,10 @@ public:
     {
         fp = NULL;
     }
-
+    ~MIPSCodeGenerator()
+    {
+        (*fp).close();
+    }
 	MIPSCodeGenerator(ofstream *fp)
 	{
         this->fp = fp;

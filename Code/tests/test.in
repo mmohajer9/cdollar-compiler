@@ -1,38 +1,19 @@
 int func(int a)
 {
     int b$
-    #int b$
-    while(1){
-        a = 9$
-        break$
-
-    }
 }
 
 
 int main()
 {
     int a = 7$
-    int b,c$
+    int b = 2$
 
-    func(2*2)$
+    int c = a + b$
+    int d = 2 + 3$
 
-    while(1)
-    {
-        a = 7$
-        break$
-    }
-
-    if(a == 7){
-        a = 8$
-    }elseif(b==8){
-        b = 7$
-    }else{
-        c = 0$
-    }
-
-    # bug inja rokh mide
-    b = 7$
+    c = 2 * 3 + 4$
+    d = d + 3$ 
 
     return 0$
 }

@@ -1,6 +1,11 @@
 final: parser.tab.cpp lex.yy.cpp
 	clear
-	g++ -std=c++17 -g ./dist/lex.yy.cpp ./dist/parser.tab.cpp ./src/symboltable/symbol.cpp ./src/mips_generator/mips.cpp -o ./dist/run -lm
+	g++ -std=c++17 -g ./dist/lex.yy.cpp ./dist/parser.tab.cpp \
+	./src/symboltable/symbol.cpp \
+	./src/mips_generator/mips.cpp \
+	./src/utility/util.cpp -o ./dist/run -lm
+	
+	
 
 parser.tab.cpp: src/parser.ypp
 	clear
