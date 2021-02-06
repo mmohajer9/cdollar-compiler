@@ -187,6 +187,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_PLUS , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.add(dst.reg , $1.reg , $3.reg);
 					
 					};
 					|
@@ -196,6 +198,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_MINUS , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.sub(dst.reg , $1.reg , $3.reg);
 					};
 					|
 					expression OP_MULTIPLY expression {
@@ -204,6 +208,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_MULTIPLY , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.mul(dst.reg , $1.reg , $3.reg);
 					};
 					|
 					expression OP_DIVIDE expression {
@@ -212,6 +218,9 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_DIVIDE , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.div($1.reg , $3.reg);
+						cg.divQ(dst.reg);
 					};
 					|
 					expression OP_LESS expression {
@@ -220,6 +229,9 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_LESS , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.slt(dst.reg , $1.reg , $3.reg);
+
 					};
 					|
 					expression OP_LESS_EQUAL expression {
@@ -228,6 +240,9 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_LESS_EQUAL , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.sle(dst.reg , $1.reg , $3.reg);
+
 					};
 					|
 					expression OP_EQUAL expression {
@@ -236,6 +251,9 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_EQUAL , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.seq(dst.reg , $1.reg , $3.reg);
+;
 					};
 					|
 					expression OP_NOT_EQUAL expression {
@@ -244,6 +262,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_NOT_EQUAL , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.sne(dst.reg , $1.reg , $3.reg);
 					};
 					|
 					expression OP_GREATER expression {
@@ -252,6 +272,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_GREATER , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.sgt(dst.reg , $1.reg , $3.reg);
 					};
 					|
 					expression OP_GREATER_EQUAL expression {
@@ -260,6 +282,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_GREATER_EQUAL , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.sge(dst.reg , $1.reg , $3.reg);
 					};
 					|
 					expression OP_LOGICAL_OR expression {
@@ -268,6 +292,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_LOGICAL_OR , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg._or(dst.reg , $1.reg , $3.reg);
 					};
 					|
 					expression OP_LOGICAL_AND expression {
@@ -276,6 +302,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_LOGICAL_AND , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg._and(dst.reg , $1.reg , $3.reg);
 					};
 					|
 					expression OP_BITWISE_OR expression {
@@ -284,6 +312,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_BITWISE_OR , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg._or(dst.reg , $1.reg , $3.reg);
 					};
 					|
 					expression OP_BITWISE_AND expression {
@@ -292,6 +322,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_BITWISE_AND , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg._and(dst.reg , $1.reg , $3.reg);
 					};
 					|
 					expression OP_BITWISE_XOR expression {
@@ -300,6 +332,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = calculate(OP_BITWISE_XOR , $1.value , $3.value);
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg._xor(dst.reg , $1.reg , $3.reg);
 					};
 					|
 
@@ -309,6 +343,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = $2.value == 0 ? 1 : 0;
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.neg(dst.reg , $2.reg);
 					} | 
 					OP_MINUS expression {
 						node_t dst;
@@ -316,6 +352,8 @@ expression: 		expression OP_PLUS expression {
 						dst.value = $2.value * -1;
 						strcpy(dst.reg, reg.c_str());
 						$$ = dst;
+
+						cg.neg(dst.reg , $2.reg);
 					} |
 
 					ST_LPAR expression ST_RPAR {$$ = $2;} |
@@ -330,34 +368,46 @@ expression: 		expression OP_PLUS expression {
 						else
 						{
 							node_t dst;
-							dst.value = result->value;;
-							$$ = dst;	
+							dst.value = result->value;
+							$$ = dst;
+
+							cg.move(dst.reg , result->reg);	
 						}
 					} |
 					NUMBER {
 						node_t dst;
 						dst.value = $1;
 						$$ = dst;
+
+						cg.li(dst.reg , $1);
 					} |
 					NCHAR {
 						node_t dst;
 						dst.value = $1;
 						$$ = dst;
+
+						cg.li(dst.reg , $1);
 					} |
 					UCHAR {
 						node_t dst;
 						dst.value = $1;
 						$$ = dst;
+
+						cg.li(dst.reg , $1);
 					} |
 					LCHAR {
 						node_t dst;
 						dst.value = $1;
 						$$ = dst;
+
+						cg.li(dst.reg , $1);
 					} |
 					stmt_call_function {
 						node_t dst;
 						dst.value = $1;
 						$$ = dst;
+
+						cg.li(dst.reg , $1);
 					}
 
 

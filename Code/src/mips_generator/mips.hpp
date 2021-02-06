@@ -38,7 +38,7 @@ public:
 
     //* arithmetics
     void add(string dst_reg , string left_src_reg , string right_src_reg);
-    void subtract(string dst_reg , string left_src_reg , string right_src_reg);
+    void sub(string dst_reg , string left_src_reg , string right_src_reg);
     void addi(string dst_reg , string left_src_reg , int immediate);
     void mul(string dst_reg , string left_src_reg , string right_src_reg);
     void div(string left_src_reg , string right_src_reg);
@@ -48,8 +48,11 @@ public:
     //* logical
     void _and(string dst_reg , string left_src_reg , string right_src_reg);
     void _or(string dst_reg , string left_src_reg , string right_src_reg);
+    void _xor(string dst_reg , string left_src_reg , string right_src_reg);
     void andi(string dst_reg , string left_src_reg , int immediate);
     void ori(string dst_reg , string left_src_reg , int immediate);
+
+    void neg(string dst_reg , string src_reg);
 
     //* data transfer
     void lw(string dst_reg , string src_base_reg , int offset);
@@ -69,6 +72,12 @@ public:
     //* comparison
     void slt(string dst_reg , string left_src_reg , string right_src_reg);
     void slti(string dst_reg , string left_src_reg , int immediate);
+
+    void sle(string dst_reg , string left_src_reg , string right_src_reg);
+    void seq(string dst_reg , string left_src_reg , string right_src_reg);
+    void sne(string dst_reg , string left_src_reg , string right_src_reg);
+    void sgt(string dst_reg , string left_src_reg , string right_src_reg);
+    void sge(string dst_reg , string left_src_reg , string right_src_reg);
 
     //* unconditional jump
     void j(int address);

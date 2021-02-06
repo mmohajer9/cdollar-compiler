@@ -589,10 +589,10 @@ static const yytype_int16 yyrline[] =
      102,   104,   106,   107,   122,   123,   138,   143,   145,   145,
      146,   147,   147,   152,   167,   170,   170,   171,   171,   171,
      172,   172,   172,   172,   173,   173,   174,   174,   176,   176,
-     177,   177,   177,   177,   183,   192,   200,   208,   216,   224,
-     232,   240,   248,   256,   264,   272,   280,   288,   296,   305,
-     312,   320,   321,   336,   341,   346,   351,   356,   363,   363,
-     364,   364,   379,   379
+     177,   177,   177,   177,   183,   195,   205,   215,   226,   237,
+     248,   259,   269,   279,   289,   299,   309,   319,   329,   340,
+     349,   359,   360,   377,   384,   391,   398,   405,   414,   414,
+     415,   415,   430,   430
 };
 #endif
 
@@ -1792,210 +1792,249 @@ yyreduce:
 						dst.value = calculate(OP_PLUS , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.add(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
+					
 					}
-#line 1797 "./dist/parser.tab.cpp"
+#line 1800 "./dist/parser.tab.cpp"
     break;
 
   case 55: /* expression: expression OP_MINUS expression  */
-#line 192 "src/parser.ypp"
+#line 195 "src/parser.ypp"
                                                                        {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_MINUS , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.sub(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1809 "./dist/parser.tab.cpp"
+#line 1814 "./dist/parser.tab.cpp"
     break;
 
   case 56: /* expression: expression OP_MULTIPLY expression  */
-#line 200 "src/parser.ypp"
+#line 205 "src/parser.ypp"
                                                                           {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_MULTIPLY , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.mul(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1821 "./dist/parser.tab.cpp"
+#line 1828 "./dist/parser.tab.cpp"
     break;
 
   case 57: /* expression: expression OP_DIVIDE expression  */
-#line 208 "src/parser.ypp"
+#line 215 "src/parser.ypp"
                                                                         {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_DIVIDE , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.div((yyvsp[-2].node).reg , (yyvsp[0].node).reg);
+						cg.divQ(dst.reg);
 					}
-#line 1833 "./dist/parser.tab.cpp"
+#line 1843 "./dist/parser.tab.cpp"
     break;
 
   case 58: /* expression: expression OP_LESS expression  */
-#line 216 "src/parser.ypp"
+#line 226 "src/parser.ypp"
                                                                       {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_LESS , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.slt(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
+
 					}
-#line 1845 "./dist/parser.tab.cpp"
+#line 1858 "./dist/parser.tab.cpp"
     break;
 
   case 59: /* expression: expression OP_LESS_EQUAL expression  */
-#line 224 "src/parser.ypp"
+#line 237 "src/parser.ypp"
                                                                             {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_LESS_EQUAL , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.sle(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
+
 					}
-#line 1857 "./dist/parser.tab.cpp"
+#line 1873 "./dist/parser.tab.cpp"
     break;
 
   case 60: /* expression: expression OP_EQUAL expression  */
-#line 232 "src/parser.ypp"
+#line 248 "src/parser.ypp"
                                                                        {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_EQUAL , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.seq(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
+;
 					}
-#line 1869 "./dist/parser.tab.cpp"
+#line 1888 "./dist/parser.tab.cpp"
     break;
 
   case 61: /* expression: expression OP_NOT_EQUAL expression  */
-#line 240 "src/parser.ypp"
+#line 259 "src/parser.ypp"
                                                                            {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_NOT_EQUAL , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.sne(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1881 "./dist/parser.tab.cpp"
+#line 1902 "./dist/parser.tab.cpp"
     break;
 
   case 62: /* expression: expression OP_GREATER expression  */
-#line 248 "src/parser.ypp"
+#line 269 "src/parser.ypp"
                                                                          {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_GREATER , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.sgt(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1893 "./dist/parser.tab.cpp"
+#line 1916 "./dist/parser.tab.cpp"
     break;
 
   case 63: /* expression: expression OP_GREATER_EQUAL expression  */
-#line 256 "src/parser.ypp"
+#line 279 "src/parser.ypp"
                                                                                {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_GREATER_EQUAL , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.sge(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1905 "./dist/parser.tab.cpp"
+#line 1930 "./dist/parser.tab.cpp"
     break;
 
   case 64: /* expression: expression OP_LOGICAL_OR expression  */
-#line 264 "src/parser.ypp"
+#line 289 "src/parser.ypp"
                                                                             {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_LOGICAL_OR , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg._or(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1917 "./dist/parser.tab.cpp"
+#line 1944 "./dist/parser.tab.cpp"
     break;
 
   case 65: /* expression: expression OP_LOGICAL_AND expression  */
-#line 272 "src/parser.ypp"
+#line 299 "src/parser.ypp"
                                                                              {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_LOGICAL_AND , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg._and(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1929 "./dist/parser.tab.cpp"
+#line 1958 "./dist/parser.tab.cpp"
     break;
 
   case 66: /* expression: expression OP_BITWISE_OR expression  */
-#line 280 "src/parser.ypp"
+#line 309 "src/parser.ypp"
                                                                             {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_BITWISE_OR , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg._or(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1941 "./dist/parser.tab.cpp"
+#line 1972 "./dist/parser.tab.cpp"
     break;
 
   case 67: /* expression: expression OP_BITWISE_AND expression  */
-#line 288 "src/parser.ypp"
+#line 319 "src/parser.ypp"
                                                                              {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_BITWISE_AND , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg._and(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1953 "./dist/parser.tab.cpp"
+#line 1986 "./dist/parser.tab.cpp"
     break;
 
   case 68: /* expression: expression OP_BITWISE_XOR expression  */
-#line 296 "src/parser.ypp"
+#line 329 "src/parser.ypp"
                                                                              {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = calculate(OP_BITWISE_XOR , (yyvsp[-2].node).value , (yyvsp[0].node).value);
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg._xor(dst.reg , (yyvsp[-2].node).reg , (yyvsp[0].node).reg);
 					}
-#line 1965 "./dist/parser.tab.cpp"
+#line 2000 "./dist/parser.tab.cpp"
     break;
 
   case 69: /* expression: OP_LOGICAL_NOT expression  */
-#line 305 "src/parser.ypp"
+#line 340 "src/parser.ypp"
                                                                   {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = (yyvsp[0].node).value == 0 ? 1 : 0;
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.neg(dst.reg , (yyvsp[0].node).reg);
 					}
-#line 1977 "./dist/parser.tab.cpp"
+#line 2014 "./dist/parser.tab.cpp"
     break;
 
   case 70: /* expression: OP_MINUS expression  */
-#line 312 "src/parser.ypp"
+#line 349 "src/parser.ypp"
                                                             {
 						node_t dst;
 						string reg = find_free_register(temporal_registers , 10 , 1);
 						dst.value = (yyvsp[0].node).value * -1;
 						strcpy(dst.reg, reg.c_str());
 						(yyval.node) = dst;
+
+						cg.neg(dst.reg , (yyvsp[0].node).reg);
 					}
-#line 1989 "./dist/parser.tab.cpp"
+#line 2028 "./dist/parser.tab.cpp"
     break;
 
   case 71: /* expression: ST_LPAR expression ST_RPAR  */
-#line 320 "src/parser.ypp"
+#line 359 "src/parser.ypp"
                                                                    {(yyval.node) = (yyvsp[-1].node);}
-#line 1995 "./dist/parser.tab.cpp"
+#line 2034 "./dist/parser.tab.cpp"
     break;
 
   case 72: /* expression: IDENTIFIER  */
-#line 321 "src/parser.ypp"
+#line 360 "src/parser.ypp"
                                                    {
 						string str((yyvsp[0].stringVal));
 						Node* result = st.find(str , semantic_stack);
@@ -2007,65 +2046,77 @@ yyreduce:
 						else
 						{
 							node_t dst;
-							dst.value = result->value;;
-							(yyval.node) = dst;	
+							dst.value = result->value;
+							(yyval.node) = dst;
+
+							cg.move(dst.reg , result->reg);	
 						}
 					}
-#line 2015 "./dist/parser.tab.cpp"
+#line 2056 "./dist/parser.tab.cpp"
     break;
 
   case 73: /* expression: NUMBER  */
-#line 336 "src/parser.ypp"
+#line 377 "src/parser.ypp"
                                                {
 						node_t dst;
 						dst.value = (yyvsp[0].intVal);
 						(yyval.node) = dst;
+
+						cg.li(dst.reg , (yyvsp[0].intVal));
 					}
-#line 2025 "./dist/parser.tab.cpp"
+#line 2068 "./dist/parser.tab.cpp"
     break;
 
   case 74: /* expression: NCHAR  */
-#line 341 "src/parser.ypp"
+#line 384 "src/parser.ypp"
                                               {
 						node_t dst;
 						dst.value = (yyvsp[0].charVal);
 						(yyval.node) = dst;
+
+						cg.li(dst.reg , (yyvsp[0].charVal));
 					}
-#line 2035 "./dist/parser.tab.cpp"
+#line 2080 "./dist/parser.tab.cpp"
     break;
 
   case 75: /* expression: UCHAR  */
-#line 346 "src/parser.ypp"
+#line 391 "src/parser.ypp"
                                               {
 						node_t dst;
 						dst.value = (yyvsp[0].charVal);
 						(yyval.node) = dst;
+
+						cg.li(dst.reg , (yyvsp[0].charVal));
 					}
-#line 2045 "./dist/parser.tab.cpp"
+#line 2092 "./dist/parser.tab.cpp"
     break;
 
   case 76: /* expression: LCHAR  */
-#line 351 "src/parser.ypp"
+#line 398 "src/parser.ypp"
                                               {
 						node_t dst;
 						dst.value = (yyvsp[0].charVal);
 						(yyval.node) = dst;
+
+						cg.li(dst.reg , (yyvsp[0].charVal));
 					}
-#line 2055 "./dist/parser.tab.cpp"
+#line 2104 "./dist/parser.tab.cpp"
     break;
 
   case 77: /* expression: stmt_call_function  */
-#line 356 "src/parser.ypp"
+#line 405 "src/parser.ypp"
                                                            {
 						node_t dst;
 						dst.value = (yyvsp[0].intVal);
 						(yyval.node) = dst;
+
+						cg.li(dst.reg , (yyvsp[0].intVal));
 					}
-#line 2065 "./dist/parser.tab.cpp"
+#line 2116 "./dist/parser.tab.cpp"
     break;
 
   case 80: /* $@12: %empty  */
-#line 364 "src/parser.ypp"
+#line 415 "src/parser.ypp"
                                                 {
 
 						string str((yyvsp[0].stringVal));
@@ -2081,11 +2132,11 @@ yyreduce:
 							exit(1);
 						}
 					}
-#line 2085 "./dist/parser.tab.cpp"
+#line 2136 "./dist/parser.tab.cpp"
     break;
 
 
-#line 2089 "./dist/parser.tab.cpp"
+#line 2140 "./dist/parser.tab.cpp"
 
       default: break;
     }
@@ -2310,7 +2361,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 382 "src/parser.ypp"
+#line 433 "src/parser.ypp"
 
 
 

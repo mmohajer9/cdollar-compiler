@@ -5,7 +5,7 @@
     {
         *(this->fp) << "    add " << dst_reg << "," << left_src_reg << "," << right_src_reg << endl;
     }
-    void MIPSCodeGenerator::subtract(string dst_reg , string left_src_reg , string right_src_reg)
+    void MIPSCodeGenerator::sub(string dst_reg , string left_src_reg , string right_src_reg)
     {
         *(this->fp) << "    sub " << dst_reg << "," << left_src_reg << "," << right_src_reg << endl;
     }
@@ -37,6 +37,10 @@
     {
         *(this->fp) << "    or " << dst_reg << "," << left_src_reg << "," << right_src_reg << endl;
     }
+    void MIPSCodeGenerator::_xor(string dst_reg , string left_src_reg , string right_src_reg)
+    {
+        *(this->fp) << "    xor " << dst_reg << "," << left_src_reg << "," << right_src_reg << endl;
+    }
     void MIPSCodeGenerator::andi(string dst_reg , string left_src_reg , int immediate)
     {
         *(this->fp) << "    andi " << dst_reg << "," << left_src_reg << "," << immediate << endl;
@@ -45,6 +49,12 @@
     {
         *(this->fp) << "    ori " << dst_reg << "," << left_src_reg << "," << immediate << endl;
     }
+    void MIPSCodeGenerator::neg(string dst_reg , string src_reg)
+    {
+        *(this->fp) << "    neg " << dst_reg << "," << src_reg << endl;
+    }
+
+
     void MIPSCodeGenerator::lw(string dst_reg , string src_base_reg , int offset)
     {
         *(this->fp) << "    lw " << dst_reg << "," << offset << "(" << src_base_reg << ")" << endl;
@@ -92,6 +102,26 @@
     void MIPSCodeGenerator::slt(string dst_reg , string left_src_reg , string right_src_reg)
     {
         *(this->fp) << "    slt " << dst_reg << "," << left_src_reg << "," << right_src_reg << endl;
+    }
+    void MIPSCodeGenerator::sle(string dst_reg , string left_src_reg , string right_src_reg)
+    {
+        *(this->fp) << "    sle " << dst_reg << "," << left_src_reg << "," << right_src_reg << endl;
+    }
+    void MIPSCodeGenerator::seq(string dst_reg , string left_src_reg , string right_src_reg)
+    {
+        *(this->fp) << "    seq " << dst_reg << "," << left_src_reg << "," << right_src_reg << endl;
+    }
+    void MIPSCodeGenerator::sne(string dst_reg , string left_src_reg , string right_src_reg)
+    {
+        *(this->fp) << "    sne " << dst_reg << "," << left_src_reg << "," << right_src_reg << endl;
+    }
+    void MIPSCodeGenerator::sgt(string dst_reg , string left_src_reg , string right_src_reg)
+    {
+        *(this->fp) << "    sgt " << dst_reg << "," << left_src_reg << "," << right_src_reg << endl;
+    }
+    void MIPSCodeGenerator::sge(string dst_reg , string left_src_reg , string right_src_reg)
+    {
+        *(this->fp) << "    sgt " << dst_reg << "," << left_src_reg << "," << right_src_reg << endl;
     }
     void MIPSCodeGenerator::slti(string dst_reg , string left_src_reg , int immediate)
     {
