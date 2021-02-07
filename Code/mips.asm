@@ -39,3 +39,13 @@ main__elseif:
     j END_IF_12
 
 END_IF_12:
+
+main__while:
+    li $t0,1
+    beq $t0,$zero,END_main__while
+    li $t1,1
+    add $t2,$s1,$t1
+    move $s1,$t2
+    j main__while
+
+END_main__while:

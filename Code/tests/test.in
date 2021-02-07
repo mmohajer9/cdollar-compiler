@@ -9,16 +9,22 @@ int main()
     int b$
     a = func(a)$
     
-    if (a < 5){
-
+    if (a < 5)
+    {
         b = 91$
-
     }
-    elseif(a == 5){
+    elseif(a == 5)
+    {
         b = 92$
     }
-    else{
+    else
+    {
         b = 93$
+    }
+
+    while(1)
+    {
+        b = b + 1$
     }
 
 }
