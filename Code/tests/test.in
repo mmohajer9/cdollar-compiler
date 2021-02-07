@@ -1,20 +1,22 @@
-int mamad(int x , int y)
-{
-    int c = x + y$
-
-    return c$
-}
-
 
 
 int main()
 {
-    int a = (7 + 3)$
+    int a =3 $
+    
+    if (a < 4){
+        a =6 $
 
-    int b = (2 + 3 * 4)$
+    }elseif(a==1){
+        a = 7$
+    }else{
+        a = 9$
+    }
 
-    int q = mamad(a , b)$
-
-    #int q$
+    while(a<5){
+        int b =6$
+        break$
+        int c = 4$
+    }
 
 }

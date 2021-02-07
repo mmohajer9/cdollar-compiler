@@ -62,7 +62,7 @@ public:
     void move(string dst_reg , string src_reg);
 
     //* branch
-    void beq(string left_reg , string right_reg , int offset_to_next_address);
+    void beq(string left_reg , string right_reg , string label);
     void bne(string left_reg , string right_reg , int offset_to_next_address);
     void bgt(string left_reg , string right_reg , int offset_to_next_address);
     void bge(string left_reg , string right_reg , int offset_to_next_address);

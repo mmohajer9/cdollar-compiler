@@ -75,7 +75,7 @@
     {
         *(this->fp) << "    move " << dst_reg << "," << src_reg << endl;
     }
-    void MIPSCodeGenerator::beq(string left_reg , string right_reg , int label)
+    void MIPSCodeGenerator::beq(string left_reg , string right_reg , string label)
     {
         *(this->fp) << "    beq " << left_reg << "," << right_reg << "," << label << endl;
     }
@@ -149,5 +149,5 @@
     }
     void MIPSCodeGenerator::add_label(string label)
     {
-        *(this->fp) << label << ":" << endl << endl;
+        *(this->fp) << "\n"<<label << ":" << endl;
     }
