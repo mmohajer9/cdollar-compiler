@@ -1,6 +1,6 @@
-#line 2 "./dist/lex.yy.cpp"
+#line 1 "./dist/lex.yy.cpp"
 
-#line 4 "./dist/lex.yy.cpp"
+#line 3 "./dist/lex.yy.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -520,8 +520,8 @@ char *yytext;
 
 	void yyerror_scanner(const int n);
 	int yylex();
+#line 523 "./dist/lex.yy.cpp"
 #line 524 "./dist/lex.yy.cpp"
-#line 525 "./dist/lex.yy.cpp"
 
 #define INITIAL 0
 
@@ -740,7 +740,7 @@ YY_DECL
 	{
 #line 14 "src/scanner.l"
 
-#line 744 "./dist/lex.yy.cpp"
+#line 743 "./dist/lex.yy.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -1063,7 +1063,7 @@ YY_RULE_SETUP
 #line 99 "src/scanner.l"
 ECHO;
 	YY_BREAK
-#line 1067 "./dist/lex.yy.cpp"
+#line 1066 "./dist/lex.yy.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 

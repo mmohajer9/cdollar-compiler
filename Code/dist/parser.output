@@ -1,11 +1,11 @@
 Terminals unused in grammar
 
-   KW_FOR
-   NEW_LINE
-   OTHER
-   ST_LBR
-   ST_RBR
-   ST_SEMICOLON
+    KW_FOR
+    NEW_LINE
+    OTHER
+    ST_LBR
+    ST_RBR
+    ST_SEMICOLON
 
 
 State 72 conflicts: 6 shift/reduce
@@ -159,158 +159,202 @@ Grammar
 
 Terminals, with rules where they appear
 
-$end (0) 0
-error (256)
-KW_VOID (258) 7 13
-KW_IF (259) 44
-KW_RETURN (260) 39
-KW_INT (261) 5 11 24
-KW_ELSE (262) 51
-KW_MAIN (263) 5 7
-KW_FOR (264)
-KW_BREAK (265) 58
-KW_CHAR (266) 25
-KW_WHILE (267) 55
-KW_CONTINUE (268) 59
-KW_ELSEIF (269) 48
-NEW_LINE (270)
-OTHER (271)
-OP_ASSIGN (272) 29 38
-OP_PLUS (273) 61
-OP_MINUS (274) 62 77
-OP_MULTIPLY (275) 63
-OP_DIVIDE (276) 64
-OP_LESS (277) 65
-OP_LESS_EQUAL (278) 66
-OP_EQUAL (279) 67
-OP_NOT_EQUAL (280) 68
-OP_GREATER (281) 69
-OP_GREATER_EQUAL (282) 70
-OP_BITWISE_OR (283) 73
-OP_BITWISE_AND (284) 74
-OP_BITWISE_XOR (285) 75
-OP_LOGICAL_OR (286) 71
-OP_LOGICAL_AND (287) 72
-OP_LOGICAL_NOT (288) 76
-ST_LPAR (289) 5 7 11 13 31 44 48 55 78
-ST_RPAR (290) 5 7 11 13 31 44 48 55 78
-ST_LCURL (291) 5 7 11 13 44 48 51 55
-ST_RCURL (292) 5 7 11 13 44 48 51 55
-ST_LBR (293)
-ST_RBR (294)
-ST_DOLLAR (295) 23 27 38 39 58 59
-ST_COMMA (296) 28 36 89
-ST_SEMICOLON (297)
-LCHAR (298) 83
-UCHAR (299) 82
-NCHAR (300) 81
-IDENTIFIER (301) 11 13 26 28 31 38 79 88
-NUMBER (302) 80
+    $end (0) 0
+    error (256)
+    KW_VOID (258) 7 13
+    KW_IF (259) 44
+    KW_RETURN (260) 39
+    KW_INT (261) 5 11 24
+    KW_ELSE (262) 51
+    KW_MAIN (263) 5 7
+    KW_FOR (264)
+    KW_BREAK (265) 58
+    KW_CHAR (266) 25
+    KW_WHILE (267) 55
+    KW_CONTINUE (268) 59
+    KW_ELSEIF (269) 48
+    NEW_LINE (270)
+    OTHER (271)
+    OP_ASSIGN (272) 29 38
+    OP_PLUS (273) 61
+    OP_MINUS (274) 62 77
+    OP_MULTIPLY (275) 63
+    OP_DIVIDE (276) 64
+    OP_LESS (277) 65
+    OP_LESS_EQUAL (278) 66
+    OP_EQUAL (279) 67
+    OP_NOT_EQUAL (280) 68
+    OP_GREATER (281) 69
+    OP_GREATER_EQUAL (282) 70
+    OP_BITWISE_OR (283) 73
+    OP_BITWISE_AND (284) 74
+    OP_BITWISE_XOR (285) 75
+    OP_LOGICAL_OR (286) 71
+    OP_LOGICAL_AND (287) 72
+    OP_LOGICAL_NOT (288) 76
+    ST_LPAR (289) 5 7 11 13 31 44 48 55 78
+    ST_RPAR (290) 5 7 11 13 31 44 48 55 78
+    ST_LCURL (291) 5 7 11 13 44 48 51 55
+    ST_RCURL (292) 5 7 11 13 44 48 51 55
+    ST_LBR (293)
+    ST_RBR (294)
+    ST_DOLLAR (295) 23 27 38 39 58 59
+    ST_COMMA (296) 28 36 89
+    ST_SEMICOLON (297)
+    LCHAR <charVal> (298) 83
+    UCHAR <charVal> (299) 82
+    NCHAR <charVal> (300) 81
+    IDENTIFIER <stringVal> (301) 11 13 26 28 31 38 79 88
+    NUMBER <intVal> (302) 80
 
 
 Nonterminals, with rules where they appear
 
-$accept (48)
-    on left: 0
-program (49)
-    on left: 1, on right: 0
-functions (50)
-    on left: 2 3, on right: 1 2
-main (51)
-    on left: 5 7, on right: 1
-$@1 (52)
-    on left: 4, on right: 5
-$@2 (53)
-    on left: 6, on right: 7
-function (54)
-    on left: 11 13, on right: 2
-$@3 (55)
-    on left: 8, on right: 11
-$@4 (56)
-    on left: 9, on right: 11
-$@5 (57)
-    on left: 10, on right: 11
-$@6 (58)
-    on left: 12, on right: 13
-stmts (59)
-    on left: 15 16, on right: 5 7 11 13 15 44 48 51 56
-$@7 (60)
-    on left: 14, on right: 15
-stmt (61)
-    on left: 17 18 19 20 21 23, on right: 15
-$@8 (62)
-    on left: 22, on right: 23
-type (63)
-    on left: 24 25, on right: 26 88
-stmt_declare (64)
-    on left: 26, on right: 17
-ids (65)
-    on left: 27 28 29, on right: 26 28 29
-stmt_call_function (66)
-    on left: 31, on right: 23 84
-$@9 (67)
-    on left: 30, on right: 31
-fun_arguments (68)
-    on left: 32 33, on right: 31
-fun_args_part1 (69)
-    on left: 35, on right: 32 36
-$@10 (70)
-    on left: 34, on right: 35
-fun_args_part2 (71)
-    on left: 36 37, on right: 35
-stmt_assignment (72)
-    on left: 38, on right: 18
-stmt_return (73)
-    on left: 39, on right: 20
-stmt_if (74)
-    on left: 44, on right: 19
-$@11 (75)
-    on left: 40, on right: 44
-$@12 (76)
-    on left: 41, on right: 44
-$@13 (77)
-    on left: 42, on right: 44
-$@14 (78)
-    on left: 43, on right: 44
-elseif (79)
-    on left: 48 49, on right: 44 48
-$@15 (80)
-    on left: 45, on right: 48
-$@16 (81)
-    on left: 46, on right: 48
-$@17 (82)
-    on left: 47, on right: 48
-else (83)
-    on left: 51 52, on right: 49
-$@18 (84)
-    on left: 50, on right: 51
-stmt_while (85)
-    on left: 55, on right: 21
-$@19 (86)
-    on left: 53, on right: 55
-$@20 (87)
-    on left: 54, on right: 55
-loop_stmts (88)
-    on left: 56 58 59 60, on right: 55 56 58 59
-$@21 (89)
-    on left: 57, on right: 58
-expression (90)
-    on left: 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78
-    79 80 81 82 83 84, on right: 29 35 38 39 44 48 55 61 62 63 64 65
-    66 67 68 69 70 71 72 73 74 75 76 77 78
-arguments (91)
-    on left: 85 86, on right: 5 7 11 13
-args_part1 (92)
-    on left: 88, on right: 85 89
-$@22 (93)
-    on left: 87, on right: 88
-args_part2 (94)
-    on left: 89 90, on right: 88
+    $accept (48)
+        on left: 0
+    program (49)
+        on left: 1
+        on right: 0
+    functions (50)
+        on left: 2 3
+        on right: 1 2
+    main (51)
+        on left: 5 7
+        on right: 1
+    $@1 (52)
+        on left: 4
+        on right: 5
+    $@2 (53)
+        on left: 6
+        on right: 7
+    function <intVal> (54)
+        on left: 11 13
+        on right: 2
+    $@3 (55)
+        on left: 8
+        on right: 11
+    $@4 (56)
+        on left: 9
+        on right: 11
+    $@5 (57)
+        on left: 10
+        on right: 11
+    $@6 (58)
+        on left: 12
+        on right: 13
+    stmts (59)
+        on left: 15 16
+        on right: 5 7 11 13 15 44 48 51 56
+    $@7 (60)
+        on left: 14
+        on right: 15
+    stmt (61)
+        on left: 17 18 19 20 21 23
+        on right: 15
+    $@8 (62)
+        on left: 22
+        on right: 23
+    type (63)
+        on left: 24 25
+        on right: 26 88
+    stmt_declare (64)
+        on left: 26
+        on right: 17
+    ids <intVal> (65)
+        on left: 27 28 29
+        on right: 26 28 29
+    stmt_call_function <intVal> (66)
+        on left: 31
+        on right: 23 84
+    $@9 (67)
+        on left: 30
+        on right: 31
+    fun_arguments (68)
+        on left: 32 33
+        on right: 31
+    fun_args_part1 (69)
+        on left: 35
+        on right: 32 36
+    $@10 (70)
+        on left: 34
+        on right: 35
+    fun_args_part2 (71)
+        on left: 36 37
+        on right: 35
+    stmt_assignment (72)
+        on left: 38
+        on right: 18
+    stmt_return (73)
+        on left: 39
+        on right: 20
+    stmt_if (74)
+        on left: 44
+        on right: 19
+    $@11 (75)
+        on left: 40
+        on right: 44
+    $@12 (76)
+        on left: 41
+        on right: 44
+    $@13 (77)
+        on left: 42
+        on right: 44
+    $@14 (78)
+        on left: 43
+        on right: 44
+    elseif (79)
+        on left: 48 49
+        on right: 44 48
+    $@15 (80)
+        on left: 45
+        on right: 48
+    $@16 (81)
+        on left: 46
+        on right: 48
+    $@17 (82)
+        on left: 47
+        on right: 48
+    else (83)
+        on left: 51 52
+        on right: 49
+    $@18 (84)
+        on left: 50
+        on right: 51
+    stmt_while (85)
+        on left: 55
+        on right: 21
+    $@19 (86)
+        on left: 53
+        on right: 55
+    $@20 (87)
+        on left: 54
+        on right: 55
+    loop_stmts (88)
+        on left: 56 58 59 60
+        on right: 55 56 58 59
+    $@21 (89)
+        on left: 57
+        on right: 58
+    expression <node> (90)
+        on left: 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84
+        on right: 29 35 38 39 44 48 55 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78
+    arguments (91)
+        on left: 85 86
+        on right: 5 7 11 13
+    args_part1 (92)
+        on left: 88
+        on right: 85 89
+    $@22 (93)
+        on left: 87
+        on right: 88
+    args_part2 (94)
+        on left: 89 90
+        on right: 88
 
 
 State 0
 
-    0 $accept: . program $end
+    0 $accept: • program $end
 
     $default  reduce using rule 3 (functions)
 
@@ -320,15 +364,15 @@ State 0
 
 State 1
 
-    0 $accept: program . $end
+    0 $accept: program • $end
 
     $end  shift, and go to state 3
 
 
 State 2
 
-    1 program: functions . main
-    2 functions: functions . function
+    1 program: functions • main
+    2 functions: functions • function
 
     KW_VOID  shift, and go to state 4
     KW_INT   shift, and go to state 5
@@ -339,15 +383,15 @@ State 2
 
 State 3
 
-    0 $accept: program $end .
+    0 $accept: program $end •
 
     $default  accept
 
 
 State 4
 
-    7 main: KW_VOID . KW_MAIN ST_LPAR $@2 arguments ST_RPAR ST_LCURL stmts ST_RCURL
-   13 function: KW_VOID . IDENTIFIER ST_LPAR $@6 arguments ST_RPAR ST_LCURL stmts ST_RCURL
+    7 main: KW_VOID • KW_MAIN ST_LPAR $@2 arguments ST_RPAR ST_LCURL stmts ST_RCURL
+   13 function: KW_VOID • IDENTIFIER ST_LPAR $@6 arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
     KW_MAIN     shift, and go to state 8
     IDENTIFIER  shift, and go to state 9
@@ -355,8 +399,8 @@ State 4
 
 State 5
 
-    5 main: KW_INT . KW_MAIN ST_LPAR $@1 arguments ST_RPAR ST_LCURL stmts ST_RCURL
-   11 function: KW_INT . IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL
+    5 main: KW_INT • KW_MAIN ST_LPAR $@1 arguments ST_RPAR ST_LCURL stmts ST_RCURL
+   11 function: KW_INT • IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL
 
     KW_MAIN     shift, and go to state 10
     IDENTIFIER  shift, and go to state 11
@@ -364,49 +408,49 @@ State 5
 
 State 6
 
-    1 program: functions main .
+    1 program: functions main •
 
     $default  reduce using rule 1 (program)
 
 
 State 7
 
-    2 functions: functions function .
+    2 functions: functions function •
 
     $default  reduce using rule 2 (functions)
 
 
 State 8
 
-    7 main: KW_VOID KW_MAIN . ST_LPAR $@2 arguments ST_RPAR ST_LCURL stmts ST_RCURL
+    7 main: KW_VOID KW_MAIN • ST_LPAR $@2 arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
     ST_LPAR  shift, and go to state 12
 
 
 State 9
 
-   13 function: KW_VOID IDENTIFIER . ST_LPAR $@6 arguments ST_RPAR ST_LCURL stmts ST_RCURL
+   13 function: KW_VOID IDENTIFIER • ST_LPAR $@6 arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
     ST_LPAR  shift, and go to state 13
 
 
 State 10
 
-    5 main: KW_INT KW_MAIN . ST_LPAR $@1 arguments ST_RPAR ST_LCURL stmts ST_RCURL
+    5 main: KW_INT KW_MAIN • ST_LPAR $@1 arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
     ST_LPAR  shift, and go to state 14
 
 
 State 11
 
-   11 function: KW_INT IDENTIFIER . ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL
+   11 function: KW_INT IDENTIFIER • ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL
 
     ST_LPAR  shift, and go to state 15
 
 
 State 12
 
-    7 main: KW_VOID KW_MAIN ST_LPAR . $@2 arguments ST_RPAR ST_LCURL stmts ST_RCURL
+    7 main: KW_VOID KW_MAIN ST_LPAR • $@2 arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
     $default  reduce using rule 6 ($@2)
 
@@ -415,7 +459,7 @@ State 12
 
 State 13
 
-   13 function: KW_VOID IDENTIFIER ST_LPAR . $@6 arguments ST_RPAR ST_LCURL stmts ST_RCURL
+   13 function: KW_VOID IDENTIFIER ST_LPAR • $@6 arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
     $default  reduce using rule 12 ($@6)
 
@@ -424,7 +468,7 @@ State 13
 
 State 14
 
-    5 main: KW_INT KW_MAIN ST_LPAR . $@1 arguments ST_RPAR ST_LCURL stmts ST_RCURL
+    5 main: KW_INT KW_MAIN ST_LPAR • $@1 arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
     $default  reduce using rule 4 ($@1)
 
@@ -433,7 +477,7 @@ State 14
 
 State 15
 
-   11 function: KW_INT IDENTIFIER ST_LPAR . $@3 arguments ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL
+   11 function: KW_INT IDENTIFIER ST_LPAR • $@3 arguments ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL
 
     $default  reduce using rule 8 ($@3)
 
@@ -442,7 +486,7 @@ State 15
 
 State 16
 
-    7 main: KW_VOID KW_MAIN ST_LPAR $@2 . arguments ST_RPAR ST_LCURL stmts ST_RCURL
+    7 main: KW_VOID KW_MAIN ST_LPAR $@2 • arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
     KW_INT   shift, and go to state 20
     KW_CHAR  shift, and go to state 21
@@ -456,7 +500,7 @@ State 16
 
 State 17
 
-   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 . arguments ST_RPAR ST_LCURL stmts ST_RCURL
+   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 • arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
     KW_INT   shift, and go to state 20
     KW_CHAR  shift, and go to state 21
@@ -470,7 +514,7 @@ State 17
 
 State 18
 
-    5 main: KW_INT KW_MAIN ST_LPAR $@1 . arguments ST_RPAR ST_LCURL stmts ST_RCURL
+    5 main: KW_INT KW_MAIN ST_LPAR $@1 • arguments ST_RPAR ST_LCURL stmts ST_RCURL
 
     KW_INT   shift, and go to state 20
     KW_CHAR  shift, and go to state 21
@@ -484,7 +528,7 @@ State 18
 
 State 19
 
-   11 function: KW_INT IDENTIFIER ST_LPAR $@3 . arguments ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL
+   11 function: KW_INT IDENTIFIER ST_LPAR $@3 • arguments ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL
 
     KW_INT   shift, and go to state 20
     KW_CHAR  shift, and go to state 21
@@ -498,63 +542,63 @@ State 19
 
 State 20
 
-   24 type: KW_INT .
+   24 type: KW_INT •
 
     $default  reduce using rule 24 (type)
 
 
 State 21
 
-   25 type: KW_CHAR .
+   25 type: KW_CHAR •
 
     $default  reduce using rule 25 (type)
 
 
 State 22
 
-   88 args_part1: type . IDENTIFIER $@22 args_part2
+   88 args_part1: type • IDENTIFIER $@22 args_part2
 
     IDENTIFIER  shift, and go to state 28
 
 
 State 23
 
-    7 main: KW_VOID KW_MAIN ST_LPAR $@2 arguments . ST_RPAR ST_LCURL stmts ST_RCURL
+    7 main: KW_VOID KW_MAIN ST_LPAR $@2 arguments • ST_RPAR ST_LCURL stmts ST_RCURL
 
     ST_RPAR  shift, and go to state 29
 
 
 State 24
 
-   85 arguments: args_part1 .
+   85 arguments: args_part1 •
 
     $default  reduce using rule 85 (arguments)
 
 
 State 25
 
-   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 arguments . ST_RPAR ST_LCURL stmts ST_RCURL
+   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 arguments • ST_RPAR ST_LCURL stmts ST_RCURL
 
     ST_RPAR  shift, and go to state 30
 
 
 State 26
 
-    5 main: KW_INT KW_MAIN ST_LPAR $@1 arguments . ST_RPAR ST_LCURL stmts ST_RCURL
+    5 main: KW_INT KW_MAIN ST_LPAR $@1 arguments • ST_RPAR ST_LCURL stmts ST_RCURL
 
     ST_RPAR  shift, and go to state 31
 
 
 State 27
 
-   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments . ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL
+   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments • ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL
 
     ST_RPAR  shift, and go to state 32
 
 
 State 28
 
-   88 args_part1: type IDENTIFIER . $@22 args_part2
+   88 args_part1: type IDENTIFIER • $@22 args_part2
 
     $default  reduce using rule 87 ($@22)
 
@@ -563,35 +607,35 @@ State 28
 
 State 29
 
-    7 main: KW_VOID KW_MAIN ST_LPAR $@2 arguments ST_RPAR . ST_LCURL stmts ST_RCURL
+    7 main: KW_VOID KW_MAIN ST_LPAR $@2 arguments ST_RPAR • ST_LCURL stmts ST_RCURL
 
     ST_LCURL  shift, and go to state 34
 
 
 State 30
 
-   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 arguments ST_RPAR . ST_LCURL stmts ST_RCURL
+   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 arguments ST_RPAR • ST_LCURL stmts ST_RCURL
 
     ST_LCURL  shift, and go to state 35
 
 
 State 31
 
-    5 main: KW_INT KW_MAIN ST_LPAR $@1 arguments ST_RPAR . ST_LCURL stmts ST_RCURL
+    5 main: KW_INT KW_MAIN ST_LPAR $@1 arguments ST_RPAR • ST_LCURL stmts ST_RCURL
 
     ST_LCURL  shift, and go to state 36
 
 
 State 32
 
-   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR . ST_LCURL $@4 stmts $@5 ST_RCURL
+   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR • ST_LCURL $@4 stmts $@5 ST_RCURL
 
     ST_LCURL  shift, and go to state 37
 
 
 State 33
 
-   88 args_part1: type IDENTIFIER $@22 . args_part2
+   88 args_part1: type IDENTIFIER $@22 • args_part2
 
     ST_COMMA  shift, and go to state 38
 
@@ -602,7 +646,7 @@ State 33
 
 State 34
 
-    7 main: KW_VOID KW_MAIN ST_LPAR $@2 arguments ST_RPAR ST_LCURL . stmts ST_RCURL
+    7 main: KW_VOID KW_MAIN ST_LPAR $@2 arguments ST_RPAR ST_LCURL • stmts ST_RCURL
 
     KW_IF       shift, and go to state 40
     KW_RETURN   shift, and go to state 41
@@ -626,7 +670,7 @@ State 34
 
 State 35
 
-   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 arguments ST_RPAR ST_LCURL . stmts ST_RCURL
+   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 arguments ST_RPAR ST_LCURL • stmts ST_RCURL
 
     KW_IF       shift, and go to state 40
     KW_RETURN   shift, and go to state 41
@@ -650,7 +694,7 @@ State 35
 
 State 36
 
-    5 main: KW_INT KW_MAIN ST_LPAR $@1 arguments ST_RPAR ST_LCURL . stmts ST_RCURL
+    5 main: KW_INT KW_MAIN ST_LPAR $@1 arguments ST_RPAR ST_LCURL • stmts ST_RCURL
 
     KW_IF       shift, and go to state 40
     KW_RETURN   shift, and go to state 41
@@ -674,7 +718,7 @@ State 36
 
 State 37
 
-   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL . $@4 stmts $@5 ST_RCURL
+   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL • $@4 stmts $@5 ST_RCURL
 
     $default  reduce using rule 9 ($@4)
 
@@ -683,7 +727,7 @@ State 37
 
 State 38
 
-   89 args_part2: ST_COMMA . args_part1
+   89 args_part2: ST_COMMA • args_part1
 
     KW_INT   shift, and go to state 20
     KW_CHAR  shift, and go to state 21
@@ -694,14 +738,14 @@ State 38
 
 State 39
 
-   88 args_part1: type IDENTIFIER $@22 args_part2 .
+   88 args_part1: type IDENTIFIER $@22 args_part2 •
 
     $default  reduce using rule 88 (args_part1)
 
 
 State 40
 
-   44 stmt_if: KW_IF . $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif
+   44 stmt_if: KW_IF • $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif
 
     $default  reduce using rule 40 ($@11)
 
@@ -710,7 +754,7 @@ State 40
 
 State 41
 
-   39 stmt_return: KW_RETURN . expression ST_DOLLAR
+   39 stmt_return: KW_RETURN • expression ST_DOLLAR
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -727,15 +771,15 @@ State 41
 
 State 42
 
-   55 stmt_while: KW_WHILE . ST_LPAR $@19 expression $@20 ST_RPAR ST_LCURL loop_stmts ST_RCURL
+   55 stmt_while: KW_WHILE • ST_LPAR $@19 expression $@20 ST_RPAR ST_LCURL loop_stmts ST_RCURL
 
     ST_LPAR  shift, and go to state 68
 
 
 State 43
 
-   31 stmt_call_function: IDENTIFIER . ST_LPAR fun_arguments $@9 ST_RPAR
-   38 stmt_assignment: IDENTIFIER . OP_ASSIGN expression ST_DOLLAR
+   31 stmt_call_function: IDENTIFIER • ST_LPAR fun_arguments $@9 ST_RPAR
+   38 stmt_assignment: IDENTIFIER • OP_ASSIGN expression ST_DOLLAR
 
     OP_ASSIGN  shift, and go to state 69
     ST_LPAR    shift, and go to state 70
@@ -743,14 +787,14 @@ State 43
 
 State 44
 
-    7 main: KW_VOID KW_MAIN ST_LPAR $@2 arguments ST_RPAR ST_LCURL stmts . ST_RCURL
+    7 main: KW_VOID KW_MAIN ST_LPAR $@2 arguments ST_RPAR ST_LCURL stmts • ST_RCURL
 
     ST_RCURL  shift, and go to state 71
 
 
 State 45
 
-   15 stmts: stmt . $@7 stmts
+   15 stmts: stmt • $@7 stmts
 
     $default  reduce using rule 14 ($@7)
 
@@ -759,21 +803,21 @@ State 45
 
 State 46
 
-   26 stmt_declare: type . IDENTIFIER ids
+   26 stmt_declare: type • IDENTIFIER ids
 
     IDENTIFIER  shift, and go to state 73
 
 
 State 47
 
-   17 stmt: stmt_declare .
+   17 stmt: stmt_declare •
 
     $default  reduce using rule 17 (stmt)
 
 
 State 48
 
-   23 stmt: stmt_call_function . $@8 ST_DOLLAR
+   23 stmt: stmt_call_function • $@8 ST_DOLLAR
 
     $default  reduce using rule 22 ($@8)
 
@@ -782,49 +826,49 @@ State 48
 
 State 49
 
-   18 stmt: stmt_assignment .
+   18 stmt: stmt_assignment •
 
     $default  reduce using rule 18 (stmt)
 
 
 State 50
 
-   20 stmt: stmt_return .
+   20 stmt: stmt_return •
 
     $default  reduce using rule 20 (stmt)
 
 
 State 51
 
-   19 stmt: stmt_if .
+   19 stmt: stmt_if •
 
     $default  reduce using rule 19 (stmt)
 
 
 State 52
 
-   21 stmt: stmt_while .
+   21 stmt: stmt_while •
 
     $default  reduce using rule 21 (stmt)
 
 
 State 53
 
-   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 arguments ST_RPAR ST_LCURL stmts . ST_RCURL
+   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 arguments ST_RPAR ST_LCURL stmts • ST_RCURL
 
     ST_RCURL  shift, and go to state 75
 
 
 State 54
 
-    5 main: KW_INT KW_MAIN ST_LPAR $@1 arguments ST_RPAR ST_LCURL stmts . ST_RCURL
+    5 main: KW_INT KW_MAIN ST_LPAR $@1 arguments ST_RPAR ST_LCURL stmts • ST_RCURL
 
     ST_RCURL  shift, and go to state 76
 
 
 State 55
 
-   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 . stmts $@5 ST_RCURL
+   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 • stmts $@5 ST_RCURL
 
     KW_IF       shift, and go to state 40
     KW_RETURN   shift, and go to state 41
@@ -848,21 +892,21 @@ State 55
 
 State 56
 
-   89 args_part2: ST_COMMA args_part1 .
+   89 args_part2: ST_COMMA args_part1 •
 
     $default  reduce using rule 89 (args_part2)
 
 
 State 57
 
-   44 stmt_if: KW_IF $@11 . ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif
+   44 stmt_if: KW_IF $@11 • ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif
 
     ST_LPAR  shift, and go to state 78
 
 
 State 58
 
-   77 expression: OP_MINUS . expression
+   77 expression: OP_MINUS • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -879,7 +923,7 @@ State 58
 
 State 59
 
-   76 expression: OP_LOGICAL_NOT . expression
+   76 expression: OP_LOGICAL_NOT • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -896,7 +940,7 @@ State 59
 
 State 60
 
-   78 expression: ST_LPAR . expression ST_RPAR
+   78 expression: ST_LPAR • expression ST_RPAR
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -913,29 +957,29 @@ State 60
 
 State 61
 
-   83 expression: LCHAR .
+   83 expression: LCHAR •
 
     $default  reduce using rule 83 (expression)
 
 
 State 62
 
-   82 expression: UCHAR .
+   82 expression: UCHAR •
 
     $default  reduce using rule 82 (expression)
 
 
 State 63
 
-   81 expression: NCHAR .
+   81 expression: NCHAR •
 
     $default  reduce using rule 81 (expression)
 
 
 State 64
 
-   31 stmt_call_function: IDENTIFIER . ST_LPAR fun_arguments $@9 ST_RPAR
-   79 expression: IDENTIFIER .
+   31 stmt_call_function: IDENTIFIER • ST_LPAR fun_arguments $@9 ST_RPAR
+   79 expression: IDENTIFIER •
 
     ST_LPAR  shift, and go to state 70
 
@@ -944,36 +988,36 @@ State 64
 
 State 65
 
-   80 expression: NUMBER .
+   80 expression: NUMBER •
 
     $default  reduce using rule 80 (expression)
 
 
 State 66
 
-   84 expression: stmt_call_function .
+   84 expression: stmt_call_function •
 
     $default  reduce using rule 84 (expression)
 
 
 State 67
 
-   39 stmt_return: KW_RETURN expression . ST_DOLLAR
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   39 stmt_return: KW_RETURN expression • ST_DOLLAR
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -995,7 +1039,7 @@ State 67
 
 State 68
 
-   55 stmt_while: KW_WHILE ST_LPAR . $@19 expression $@20 ST_RPAR ST_LCURL loop_stmts ST_RCURL
+   55 stmt_while: KW_WHILE ST_LPAR • $@19 expression $@20 ST_RPAR ST_LCURL loop_stmts ST_RCURL
 
     $default  reduce using rule 53 ($@19)
 
@@ -1004,7 +1048,7 @@ State 68
 
 State 69
 
-   38 stmt_assignment: IDENTIFIER OP_ASSIGN . expression ST_DOLLAR
+   38 stmt_assignment: IDENTIFIER OP_ASSIGN • expression ST_DOLLAR
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1021,7 +1065,7 @@ State 69
 
 State 70
 
-   31 stmt_call_function: IDENTIFIER ST_LPAR . fun_arguments $@9 ST_RPAR
+   31 stmt_call_function: IDENTIFIER ST_LPAR • fun_arguments $@9 ST_RPAR
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1042,14 +1086,14 @@ State 70
 
 State 71
 
-    7 main: KW_VOID KW_MAIN ST_LPAR $@2 arguments ST_RPAR ST_LCURL stmts ST_RCURL .
+    7 main: KW_VOID KW_MAIN ST_LPAR $@2 arguments ST_RPAR ST_LCURL stmts ST_RCURL •
 
     $default  reduce using rule 7 (main)
 
 
 State 72
 
-   15 stmts: stmt $@7 . stmts
+   15 stmts: stmt $@7 • stmts
 
     KW_IF       shift, and go to state 40
     KW_RETURN   shift, and go to state 41
@@ -1079,7 +1123,7 @@ State 72
 
 State 73
 
-   26 stmt_declare: type IDENTIFIER . ids
+   26 stmt_declare: type IDENTIFIER • ids
 
     OP_ASSIGN  shift, and go to state 104
     ST_DOLLAR  shift, and go to state 105
@@ -1090,28 +1134,28 @@ State 73
 
 State 74
 
-   23 stmt: stmt_call_function $@8 . ST_DOLLAR
+   23 stmt: stmt_call_function $@8 • ST_DOLLAR
 
     ST_DOLLAR  shift, and go to state 108
 
 
 State 75
 
-   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 arguments ST_RPAR ST_LCURL stmts ST_RCURL .
+   13 function: KW_VOID IDENTIFIER ST_LPAR $@6 arguments ST_RPAR ST_LCURL stmts ST_RCURL •
 
     $default  reduce using rule 13 (function)
 
 
 State 76
 
-    5 main: KW_INT KW_MAIN ST_LPAR $@1 arguments ST_RPAR ST_LCURL stmts ST_RCURL .
+    5 main: KW_INT KW_MAIN ST_LPAR $@1 arguments ST_RPAR ST_LCURL stmts ST_RCURL •
 
     $default  reduce using rule 5 (main)
 
 
 State 77
 
-   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 stmts . $@5 ST_RCURL
+   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 stmts • $@5 ST_RCURL
 
     $default  reduce using rule 10 ($@5)
 
@@ -1120,7 +1164,7 @@ State 77
 
 State 78
 
-   44 stmt_if: KW_IF $@11 ST_LPAR . $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif
+   44 stmt_if: KW_IF $@11 ST_LPAR • $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif
 
     $default  reduce using rule 41 ($@12)
 
@@ -1129,22 +1173,22 @@ State 78
 
 State 79
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
-   77           | OP_MINUS expression .
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
+   77           | OP_MINUS expression •
 
     OP_MULTIPLY  shift, and go to state 84
     OP_DIVIDE    shift, and go to state 85
@@ -1154,44 +1198,44 @@ State 79
 
 State 80
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
-   76           | OP_LOGICAL_NOT expression .
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
+   76           | OP_LOGICAL_NOT expression •
 
     $default  reduce using rule 76 (expression)
 
 
 State 81
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
-   78           | ST_LPAR expression . ST_RPAR
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
+   78           | ST_LPAR expression • ST_RPAR
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -1213,7 +1257,7 @@ State 81
 
 State 82
 
-   61 expression: expression OP_PLUS . expression
+   61 expression: expression OP_PLUS • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1230,7 +1274,7 @@ State 82
 
 State 83
 
-   62 expression: expression OP_MINUS . expression
+   62 expression: expression OP_MINUS • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1247,7 +1291,7 @@ State 83
 
 State 84
 
-   63 expression: expression OP_MULTIPLY . expression
+   63 expression: expression OP_MULTIPLY • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1264,7 +1308,7 @@ State 84
 
 State 85
 
-   64 expression: expression OP_DIVIDE . expression
+   64 expression: expression OP_DIVIDE • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1281,7 +1325,7 @@ State 85
 
 State 86
 
-   65 expression: expression OP_LESS . expression
+   65 expression: expression OP_LESS • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1298,7 +1342,7 @@ State 86
 
 State 87
 
-   66 expression: expression OP_LESS_EQUAL . expression
+   66 expression: expression OP_LESS_EQUAL • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1315,7 +1359,7 @@ State 87
 
 State 88
 
-   67 expression: expression OP_EQUAL . expression
+   67 expression: expression OP_EQUAL • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1332,7 +1376,7 @@ State 88
 
 State 89
 
-   68 expression: expression OP_NOT_EQUAL . expression
+   68 expression: expression OP_NOT_EQUAL • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1349,7 +1393,7 @@ State 89
 
 State 90
 
-   69 expression: expression OP_GREATER . expression
+   69 expression: expression OP_GREATER • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1366,7 +1410,7 @@ State 90
 
 State 91
 
-   70 expression: expression OP_GREATER_EQUAL . expression
+   70 expression: expression OP_GREATER_EQUAL • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1383,7 +1427,7 @@ State 91
 
 State 92
 
-   73 expression: expression OP_BITWISE_OR . expression
+   73 expression: expression OP_BITWISE_OR • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1400,7 +1444,7 @@ State 92
 
 State 93
 
-   74 expression: expression OP_BITWISE_AND . expression
+   74 expression: expression OP_BITWISE_AND • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1417,7 +1461,7 @@ State 93
 
 State 94
 
-   75 expression: expression OP_BITWISE_XOR . expression
+   75 expression: expression OP_BITWISE_XOR • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1434,7 +1478,7 @@ State 94
 
 State 95
 
-   71 expression: expression OP_LOGICAL_OR . expression
+   71 expression: expression OP_LOGICAL_OR • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1451,7 +1495,7 @@ State 95
 
 State 96
 
-   72 expression: expression OP_LOGICAL_AND . expression
+   72 expression: expression OP_LOGICAL_AND • expression
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1468,14 +1512,14 @@ State 96
 
 State 97
 
-   39 stmt_return: KW_RETURN expression ST_DOLLAR .
+   39 stmt_return: KW_RETURN expression ST_DOLLAR •
 
     $default  reduce using rule 39 (stmt_return)
 
 
 State 98
 
-   55 stmt_while: KW_WHILE ST_LPAR $@19 . expression $@20 ST_RPAR ST_LCURL loop_stmts ST_RCURL
+   55 stmt_while: KW_WHILE ST_LPAR $@19 • expression $@20 ST_RPAR ST_LCURL loop_stmts ST_RCURL
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1492,22 +1536,22 @@ State 98
 
 State 99
 
-   38 stmt_assignment: IDENTIFIER OP_ASSIGN expression . ST_DOLLAR
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   38 stmt_assignment: IDENTIFIER OP_ASSIGN expression • ST_DOLLAR
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -1529,7 +1573,7 @@ State 99
 
 State 100
 
-   31 stmt_call_function: IDENTIFIER ST_LPAR fun_arguments . $@9 ST_RPAR
+   31 stmt_call_function: IDENTIFIER ST_LPAR fun_arguments • $@9 ST_RPAR
 
     $default  reduce using rule 30 ($@9)
 
@@ -1538,29 +1582,29 @@ State 100
 
 State 101
 
-   32 fun_arguments: fun_args_part1 .
+   32 fun_arguments: fun_args_part1 •
 
     $default  reduce using rule 32 (fun_arguments)
 
 
 State 102
 
-   35 fun_args_part1: expression . $@10 fun_args_part2
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   35 fun_args_part1: expression • $@10 fun_args_part2
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -1585,14 +1629,14 @@ State 102
 
 State 103
 
-   15 stmts: stmt $@7 stmts .
+   15 stmts: stmt $@7 stmts •
 
     $default  reduce using rule 15 (stmts)
 
 
 State 104
 
-   29 ids: OP_ASSIGN . expression ids
+   29 ids: OP_ASSIGN • expression ids
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1609,42 +1653,42 @@ State 104
 
 State 105
 
-   27 ids: ST_DOLLAR .
+   27 ids: ST_DOLLAR •
 
     $default  reduce using rule 27 (ids)
 
 
 State 106
 
-   28 ids: ST_COMMA . IDENTIFIER ids
+   28 ids: ST_COMMA • IDENTIFIER ids
 
     IDENTIFIER  shift, and go to state 132
 
 
 State 107
 
-   26 stmt_declare: type IDENTIFIER ids .
+   26 stmt_declare: type IDENTIFIER ids •
 
     $default  reduce using rule 26 (stmt_declare)
 
 
 State 108
 
-   23 stmt: stmt_call_function $@8 ST_DOLLAR .
+   23 stmt: stmt_call_function $@8 ST_DOLLAR •
 
     $default  reduce using rule 23 (stmt)
 
 
 State 109
 
-   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 stmts $@5 . ST_RCURL
+   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 stmts $@5 • ST_RCURL
 
     ST_RCURL  shift, and go to state 133
 
 
 State 110
 
-   44 stmt_if: KW_IF $@11 ST_LPAR $@12 . expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif
+   44 stmt_if: KW_IF $@11 ST_LPAR $@12 • expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -1661,29 +1705,29 @@ State 110
 
 State 111
 
-   78 expression: ST_LPAR expression ST_RPAR .
+   78 expression: ST_LPAR expression ST_RPAR •
 
     $default  reduce using rule 78 (expression)
 
 
 State 112
 
-   61 expression: expression . OP_PLUS expression
-   61           | expression OP_PLUS expression .
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   61           | expression OP_PLUS expression •
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_MULTIPLY  shift, and go to state 84
     OP_DIVIDE    shift, and go to state 85
@@ -1693,22 +1737,22 @@ State 112
 
 State 113
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   62           | expression OP_MINUS expression .
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   62           | expression OP_MINUS expression •
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_MULTIPLY  shift, and go to state 84
     OP_DIVIDE    shift, and go to state 85
@@ -1718,66 +1762,66 @@ State 113
 
 State 114
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   63           | expression OP_MULTIPLY expression .
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   63           | expression OP_MULTIPLY expression •
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     $default  reduce using rule 63 (expression)
 
 
 State 115
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   64           | expression OP_DIVIDE expression .
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   64           | expression OP_DIVIDE expression •
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     $default  reduce using rule 64 (expression)
 
 
 State 116
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   65           | expression OP_LESS expression .
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   65           | expression OP_LESS expression •
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS      shift, and go to state 82
     OP_MINUS     shift, and go to state 83
@@ -1789,22 +1833,22 @@ State 116
 
 State 117
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   66           | expression OP_LESS_EQUAL expression .
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   66           | expression OP_LESS_EQUAL expression •
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS      shift, and go to state 82
     OP_MINUS     shift, and go to state 83
@@ -1816,22 +1860,22 @@ State 117
 
 State 118
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   67           | expression OP_EQUAL expression .
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   67           | expression OP_EQUAL expression •
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -1847,22 +1891,22 @@ State 118
 
 State 119
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   68           | expression OP_NOT_EQUAL expression .
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   68           | expression OP_NOT_EQUAL expression •
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -1878,22 +1922,22 @@ State 119
 
 State 120
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   69           | expression OP_GREATER expression .
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   69           | expression OP_GREATER expression •
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS        shift, and go to state 82
     OP_MINUS       shift, and go to state 83
@@ -1907,22 +1951,22 @@ State 120
 
 State 121
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   70           | expression OP_GREATER_EQUAL expression .
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   70           | expression OP_GREATER_EQUAL expression •
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS        shift, and go to state 82
     OP_MINUS       shift, and go to state 83
@@ -1936,22 +1980,22 @@ State 121
 
 State 122
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   73           | expression OP_BITWISE_OR expression .
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   73           | expression OP_BITWISE_OR expression •
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -1969,22 +2013,22 @@ State 122
 
 State 123
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   74           | expression OP_BITWISE_AND expression .
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   74           | expression OP_BITWISE_AND expression •
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -2002,22 +2046,22 @@ State 123
 
 State 124
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
-   75           | expression OP_BITWISE_XOR expression .
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
+   75           | expression OP_BITWISE_XOR expression •
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -2035,22 +2079,22 @@ State 124
 
 State 125
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   71           | expression OP_LOGICAL_OR expression .
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   71           | expression OP_LOGICAL_OR expression •
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -2071,22 +2115,22 @@ State 125
 
 State 126
 
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   72           | expression OP_LOGICAL_AND expression .
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   72           | expression OP_LOGICAL_AND expression •
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -2107,22 +2151,22 @@ State 126
 
 State 127
 
-   55 stmt_while: KW_WHILE ST_LPAR $@19 expression . $@20 ST_RPAR ST_LCURL loop_stmts ST_RCURL
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   55 stmt_while: KW_WHILE ST_LPAR $@19 expression • $@20 ST_RPAR ST_LCURL loop_stmts ST_RCURL
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -2147,21 +2191,21 @@ State 127
 
 State 128
 
-   38 stmt_assignment: IDENTIFIER OP_ASSIGN expression ST_DOLLAR .
+   38 stmt_assignment: IDENTIFIER OP_ASSIGN expression ST_DOLLAR •
 
     $default  reduce using rule 38 (stmt_assignment)
 
 
 State 129
 
-   31 stmt_call_function: IDENTIFIER ST_LPAR fun_arguments $@9 . ST_RPAR
+   31 stmt_call_function: IDENTIFIER ST_LPAR fun_arguments $@9 • ST_RPAR
 
     ST_RPAR  shift, and go to state 136
 
 
 State 130
 
-   35 fun_args_part1: expression $@10 . fun_args_part2
+   35 fun_args_part1: expression $@10 • fun_args_part2
 
     ST_COMMA  shift, and go to state 137
 
@@ -2172,22 +2216,22 @@ State 130
 
 State 131
 
-   29 ids: OP_ASSIGN expression . ids
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   29 ids: OP_ASSIGN expression • ids
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_ASSIGN         shift, and go to state 104
     OP_PLUS           shift, and go to state 82
@@ -2213,7 +2257,7 @@ State 131
 
 State 132
 
-   28 ids: ST_COMMA IDENTIFIER . ids
+   28 ids: ST_COMMA IDENTIFIER • ids
 
     OP_ASSIGN  shift, and go to state 104
     ST_DOLLAR  shift, and go to state 105
@@ -2224,29 +2268,29 @@ State 132
 
 State 133
 
-   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL .
+   11 function: KW_INT IDENTIFIER ST_LPAR $@3 arguments ST_RPAR ST_LCURL $@4 stmts $@5 ST_RCURL •
 
     $default  reduce using rule 11 (function)
 
 
 State 134
 
-   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression . ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression • ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -2268,21 +2312,21 @@ State 134
 
 State 135
 
-   55 stmt_while: KW_WHILE ST_LPAR $@19 expression $@20 . ST_RPAR ST_LCURL loop_stmts ST_RCURL
+   55 stmt_while: KW_WHILE ST_LPAR $@19 expression $@20 • ST_RPAR ST_LCURL loop_stmts ST_RCURL
 
     ST_RPAR  shift, and go to state 142
 
 
 State 136
 
-   31 stmt_call_function: IDENTIFIER ST_LPAR fun_arguments $@9 ST_RPAR .
+   31 stmt_call_function: IDENTIFIER ST_LPAR fun_arguments $@9 ST_RPAR •
 
     $default  reduce using rule 31 (stmt_call_function)
 
 
 State 137
 
-   36 fun_args_part2: ST_COMMA . fun_args_part1
+   36 fun_args_part2: ST_COMMA • fun_args_part1
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -2300,28 +2344,28 @@ State 137
 
 State 138
 
-   35 fun_args_part1: expression $@10 fun_args_part2 .
+   35 fun_args_part1: expression $@10 fun_args_part2 •
 
     $default  reduce using rule 35 (fun_args_part1)
 
 
 State 139
 
-   29 ids: OP_ASSIGN expression ids .
+   29 ids: OP_ASSIGN expression ids •
 
     $default  reduce using rule 29 (ids)
 
 
 State 140
 
-   28 ids: ST_COMMA IDENTIFIER ids .
+   28 ids: ST_COMMA IDENTIFIER ids •
 
     $default  reduce using rule 28 (ids)
 
 
 State 141
 
-   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR . $@13 ST_LCURL stmts ST_RCURL $@14 elseif
+   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR • $@13 ST_LCURL stmts ST_RCURL $@14 elseif
 
     $default  reduce using rule 42 ($@13)
 
@@ -2330,28 +2374,28 @@ State 141
 
 State 142
 
-   55 stmt_while: KW_WHILE ST_LPAR $@19 expression $@20 ST_RPAR . ST_LCURL loop_stmts ST_RCURL
+   55 stmt_while: KW_WHILE ST_LPAR $@19 expression $@20 ST_RPAR • ST_LCURL loop_stmts ST_RCURL
 
     ST_LCURL  shift, and go to state 145
 
 
 State 143
 
-   36 fun_args_part2: ST_COMMA fun_args_part1 .
+   36 fun_args_part2: ST_COMMA fun_args_part1 •
 
     $default  reduce using rule 36 (fun_args_part2)
 
 
 State 144
 
-   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 . ST_LCURL stmts ST_RCURL $@14 elseif
+   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 • ST_LCURL stmts ST_RCURL $@14 elseif
 
     ST_LCURL  shift, and go to state 146
 
 
 State 145
 
-   55 stmt_while: KW_WHILE ST_LPAR $@19 expression $@20 ST_RPAR ST_LCURL . loop_stmts ST_RCURL
+   55 stmt_while: KW_WHILE ST_LPAR $@19 expression $@20 ST_RPAR ST_LCURL • loop_stmts ST_RCURL
 
     $default  reduce using rule 60 (loop_stmts)
 
@@ -2360,7 +2404,7 @@ State 145
 
 State 146
 
-   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL . stmts ST_RCURL $@14 elseif
+   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL • stmts ST_RCURL $@14 elseif
 
     KW_IF       shift, and go to state 40
     KW_RETURN   shift, and go to state 41
@@ -2384,10 +2428,10 @@ State 146
 
 State 147
 
-   55 stmt_while: KW_WHILE ST_LPAR $@19 expression $@20 ST_RPAR ST_LCURL loop_stmts . ST_RCURL
-   56 loop_stmts: loop_stmts . stmts
-   58           | loop_stmts . KW_BREAK $@21 ST_DOLLAR
-   59           | loop_stmts . KW_CONTINUE ST_DOLLAR
+   55 stmt_while: KW_WHILE ST_LPAR $@19 expression $@20 ST_RPAR ST_LCURL loop_stmts • ST_RCURL
+   56 loop_stmts: loop_stmts • stmts
+   58           | loop_stmts • KW_BREAK $@21 ST_DOLLAR
+   59           | loop_stmts • KW_CONTINUE ST_DOLLAR
 
     KW_IF        shift, and go to state 40
     KW_RETURN    shift, and go to state 41
@@ -2422,14 +2466,14 @@ State 147
 
 State 148
 
-   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts . ST_RCURL $@14 elseif
+   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts • ST_RCURL $@14 elseif
 
     ST_RCURL  shift, and go to state 153
 
 
 State 149
 
-   58 loop_stmts: loop_stmts KW_BREAK . $@21 ST_DOLLAR
+   58 loop_stmts: loop_stmts KW_BREAK • $@21 ST_DOLLAR
 
     $default  reduce using rule 57 ($@21)
 
@@ -2438,28 +2482,28 @@ State 149
 
 State 150
 
-   59 loop_stmts: loop_stmts KW_CONTINUE . ST_DOLLAR
+   59 loop_stmts: loop_stmts KW_CONTINUE • ST_DOLLAR
 
     ST_DOLLAR  shift, and go to state 155
 
 
 State 151
 
-   55 stmt_while: KW_WHILE ST_LPAR $@19 expression $@20 ST_RPAR ST_LCURL loop_stmts ST_RCURL .
+   55 stmt_while: KW_WHILE ST_LPAR $@19 expression $@20 ST_RPAR ST_LCURL loop_stmts ST_RCURL •
 
     $default  reduce using rule 55 (stmt_while)
 
 
 State 152
 
-   56 loop_stmts: loop_stmts stmts .
+   56 loop_stmts: loop_stmts stmts •
 
     $default  reduce using rule 56 (loop_stmts)
 
 
 State 153
 
-   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL . $@14 elseif
+   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL • $@14 elseif
 
     $default  reduce using rule 43 ($@14)
 
@@ -2468,21 +2512,21 @@ State 153
 
 State 154
 
-   58 loop_stmts: loop_stmts KW_BREAK $@21 . ST_DOLLAR
+   58 loop_stmts: loop_stmts KW_BREAK $@21 • ST_DOLLAR
 
     ST_DOLLAR  shift, and go to state 157
 
 
 State 155
 
-   59 loop_stmts: loop_stmts KW_CONTINUE ST_DOLLAR .
+   59 loop_stmts: loop_stmts KW_CONTINUE ST_DOLLAR •
 
     $default  reduce using rule 59 (loop_stmts)
 
 
 State 156
 
-   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 . elseif
+   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 • elseif
 
     KW_ELSE    shift, and go to state 158
     KW_ELSEIF  shift, and go to state 159
@@ -2495,42 +2539,42 @@ State 156
 
 State 157
 
-   58 loop_stmts: loop_stmts KW_BREAK $@21 ST_DOLLAR .
+   58 loop_stmts: loop_stmts KW_BREAK $@21 ST_DOLLAR •
 
     $default  reduce using rule 58 (loop_stmts)
 
 
 State 158
 
-   51 else: KW_ELSE . ST_LCURL $@18 stmts ST_RCURL
+   51 else: KW_ELSE • ST_LCURL $@18 stmts ST_RCURL
 
     ST_LCURL  shift, and go to state 162
 
 
 State 159
 
-   48 elseif: KW_ELSEIF . ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 elseif
+   48 elseif: KW_ELSEIF • ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 elseif
 
     ST_LPAR  shift, and go to state 163
 
 
 State 160
 
-   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif .
+   44 stmt_if: KW_IF $@11 ST_LPAR $@12 expression ST_RPAR $@13 ST_LCURL stmts ST_RCURL $@14 elseif •
 
     $default  reduce using rule 44 (stmt_if)
 
 
 State 161
 
-   49 elseif: else .
+   49 elseif: else •
 
     $default  reduce using rule 49 (elseif)
 
 
 State 162
 
-   51 else: KW_ELSE ST_LCURL . $@18 stmts ST_RCURL
+   51 else: KW_ELSE ST_LCURL • $@18 stmts ST_RCURL
 
     $default  reduce using rule 50 ($@18)
 
@@ -2539,7 +2583,7 @@ State 162
 
 State 163
 
-   48 elseif: KW_ELSEIF ST_LPAR . $@15 expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 elseif
+   48 elseif: KW_ELSEIF ST_LPAR • $@15 expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 elseif
 
     $default  reduce using rule 45 ($@15)
 
@@ -2548,7 +2592,7 @@ State 163
 
 State 164
 
-   51 else: KW_ELSE ST_LCURL $@18 . stmts ST_RCURL
+   51 else: KW_ELSE ST_LCURL $@18 • stmts ST_RCURL
 
     KW_IF       shift, and go to state 40
     KW_RETURN   shift, and go to state 41
@@ -2572,7 +2616,7 @@ State 164
 
 State 165
 
-   48 elseif: KW_ELSEIF ST_LPAR $@15 . expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 elseif
+   48 elseif: KW_ELSEIF ST_LPAR $@15 • expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 elseif
 
     OP_MINUS        shift, and go to state 58
     OP_LOGICAL_NOT  shift, and go to state 59
@@ -2589,29 +2633,29 @@ State 165
 
 State 166
 
-   51 else: KW_ELSE ST_LCURL $@18 stmts . ST_RCURL
+   51 else: KW_ELSE ST_LCURL $@18 stmts • ST_RCURL
 
     ST_RCURL  shift, and go to state 168
 
 
 State 167
 
-   48 elseif: KW_ELSEIF ST_LPAR $@15 expression . ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 elseif
-   61 expression: expression . OP_PLUS expression
-   62           | expression . OP_MINUS expression
-   63           | expression . OP_MULTIPLY expression
-   64           | expression . OP_DIVIDE expression
-   65           | expression . OP_LESS expression
-   66           | expression . OP_LESS_EQUAL expression
-   67           | expression . OP_EQUAL expression
-   68           | expression . OP_NOT_EQUAL expression
-   69           | expression . OP_GREATER expression
-   70           | expression . OP_GREATER_EQUAL expression
-   71           | expression . OP_LOGICAL_OR expression
-   72           | expression . OP_LOGICAL_AND expression
-   73           | expression . OP_BITWISE_OR expression
-   74           | expression . OP_BITWISE_AND expression
-   75           | expression . OP_BITWISE_XOR expression
+   48 elseif: KW_ELSEIF ST_LPAR $@15 expression • ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 elseif
+   61 expression: expression • OP_PLUS expression
+   62           | expression • OP_MINUS expression
+   63           | expression • OP_MULTIPLY expression
+   64           | expression • OP_DIVIDE expression
+   65           | expression • OP_LESS expression
+   66           | expression • OP_LESS_EQUAL expression
+   67           | expression • OP_EQUAL expression
+   68           | expression • OP_NOT_EQUAL expression
+   69           | expression • OP_GREATER expression
+   70           | expression • OP_GREATER_EQUAL expression
+   71           | expression • OP_LOGICAL_OR expression
+   72           | expression • OP_LOGICAL_AND expression
+   73           | expression • OP_BITWISE_OR expression
+   74           | expression • OP_BITWISE_AND expression
+   75           | expression • OP_BITWISE_XOR expression
 
     OP_PLUS           shift, and go to state 82
     OP_MINUS          shift, and go to state 83
@@ -2633,14 +2677,14 @@ State 167
 
 State 168
 
-   51 else: KW_ELSE ST_LCURL $@18 stmts ST_RCURL .
+   51 else: KW_ELSE ST_LCURL $@18 stmts ST_RCURL •
 
     $default  reduce using rule 51 (else)
 
 
 State 169
 
-   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR . $@16 ST_LCURL stmts ST_RCURL $@17 elseif
+   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR • $@16 ST_LCURL stmts ST_RCURL $@17 elseif
 
     $default  reduce using rule 46 ($@16)
 
@@ -2649,14 +2693,14 @@ State 169
 
 State 170
 
-   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 . ST_LCURL stmts ST_RCURL $@17 elseif
+   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 • ST_LCURL stmts ST_RCURL $@17 elseif
 
     ST_LCURL  shift, and go to state 171
 
 
 State 171
 
-   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL . stmts ST_RCURL $@17 elseif
+   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL • stmts ST_RCURL $@17 elseif
 
     KW_IF       shift, and go to state 40
     KW_RETURN   shift, and go to state 41
@@ -2680,14 +2724,14 @@ State 171
 
 State 172
 
-   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL stmts . ST_RCURL $@17 elseif
+   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL stmts • ST_RCURL $@17 elseif
 
     ST_RCURL  shift, and go to state 173
 
 
 State 173
 
-   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL . $@17 elseif
+   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL • $@17 elseif
 
     $default  reduce using rule 47 ($@17)
 
@@ -2696,7 +2740,7 @@ State 173
 
 State 174
 
-   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 . elseif
+   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 • elseif
 
     KW_ELSE    shift, and go to state 158
     KW_ELSEIF  shift, and go to state 159
@@ -2709,6 +2753,6 @@ State 174
 
 State 175
 
-   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 elseif .
+   48 elseif: KW_ELSEIF ST_LPAR $@15 expression ST_RPAR $@16 ST_LCURL stmts ST_RCURL $@17 elseif •
 
     $default  reduce using rule 48 (elseif)

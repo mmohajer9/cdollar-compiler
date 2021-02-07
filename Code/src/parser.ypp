@@ -244,10 +244,15 @@ stmt_assignment:	IDENTIFIER OP_ASSIGN expression ST_DOLLAR {
 						else
 						{
 							result->value = $3.value;
+							cg.move(result->reg , $3.reg);
 						}
 					}
 
-stmt_return:  		KW_RETURN expression ST_DOLLAR
+stmt_return:  		KW_RETURN expression ST_DOLLAR {
+						
+						cg.move("$v0" , $2.reg);
+						cg.jr("$ra");
+					}
 
 
 
@@ -517,12 +522,9 @@ expression: 		expression OP_PLUS expression {
 
 						//FIXME: bayad az v0 o v1 ina ke toye return mohasebe shode estefade koni
 						node_t dst;
-						string reg = find_free_register(temporal_registers , 10 , 1);
-						strcpy(dst.reg, reg.c_str());
+						strcpy(dst.reg, "$v0");
 						dst.value = $1;
 						$$ = dst;
-						
-
 					}
 
 

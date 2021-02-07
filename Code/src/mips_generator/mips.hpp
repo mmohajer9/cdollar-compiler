@@ -63,11 +63,11 @@ public:
 
     //* branch
     void beq(string left_reg , string right_reg , string label);
-    void bne(string left_reg , string right_reg , int offset_to_next_address);
-    void bgt(string left_reg , string right_reg , int offset_to_next_address);
-    void bge(string left_reg , string right_reg , int offset_to_next_address);
-    void blt(string left_reg , string right_reg , int offset_to_next_address);
-    void ble(string left_reg , string right_reg , int offset_to_next_address);
+    void bne(string left_reg , string right_reg , string label);
+    void bgt(string left_reg , string right_reg , string label);
+    void bge(string left_reg , string right_reg , string label);
+    void blt(string left_reg , string right_reg , string label);
+    void ble(string left_reg , string right_reg , string label);
 
     //* comparison
     void slt(string dst_reg , string left_src_reg , string right_src_reg);

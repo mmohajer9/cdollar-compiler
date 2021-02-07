@@ -79,23 +79,23 @@
     {
         *(this->fp) << "    beq " << left_reg << "," << right_reg << "," << label << endl;
     }
-    void MIPSCodeGenerator::bne(string left_reg , string right_reg , int label)
+    void MIPSCodeGenerator::bne(string left_reg , string right_reg , string label)
     {
         *(this->fp) << "    bne " << left_reg << "," << right_reg << "," << label << endl;
     }
-    void MIPSCodeGenerator::bgt(string left_reg , string right_reg , int label)
+    void MIPSCodeGenerator::bgt(string left_reg , string right_reg , string label)
     {
         *(this->fp) << "    bgt " << left_reg << "," << right_reg << "," << label << endl;
     }
-    void MIPSCodeGenerator::bge(string left_reg , string right_reg , int label)
+    void MIPSCodeGenerator::bge(string left_reg , string right_reg , string label)
     {
         *(this->fp) << "    bge " << left_reg << "," << right_reg << "," << label << endl;
     }
-    void MIPSCodeGenerator::blt(string left_reg , string right_reg , int label)
+    void MIPSCodeGenerator::blt(string left_reg , string right_reg , string label)
     {
         *(this->fp) << "    blt " << left_reg << "," << right_reg << "," << label << endl;
     }
-    void MIPSCodeGenerator::ble(string left_reg , string right_reg , int label)
+    void MIPSCodeGenerator::ble(string left_reg , string right_reg , string label)
     {
         *(this->fp) << "    ble " << left_reg << "," << right_reg << "," << label << endl;
     }

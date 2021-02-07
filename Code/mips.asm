@@ -4,37 +4,38 @@ backn: .asciiz "\n"
 .globl main
 
 
+func:
+    li $t0,5
+    mul $t1,$a0,$t0
+    move $v0,$t1
+    jr $ra
+    jr $ra
+
 main:
     li $t0,3
     move $s0,$t0
-    li $t0,4
-    slt $t1,$s0,$t0
-    beq $t1,$zero,main__if
-    li $t2,6
-    j END_IF_7
-
-main__if:
-    li $t0,1
-    seq $t1,$s0,$t0
-    beq $t1,$zero,main__elseif
-    li $t2,7
-    j END_IF_7
-
-main__elseif:
-    li $t0,9
-    j END_IF_7
-
-END_IF_7:
-
-main__while:
+    move $s1,$t0
+    move $a0,$s0
+    jal func
+    move $s0,$v0
     li $t0,5
     slt $t1,$s0,$t0
-    beq $t1,$zero,END_main__while
-    li $t2,6
+    beq $t1,$zero,main__if
+    li $t2,91
     move $s1,$t2
-    j END_main__while
-    li $t0,4
-    move $s2,$t0
-    j main__while
+    j END_IF_12
 
-END_main__while:
+main__if:
+    li $t0,5
+    seq $t1,$s0,$t0
+    beq $t1,$zero,main__elseif
+    li $t2,92
+    move $s1,$t2
+    j END_IF_12
+
+main__elseif:
+    li $t0,93
+    move $s1,$t0
+    j END_IF_12
+
+END_IF_12:

@@ -1,22 +1,24 @@
-
+int func(int a)
+{
+    return a * 5$
+}
 
 int main()
 {
-    int a =3 $
+    int a = 3$
+    int b$
+    a = func(a)$
     
-    if (a < 4){
-        a =6 $
+    if (a < 5){
 
-    }elseif(a==1){
-        a = 7$
-    }else{
-        a = 9$
+        b = 91$
+
     }
-
-    while(a<5){
-        int b =6$
-        break$
-        int c = 4$
+    elseif(a == 5){
+        b = 92$
+    }
+    else{
+        b = 93$
     }
 
 }
