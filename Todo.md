@@ -3,5 +3,5 @@
 ## Project Overview
 
 - [x] Project is Done !
-- [ ] For Loop
-- [ ] Global Variables
+- [x] For Loop
+- [x] Global Variables
