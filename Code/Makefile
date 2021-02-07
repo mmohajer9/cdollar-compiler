@@ -16,9 +16,11 @@ lex.yy.cpp: src/scanner.l
 	flex -o ./dist/lex.yy.cpp src/scanner.l
 
 
+
+
 test: dist/run
 	clear
-	./dist/run ./tests/test.in
+	./dist/run ./tests/test.cd
 
 clean: 
 	clear
