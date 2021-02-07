@@ -145,7 +145,7 @@ stmts: 		  		stmt {clear_registers(temporal_registers , 10);} stmts |
 stmt:		  		stmt_declare | stmt_assignment 
 					| 
 					stmt_if {cg.add_label(end_if_stack.top()); end_if_stack.pop();}
-					| stmt_return | stmt_while | stmt_call_function {
+					| stmt_return | stmt_while | stmt_call_function | stmt_for | {
 
 						// baraye inke be vasile esme scope be function_call_stack dashte bashim
 						// chon momkene chandta function toye har function call beshe va call stack
@@ -256,32 +256,76 @@ stmt_return:  		KW_RETURN expression ST_DOLLAR {
 
 
 
-stmt_if: 	  		KW_IF {end_if_stack.push("END_IF_"+ to_string(yylineno));}
-				    ST_LPAR {current_scope = current_scope + "__if"; semantic_stack.push(current_scope); if_scope_stack.push(current_scope);}
+stmt_if: 	  		KW_IF {end_if_stack.push("END_IF_" + to_string(yylineno));}
+				    ST_LPAR {
+						current_scope = current_scope + "__if" + to_string(yylineno);
+						semantic_stack.push(current_scope); 
+						if_scope_stack.push(current_scope);
+					}
 					expression  ST_RPAR {cg.beq($5.reg,"$zero",if_scope_stack.top());} 
 					ST_LCURL stmts ST_RCURL { cg.j(end_if_stack.top());  semantic_stack.pop(); current_scope = semantic_stack.top();   cg.add_label(if_scope_stack.top()); if_scope_stack.pop();  } elseif
 
-elseif:       		KW_ELSEIF ST_LPAR {current_scope = current_scope + "__elseif"; semantic_stack.push(current_scope); if_scope_stack.push(current_scope);} expression ST_RPAR {cg.beq($4.reg,"$zero",if_scope_stack.top());}  ST_LCURL stmts ST_RCURL {  cg.j(end_if_stack.top()); semantic_stack.pop(); current_scope = semantic_stack.top();  cg.add_label(if_scope_stack.top()); if_scope_stack.pop(); } elseif | else	
-else:         		KW_ELSE ST_LCURL {current_scope = current_scope + "__else"; semantic_stack.push(current_scope);} stmts ST_RCURL { semantic_stack.pop(); current_scope = semantic_stack.top(); cg.j(end_if_stack.top()); } |
+elseif:       		KW_ELSEIF ST_LPAR {
+						current_scope = current_scope + "__elseif" + to_string(yylineno); 
+						semantic_stack.push(current_scope); 
+						if_scope_stack.push(current_scope);
+					} expression ST_RPAR {
+						cg.beq($4.reg,"$zero",if_scope_stack.top());
+					}  ST_LCURL stmts ST_RCURL { 
+						cg.j(end_if_stack.top()); 
+						semantic_stack.pop(); 
+						current_scope = semantic_stack.top();  
+						cg.add_label(if_scope_stack.top()); 
+						if_scope_stack.pop();
+					} elseif | else	
+else:         		KW_ELSE ST_LCURL {
+						current_scope = current_scope + "__else" + to_string(yylineno);
+						semantic_stack.push(current_scope);
+					} stmts ST_RCURL {
+						semantic_stack.pop(); 
+						current_scope = semantic_stack.top(); 
+						cg.j(end_if_stack.top()); 
+					} |
+
+stmt_for:			KW_FOR ST_LPAR 
+					{
+						current_scope = current_scope + "__for" + to_string(yylineno);
+						semantic_stack.push(current_scope);
+						while_stack.push("END_" + current_scope);
+						cg.add_label(current_scope);
+					} stmt_for_assign_declare expression ST_DOLLAR { cg.beq( $5.reg , "$zero", while_stack.top()); }
+					stmt_for_assign_declare ST_RPAR ST_LCURL loop_stmts ST_RCURL
+					{
+						cg.j(current_scope);
+						semantic_stack.pop();
+						current_scope = semantic_stack.top();
+						cg.add_label(while_stack.top());
+						while_stack.pop();
+					}
+
+stmt_for_assign_declare: stmt_assignment | stmt_declare
 
 stmt_while:			KW_WHILE ST_LPAR
-						{
-							current_scope = current_scope + "__while";
-							semantic_stack.push(current_scope);
-							while_stack.push("END_"+current_scope);
-							cg.add_label(current_scope);
-						 }
-						expression { cg.beq( $4.reg , "$zero", while_stack.top()); }
-						ST_RPAR ST_LCURL loop_stmts ST_RCURL
-						{
-							cg.j(current_scope);
-							semantic_stack.pop();
-							current_scope = semantic_stack.top();
-							cg.add_label(while_stack.top());
-							while_stack.pop();
+					{
+						current_scope = current_scope + "__while" + to_string(yylineno);
+						semantic_stack.push(current_scope);
+						while_stack.push("END_"+ current_scope);
+						cg.add_label(current_scope);
+					}
+					expression { cg.beq( $4.reg , "$zero", while_stack.top()); }
+					ST_RPAR ST_LCURL loop_stmts ST_RCURL
+					{
+						cg.j(current_scope);
+						semantic_stack.pop();
+						current_scope = semantic_stack.top();
+						cg.add_label(while_stack.top());
+						while_stack.pop();
+					}
 
-						 }
-loop_stmts:			loop_stmts stmts | loop_stmts KW_BREAK { cg.j(while_stack.top()); } ST_DOLLAR | loop_stmts KW_CONTINUE ST_DOLLAR | 
+loop_stmts:			loop_stmts stmts 
+					| loop_stmts KW_BREAK { cg.j(while_stack.top()); } ST_DOLLAR 
+					| loop_stmts KW_CONTINUE ST_DOLLAR 
+					| 
 
 
 
